@@ -1,0 +1,10 @@
+ConfigurationBar PropertiesOn this pageBar PropertiesConfiguration of the bar​For an example configuration see the supplied default sketchybarrc.
+The configuration file resides in ~/.config/sketchybar/sketchybarrc and is a
+regular script that gets executed when SketchyBar launches, everything
+persistent should be set up in this script.It is possible to play with properties in the commandline and change
+them on the fly while the bar is running, once you find a fitting
+value you can include it in the sketchybarrc file, such that the configuration
+is restored on restart. When configuring SketchyBar it can be helpful to stop
+the brew service and run sketchybar from the commandline directly to see all
+relevant error messages and warnings directly.The global bar properties can be configured by invoking:sketchybar --bar = ... =where possible settings are:defaultdescriptioncolor0x44000000Color of the barborder\_color0xffff0000Color of the bars borderpositiontop, bottomtopPosition of the bar on the screenheight25Height of the barnotch\_display\_height0Override of the height of the bar on notched displaysmargin0Margin around the bary\_offset0Vertical offset of the bar from its default positioncorner\_radius0Corner radius of the barborder\_width0Border width of the bars borderblur\_radius0Blur radius applied to the background of the barpadding\_left0Padding between the left bar border and the leftmost itempadding\_right0Padding between the right bar border and the rightmost itemnotch\_width200The width of the notch to be accounted for on the internal displaynotch\_offset0Additional y\_offset exclusively applied to notched screensdisplaymain, all, allDisplay to show the bar onhidden, currentoffIf all / the current bar is hiddentopmost, windowoffIf the bar should be drawn on top of everything, or on top of all windowsstickyonMakes the bar sticky during space changesfont\_smoothingoffIf fonts should be smoothenedshadowoffIf the bar should draw a shadowYou can find the nomenclature for all the types here.
+If you are looking for colors, check out the color picker.PreviousSetupNextItem PropertiesConfiguration of the bar
