@@ -8,17 +8,14 @@ path = "/Users/krishiv/Desktop/Projects/config-assistant/store/data/docs"
 os.makedirs(path, exist_ok=True)
 
 DOC_URLS = [
-    "https://felixkratz.github.io/SketchyBar/",
     "https://felixkratz.github.io/SketchyBar/features",
     "https://felixkratz.github.io/SketchyBar/setup",
-    "https://felixkratz.github.io/SketchyBar/config/",
     "https://felixkratz.github.io/SketchyBar/config/bar",
     "https://felixkratz.github.io/SketchyBar/config/items",
     "https://felixkratz.github.io/SketchyBar/config/popups",
     "https://felixkratz.github.io/SketchyBar/config/events",
     "https://felixkratz.github.io/SketchyBar/config/querying",
     "https://felixkratz.github.io/SketchyBar/config/animations",
-    "https://felixkratz.github.io/SketchyBar/custom-plugins/",
     "https://felixkratz.github.io/SketchyBar/config/types",
     "https://felixkratz.github.io/SketchyBar/config/reloading",
     "https://felixkratz.github.io/SketchyBar/config/tricks",
