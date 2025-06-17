@@ -1,0 +1,791 @@
+{
+  "page": "config/items",
+  "url": "https://felixkratz.github.io/SketchyBar/config/items",
+  "sections": [
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Features",
+        "Setup",
+        "ConfigurationBar PropertiesItem PropertiesSpecial ComponentsPopup MenusEvents & ScriptingQuerying InformationAnimationsType NomenclatureReloading the configurationTips & Tricks",
+        "Bar Properties",
+        "Item Properties",
+        "Special Components",
+        "Popup Menus",
+        "Events & Scripting",
+        "Querying Information",
+        "Animations",
+        "Type Nomenclature",
+        "Reloading the configuration",
+        "Tips & Tricks",
+        "Credits"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Bar Properties",
+        "Item Properties",
+        "Special Components",
+        "Popup Menus",
+        "Events & Scripting",
+        "Querying Information",
+        "Animations",
+        "Type Nomenclature",
+        "Reloading the configuration",
+        "Tips & Tricks"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "",
+        "Configuration",
+        "Item Properties"
+      ]
+    },
+    {
+      "type": "header",
+      "level": "h1",
+      "content": "Item Properties"
+    },
+    {
+      "type": "header",
+      "level": "h2",
+      "content": "Items and their properties​"
+    },
+    {
+      "type": "paragraph",
+      "content": "Items are the main building blocks ofSketchyBarand can be configured in a number of ways. Items have the following basic structure:"
+    },
+    {
+      "type": "paragraph",
+      "content": ""
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Adding items to SketchyBar​"
+    },
+    {
+      "type": "paragraph",
+      "content": "where the<name>should not contain whitespaces (or must be quoted), it is later used to refer to this item in the configuration.\nThe<position>is the placement in the bar and can be eitherleft,right,centerorq(which is left of the notch) ande(which is right of the notch).\nThe items will appear in the bar in the order in which they are added, but can be moved later on."
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Changing item properties​"
+    },
+    {
+      "type": "paragraph",
+      "content": "where the<name>is used to target the item.\n(The<name>can be a regular expression inside of two slashed:/<regex>/)"
+    },
+    {
+      "type": "paragraph",
+      "content": "A list of properties available to thesetcommand is listed below (components might have additional properties, see the respective component section for them):"
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Geometry Properties​"
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Icon properties​"
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Label properties​"
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Scripting properties​"
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Text properties​"
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Background properties​"
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Image properties​"
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Shadow properties​"
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Changing the default values for all further items​"
+    },
+    {
+      "type": "paragraph",
+      "content": "It is possible to change thedefaultsat every point in the configuration. All item createdafterchanging the defaults will\ninherit these properties from the default item."
+    },
+    {
+      "type": "paragraph",
+      "content": "this works for all item properties."
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Item Reordering​"
+    },
+    {
+      "type": "paragraph",
+      "content": "It is possible to reorder items by invoking"
+    },
+    {
+      "type": "paragraph",
+      "content": "where a new order can be supplied for arbitrary items. Only the specified items get reordered, by swapping them around, everything else stays the same. E.g. if you want to swap two items\nsimply call"
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Moving Items to specific positions​"
+    },
+    {
+      "type": "paragraph",
+      "content": "It is possible to move items and order them next to a reference item."
+    },
+    {
+      "type": "paragraph",
+      "content": "Move Item<name>to appearbeforeitem<reference name>:"
+    },
+    {
+      "type": "paragraph",
+      "content": "Move Item<name>to appearafteritem<reference name>:"
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Item Cloning​"
+    },
+    {
+      "type": "paragraph",
+      "content": "It is possible to clone another item instead of adding a completely blank item"
+    },
+    {
+      "type": "paragraph",
+      "content": "the new item will inheritallproperties of the parent item. The optionalbeforeandaftermodifiers can be used\nto move the itembefore, orafterthe parent, equivalently to a --move command."
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Renaming Items​"
+    },
+    {
+      "type": "paragraph",
+      "content": "It is possible to rename any item. The new name should obviously not be in use by another item:"
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Removing Items​"
+    },
+    {
+      "type": "paragraph",
+      "content": "It is possible to remove any item by invoking, the item will be completely destroyed and removed from brackets"
+    },
+    {
+      "type": "paragraph",
+      "content": "the<name>can again be a regex:/<regex>/."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Items and their propertiesAdding items to SketchyBarChanging item propertiesGeometry PropertiesIcon propertiesLabel propertiesScripting propertiesText propertiesBackground propertiesImage propertiesShadow propertiesChanging the default values for all further itemsItem ReorderingMoving Items to specific positionsItem CloningRenaming ItemsRemoving Items",
+        "Adding items to SketchyBar",
+        "Changing item properties",
+        "Geometry Properties",
+        "Icon properties",
+        "Label properties",
+        "Scripting properties",
+        "Text properties",
+        "Background properties",
+        "Image properties",
+        "Shadow properties",
+        "Changing the default values for all further items",
+        "Item Reordering",
+        "Moving Items to specific positions",
+        "Item Cloning",
+        "Renaming Items",
+        "Removing Items"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Adding items to SketchyBar",
+        "Changing item properties",
+        "Geometry Properties",
+        "Icon properties",
+        "Label properties",
+        "Scripting properties",
+        "Text properties",
+        "Background properties",
+        "Image properties",
+        "Shadow properties",
+        "Changing the default values for all further items",
+        "Item Reordering",
+        "Moving Items to specific positions",
+        "Item Cloning",
+        "Renaming Items",
+        "Removing Items"
+      ]
+    },
+    {
+      "type": "table",
+      "headers": [
+        "<name>",
+        "<string>"
+      ],
+      "rows": [
+        {
+          "<name>": "<position>",
+          "<string>": "left,right,center, (q,e#120)"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "headers": [
+        "<property>",
+        "<value>",
+        "default",
+        "description"
+      ],
+      "rows": [
+        {
+          "<property>": "drawing",
+          "<value>": "<boolean>",
+          "default": "on",
+          "description": "If the item should be drawn into the bar"
+        },
+        {
+          "<property>": "position",
+          "<value>": "left,right,center",
+          "default": "",
+          "description": "Position of the item in the bar"
+        },
+        {
+          "<property>": "space",
+          "<value>": "<positive_integer list>",
+          "default": "0",
+          "description": "Spaces to show this item on"
+        },
+        {
+          "<property>": "display",
+          "<value>": "<positive_integer list>,active",
+          "default": "0",
+          "description": "Displays to show this item on"
+        },
+        {
+          "<property>": "ignore_association",
+          "<value>": "<boolean>",
+          "default": "off",
+          "description": "Ignores all space / display associations while on"
+        },
+        {
+          "<property>": "y_offset",
+          "<value>": "<integer>",
+          "default": "0",
+          "description": "Vertical offset applied to the item"
+        },
+        {
+          "<property>": "padding_left",
+          "<value>": "<integer>",
+          "default": "0",
+          "description": "The padding applied left of the item"
+        },
+        {
+          "<property>": "padding_right",
+          "<value>": "<integer>",
+          "default": "0",
+          "description": "The padding applied right of the item"
+        },
+        {
+          "<property>": "width",
+          "<value>": "<positive_integer>ordynamic",
+          "default": "dynamic",
+          "description": "Makes theitemuse a fixedwidthgiven in points"
+        },
+        {
+          "<property>": "scroll_texts",
+          "<value>": "<boolean>",
+          "default": "off",
+          "description": "Controls the automatic scroll of all items texts, which are truncated by themax_charsproperty"
+        },
+        {
+          "<property>": "blur_radius",
+          "<value>": "<positive_integer>",
+          "default": "0",
+          "description": "The blur radius applied to the background of the item"
+        },
+        {
+          "<property>": "background.<background_property>",
+          "<value>": "",
+          "default": "",
+          "description": "Items support allbackgroundproperties"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "headers": [
+        "<property>",
+        "<value>",
+        "default",
+        "description"
+      ],
+      "rows": [
+        {
+          "<property>": "icon",
+          "<value>": "<string>",
+          "default": "",
+          "description": "Icon of the item"
+        },
+        {
+          "<property>": "icon.<text_property>",
+          "<value>": "",
+          "default": "",
+          "description": "Icons support alltextproperties"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "headers": [
+        "<property>",
+        "<value>",
+        "default",
+        "description"
+      ],
+      "rows": [
+        {
+          "<property>": "label",
+          "<value>": "<string>",
+          "default": "",
+          "description": "Label of the item"
+        },
+        {
+          "<property>": "label.<text_property>",
+          "<value>": "",
+          "default": "",
+          "description": "Labels support alltextproperties"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "headers": [
+        "<property>",
+        "<value>",
+        "default",
+        "description"
+      ],
+      "rows": [
+        {
+          "<property>": "script",
+          "<value>": "<path>,<string>",
+          "default": "",
+          "description": "Script to run on anevent"
+        },
+        {
+          "<property>": "click_script",
+          "<value>": "<path>,<string>",
+          "default": "",
+          "description": "Script to run on a mouse click (Difference tomouse.clickedevent:#109)"
+        },
+        {
+          "<property>": "update_freq",
+          "<value>": "<positive_integer>",
+          "default": "0",
+          "description": "Time in seconds between routine script executions (0means never)"
+        },
+        {
+          "<property>": "updates",
+          "<value>": "<boolean>,when_shown",
+          "default": "on",
+          "description": "If and when the item updates e.g. via script execution"
+        },
+        {
+          "<property>": "mach_helper",
+          "<value>": "<string>",
+          "default": "",
+          "description": "Registers a helper for direct event notifications (example)"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "headers": [
+        "<text_property>",
+        "<value>",
+        "default",
+        "description"
+      ],
+      "rows": [
+        {
+          "<text_property>": "drawing",
+          "<value>": "<boolean>",
+          "default": "on",
+          "description": "If the text is rendered"
+        },
+        {
+          "<text_property>": "highlight",
+          "<value>": "<boolean>",
+          "default": "off",
+          "description": "If the text uses thehighlight_coloror the regularcolor"
+        },
+        {
+          "<text_property>": "color",
+          "<value>": "<argb_hex>",
+          "default": "0xffffffff",
+          "description": "Color used to render the text"
+        },
+        {
+          "<text_property>": "highlight_color",
+          "<value>": "<argb_hex>",
+          "default": "0xff000000",
+          "description": "Highlight color of the text (e.g. for active space icon"
+        },
+        {
+          "<text_property>": "padding_left",
+          "<value>": "<integer>",
+          "default": "0",
+          "description": "Padding to the left of thetext"
+        },
+        {
+          "<text_property>": "padding_right",
+          "<value>": "<integer>",
+          "default": "0",
+          "description": "Padding to the right of thetext"
+        },
+        {
+          "<text_property>": "y_offset",
+          "<value>": "<integer>",
+          "default": "0",
+          "description": "Vertical offset applied to thetext"
+        },
+        {
+          "<text_property>": "font",
+          "<value>": "<family>:<type>:<size>",
+          "default": "Hack Nerd Font:Bold:14.0",
+          "description": "The font to be used for thetext"
+        },
+        {
+          "<text_property>": "font.family",
+          "<value>": "<string>",
+          "default": "Hack Nerd Font",
+          "description": "The font family to be used for thetext"
+        },
+        {
+          "<text_property>": "font.style",
+          "<value>": "<string>",
+          "default": "Bold",
+          "description": "The font style to be used for thetext"
+        },
+        {
+          "<text_property>": "font.size",
+          "<value>": "<float>",
+          "default": "14.0",
+          "description": "The font size to be used for thetext"
+        },
+        {
+          "<text_property>": "string",
+          "<value>": "<string>",
+          "default": "",
+          "description": "Sets the text to the specified string"
+        },
+        {
+          "<text_property>": "scroll_duration",
+          "<value>": "<positive_integer>",
+          "default": "100",
+          "description": "Sets the scroll speed of text trucated bymax_charson items withscroll_textsenabled"
+        },
+        {
+          "<text_property>": "max_chars",
+          "<value>": "<positive_integer>",
+          "default": "0",
+          "description": "Sets the maximum characters to display (can be scrolled via the itemsscroll_textsproperty)"
+        },
+        {
+          "<text_property>": "width",
+          "<value>": "<positive_integer>ordynamic",
+          "default": "dynamic",
+          "description": "Makes thetextuse a fixedwidthgiven in points"
+        },
+        {
+          "<text_property>": "align",
+          "<value>": "center,left,right",
+          "default": "left",
+          "description": "Aligns thetextin its container when it has a fixedwidthlarger than the content width"
+        },
+        {
+          "<text_property>": "background.<background_property>",
+          "<value>": "",
+          "default": "",
+          "description": "Texts support allbackgroundproperties"
+        },
+        {
+          "<text_property>": "shadow.<shadow_property>",
+          "<value>": "",
+          "default": "",
+          "description": "Texts support allshadowproperties"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "headers": [
+        "<background_property>",
+        "<value>",
+        "default",
+        "description"
+      ],
+      "rows": [
+        {
+          "<background_property>": "drawing",
+          "<value>": "<boolean>",
+          "default": "off",
+          "description": "If thebackgroundshould be rendered"
+        },
+        {
+          "<background_property>": "color",
+          "<value>": "<argb_hex>",
+          "default": "0x00000000",
+          "description": "Fill color of thebackground"
+        },
+        {
+          "<background_property>": "border_color",
+          "<value>": "<argb_hex>",
+          "default": "0x00000000",
+          "description": "Color of the backgrounds border"
+        },
+        {
+          "<background_property>": "border_width",
+          "<value>": "<positive_integer>",
+          "default": "0",
+          "description": "Width of the background border"
+        },
+        {
+          "<background_property>": "height",
+          "<value>": "<positive_integer>",
+          "default": "0",
+          "description": "Overrides theheightof the background"
+        },
+        {
+          "<background_property>": "corner_radius",
+          "<value>": "<positive_integer>",
+          "default": "0",
+          "description": "Corner radius of the background"
+        },
+        {
+          "<background_property>": "padding_left",
+          "<value>": "<integer>",
+          "default": "0",
+          "description": "Padding to the left of thebackground"
+        },
+        {
+          "<background_property>": "padding_right",
+          "<value>": "<integer>",
+          "default": "0",
+          "description": "Padding to the right of thebackground"
+        },
+        {
+          "<background_property>": "y_offset",
+          "<value>": "<integer>",
+          "default": "0",
+          "description": "Vertical offset applied to thebackground"
+        },
+        {
+          "<background_property>": "clip",
+          "<value>": "<float>",
+          "default": "0.0",
+          "description": "By how much the background clips the bar (i.e. transparent holes in the bar)"
+        },
+        {
+          "<background_property>": "image",
+          "<value>": "<path>,app.<bundle-id>,app.<name>,media.artwork",
+          "default": "",
+          "description": "The image to display in the bar"
+        },
+        {
+          "<background_property>": "image.<image_property>",
+          "<value>": "",
+          "default": "",
+          "description": "Backgrounds support allimageproperties"
+        },
+        {
+          "<background_property>": "shadow.<shadow_property>",
+          "<value>": "",
+          "default": "",
+          "description": "Backgrounds support allshadowproperties"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "headers": [
+        "<image_property>",
+        "<value>",
+        "default",
+        "description"
+      ],
+      "rows": [
+        {
+          "<image_property>": "drawing",
+          "<value>": "<boolean>",
+          "default": "off",
+          "description": "If the image should draw"
+        },
+        {
+          "<image_property>": "scale",
+          "<value>": "<float>",
+          "default": "1.0",
+          "description": "The scale factor that should be applied to the image"
+        },
+        {
+          "<image_property>": "border_color",
+          "<value>": "<argb_hex>",
+          "default": "0x00000000",
+          "description": "Color of the image border"
+        },
+        {
+          "<image_property>": "border_width",
+          "<value>": "<positive_integer>",
+          "default": "0",
+          "description": "Width of the image border"
+        },
+        {
+          "<image_property>": "corner_radius",
+          "<value>": "<positive_integer>",
+          "default": "0",
+          "description": "Corner radius of the image"
+        },
+        {
+          "<image_property>": "padding_left",
+          "<value>": "<integer>",
+          "default": "0",
+          "description": "Padding to the left of the image"
+        },
+        {
+          "<image_property>": "padding_right",
+          "<value>": "<integer>",
+          "default": "0",
+          "description": "Padding to the right of the image"
+        },
+        {
+          "<image_property>": "y_offset",
+          "<value>": "<integer>",
+          "default": "0",
+          "description": "Vertical offset applied to the image"
+        },
+        {
+          "<image_property>": "string",
+          "<value>": "<path>,app.<bundle-id>,app.<name>,media.artwork",
+          "default": "",
+          "description": "The image to display in the bar"
+        },
+        {
+          "<image_property>": "shadow.<shadow_property>",
+          "<value>": "",
+          "default": "",
+          "description": "Images support allshadowproperties"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "headers": [
+        "<shadow_property>",
+        "<value>",
+        "default",
+        "description"
+      ],
+      "rows": [
+        {
+          "<shadow_property>": "drawing",
+          "<value>": "<boolean>",
+          "default": "off",
+          "description": "If the shadow should be drawn"
+        },
+        {
+          "<shadow_property>": "color",
+          "<value>": "<argb_hex>",
+          "default": "0xff000000",
+          "description": "Color of the shadow"
+        },
+        {
+          "<shadow_property>": "angle",
+          "<value>": "<positive_integer>",
+          "default": "30",
+          "description": "Angle of the shadow"
+        },
+        {
+          "<shadow_property>": "distance",
+          "<value>": "<positive_integer>",
+          "default": "5",
+          "description": "Distance of the shadow"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --add item<name><position>"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --set<name><property>=<value>...<property>=<value>"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --default<property>=<value>...<property>=<value>"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --reorder<name>...<name>"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --reorder<item1><item2>"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --move<name>before<reference name>"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --move<name>after<reference name>"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --clone<parent name><name>[optional: before/after]"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --rename<old name><new name>"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --remove<name>"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "page": "features",
+  "url": "https://felixkratz.github.io/SketchyBar/features",
+  "sections": [
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Features",
+        "Setup",
+        "Configuration",
+        "Credits"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "",
+        "Features"
+      ]
+    },
+    {
+      "type": "header",
+      "level": "h1",
+      "content": "Features"
+    },
+    {
+      "type": "header",
+      "level": "h2",
+      "content": "Features​"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Performance friendly",
+        "Fully scriptable",
+        "Fully configurable (Fonts, Backgrounds, Colors, Icons, etc.)",
+        "Supports drawing native macOS menu bar applications (aliases)",
+        "Powerful event and scripting system",
+        "Animation System",
+        "Popup Menus",
+        "Mouse Support",
+        "Support for graphs",
+        "Per display and per space individualization"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "The configuration of the bar takes place in a configuration file where almost everything can be configured.\nBasically, the bar itself is a rectangle that can hold arbitrarily manyitems, which can be configured to do awesome stuff.\nAnitemwill occupy a space in the bar and can be equipped to show aniconand alabel. Theiconandlabelcan be changed throughscriptsthat can be attached to theitem. It is also possible tosubscribeanitemto certaineventsfor theirscriptexecution action,\nwhich makes very powerful items possible.\nFurthermore, anitemcan be assigned to mission control spaces or displays, such that they only show on a certain space or display, which makes multi-desktop configuration\nof the bar possible and opens the possibility to create individualized bar configuration on a per display and per space level.\nThese simple ingredients makeitemsalmost endlessly customizable and can be used to display arbitrary information and perform useful actions."
+    },
+    {
+      "type": "paragraph",
+      "content": "Some special features can not be accomplished with a simpleitem, this is where thecomponentscome into play. They basically areitemswith\nextra steps. They contain all the properties a regular item does, but they can do specialized tasks a simple item can not. For example, there\nis agraphcomponent, which can be used to display graphs in the bar."
+    },
+    {
+      "type": "paragraph",
+      "content": "For more details on how the configuration works, see the configuration section."
+    },
+    {
+      "type": "header",
+      "level": "h2",
+      "content": "Examples​"
+    },
+    {
+      "type": "paragraph",
+      "content": ""
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Features",
+        "Examples"
+      ]
+    }
+  ]
+}

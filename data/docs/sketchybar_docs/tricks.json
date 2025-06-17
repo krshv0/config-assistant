@@ -1,0 +1,219 @@
+{
+  "page": "config/tricks",
+  "url": "https://felixkratz.github.io/SketchyBar/config/tricks",
+  "sections": [
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Features",
+        "Setup",
+        "ConfigurationBar PropertiesItem PropertiesSpecial ComponentsPopup MenusEvents & ScriptingQuerying InformationAnimationsType NomenclatureReloading the configurationTips & Tricks",
+        "Bar Properties",
+        "Item Properties",
+        "Special Components",
+        "Popup Menus",
+        "Events & Scripting",
+        "Querying Information",
+        "Animations",
+        "Type Nomenclature",
+        "Reloading the configuration",
+        "Tips & Tricks",
+        "Credits"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Bar Properties",
+        "Item Properties",
+        "Special Components",
+        "Popup Menus",
+        "Events & Scripting",
+        "Querying Information",
+        "Animations",
+        "Type Nomenclature",
+        "Reloading the configuration",
+        "Tips & Tricks"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "",
+        "Configuration",
+        "Tips & Tricks"
+      ]
+    },
+    {
+      "type": "header",
+      "level": "h1",
+      "content": "Tips & Tricks"
+    },
+    {
+      "type": "header",
+      "level": "h2",
+      "content": "Batching of configuration commands​"
+    },
+    {
+      "type": "paragraph",
+      "content": "It is possible to batch commands together into a single call toSketchyBar, this can be helpful to\nkeep the configuration file a bit cleaner and also to reduce startup times.\nAssume 5 individual configuration calls toSketchyBar:"
+    },
+    {
+      "type": "paragraph",
+      "content": "after each configuration command the bar is redrawn (if needed), thus it is\nfaster to append these calls into a single command like so:"
+    },
+    {
+      "type": "paragraph",
+      "content": "The backslash at the end of the first 4 lines is the default bash way to join lines together and should not be followed by a whitespace."
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Using bash arrays for cleaner configuration​"
+    },
+    {
+      "type": "paragraph",
+      "content": "Lets assume this bar configuration command (from the default config):"
+    },
+    {
+      "type": "paragraph",
+      "content": "We can rewrite this as a bash array to get rid of the backslashes and pass the\ncontents of the array to the--barcommand:"
+    },
+    {
+      "type": "header",
+      "level": "h2",
+      "content": "Debugging Problems​"
+    },
+    {
+      "type": "paragraph",
+      "content": "If you are experiencing problems with the configuration ofSketchyBarit might be helpful to work through the following steps:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "1.) Startsketchybardirectly from the commandline to see the verbose error/warning messages",
+        "2.) Make sure you have no trailing whitespaces after the bash newline escape char\\",
+        "3.) Make sure your scripts are made executable via:chmod +x script.sh",
+        "4.) Reduce the configuration to a minimal example and narrow down the problematic region",
+        "5.) Try running erroneous scripts directly in the commandline",
+        "6.) QuerySketchyBarfor relevant properties and use them to deduce the problems root cause",
+        "7.) Create anIssueon GitHub, a second pair of eyes might now be the only thing that helps"
+      ]
+    },
+    {
+      "type": "header",
+      "level": "h2",
+      "content": "Color Picker​"
+    },
+    {
+      "type": "paragraph",
+      "content": "SketchyBar uses the argb hex color format, which means:0xAARRGGBBencodes a\ncolor."
+    },
+    {
+      "type": "header",
+      "level": "h2",
+      "content": "Finding Icons​"
+    },
+    {
+      "type": "paragraph",
+      "content": "The default fontSketchyBaruses is theHack Nerd Fontwhich means allNerdfonticons can be used.\nRefer to theNerdfontcheat-sheetto find new icons."
+    },
+    {
+      "type": "paragraph",
+      "content": "Additionally, it is possible to use other icons and glyphs from different fonts,\nsuch as thesf-symbolsfrom apple.\nThose symbols can be installed via brew:"
+    },
+    {
+      "type": "paragraph",
+      "content": "After installing this package, an app calledSF Symbolswill be available where you can find all the available icons.\nOnce you find a fitting icon, right click it, selectCopy Symboland paste it in the relevant configuration file."
+    },
+    {
+      "type": "paragraph",
+      "content": "If you are looking for stylised app icons you might want to checkout the excellent community maintainedapp-icon-fontfor SketchyBar."
+    },
+    {
+      "type": "header",
+      "level": "h2",
+      "content": "Multiple Bars​"
+    },
+    {
+      "type": "paragraph",
+      "content": "It is possible to have multiple independent instances of SketchyBar running.\nThis is possible by changing theargv[0]of the sketchybar program. This is\nvery easy, e.g. by symlinking the sketchybar binary with a different name, e.g.bottom_bar:"
+    },
+    {
+      "type": "paragraph",
+      "content": "This symlink can now be used to spawn and target an additional bar, i.e. for\nthis bar we do not callsketchybar --bar color=0xffff0000, but ratherbottom_bar --bar color=0xffff0000and start it by runningbottom_barin the\ncommandline."
+    },
+    {
+      "type": "paragraph",
+      "content": "The config path for this additional bar is in$HOME/.config/bottom_bar/.\nOf coursebottom_baris only an example and can be freely replaced with any\nother identifier. The name of the bar is available in the environment variable$BAR_NAMEin all scripts, making it possible to create bar-agnostic scripts by replacingsketchybarwith$BAR_NAME."
+    },
+    {
+      "type": "header",
+      "level": "h2",
+      "content": "Performance optimizations​"
+    },
+    {
+      "type": "paragraph",
+      "content": "SketchyBarcan be configured to have averysmall performance footprint. In the following I will highlight some optimizations that can be used to reduce the footprint further."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Batch together configuration commands where ever possible.",
+        "Setupdates=when_shownfor items that do not need to run their script if they are not rendered.",
+        "Reduce theupdate_freqofscriptsandaliasesand use event-driven scripting when ever possible.",
+        "Do not addaliasesto apps that are not always running, otherwiseSketchyBarsearches for them continuously.",
+        "(Advanced; Only >=v2.9.0) Use compiledmach_helperprograms that directly interface withSketchyBarexamplefor performance sensitive tasks"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Batching of configuration commandsUsing bash arrays for cleaner configuration",
+        "Using bash arrays for cleaner configuration",
+        "Debugging Problems",
+        "Color Picker",
+        "Finding Icons",
+        "Multiple Bars",
+        "Performance optimizations"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Using bash arrays for cleaner configuration"
+      ]
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --barposition=topsketchybar --barmargin=5sketchybar --add item demo leftsketchybar --set demolabel=Hellosketchybar --subscribe demo system_woke"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --barposition=top\\margin=5\\--add item demo left\\--set demolabel=Hello\\--subscribe demo system_woke"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --barheight=32\\blur_radius=30\\position=top\\sticky=off\\padding_left=10\\padding_right=10\\color=0x15ffffff"
+    },
+    {
+      "type": "code",
+      "content": "bar=(height=32blur_radius=30position=topsticky=offpadding_left=10padding_right=10color=0x15ffffff)sketchybar --bar\"${bar[@]}\""
+    },
+    {
+      "type": "code",
+      "content": "brewinstall--cask sf-symbols"
+    },
+    {
+      "type": "code",
+      "content": "ln-s$(whichsketchybar)$(dirname$(which sketchybar))/bottom_bar"
+    }
+  ]
+}

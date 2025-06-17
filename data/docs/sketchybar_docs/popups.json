@@ -1,0 +1,143 @@
+{
+  "page": "config/popups",
+  "url": "https://felixkratz.github.io/SketchyBar/config/popups",
+  "sections": [
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Features",
+        "Setup",
+        "ConfigurationBar PropertiesItem PropertiesSpecial ComponentsPopup MenusEvents & ScriptingQuerying InformationAnimationsType NomenclatureReloading the configurationTips & Tricks",
+        "Bar Properties",
+        "Item Properties",
+        "Special Components",
+        "Popup Menus",
+        "Events & Scripting",
+        "Querying Information",
+        "Animations",
+        "Type Nomenclature",
+        "Reloading the configuration",
+        "Tips & Tricks",
+        "Credits"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Bar Properties",
+        "Item Properties",
+        "Special Components",
+        "Popup Menus",
+        "Events & Scripting",
+        "Querying Information",
+        "Animations",
+        "Type Nomenclature",
+        "Reloading the configuration",
+        "Tips & Tricks"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "",
+        "Configuration",
+        "Popup Menus"
+      ]
+    },
+    {
+      "type": "header",
+      "level": "h1",
+      "content": "Popup Menus"
+    },
+    {
+      "type": "header",
+      "level": "h2",
+      "content": "Popup Menus​"
+    },
+    {
+      "type": "paragraph",
+      "content": ""
+    },
+    {
+      "type": "paragraph",
+      "content": "Popup menus are a powerful way to make furtheritemsaccessible in a small popup window below any bar item.\nEvery item has a popup available with the properties:"
+    },
+    {
+      "type": "paragraph",
+      "content": "Items can be added to a popup menu by setting thepositionof those items topopup.<name>where<name>is the name of the item containing the popup.\nYou can find a demo implementation of thishere."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Popup Menus"
+      ]
+    },
+    {
+      "type": "table",
+      "headers": [
+        "<popup_property>",
+        "<value>",
+        "default",
+        "description"
+      ],
+      "rows": [
+        {
+          "<popup_property>": "drawing",
+          "<value>": "<boolean>",
+          "default": "off",
+          "description": "If thepopupshould be rendered"
+        },
+        {
+          "<popup_property>": "horizontal",
+          "<value>": "<boolean>",
+          "default": "off",
+          "description": "If thepopupshould render horizontally"
+        },
+        {
+          "<popup_property>": "topmost",
+          "<value>": "<boolean>",
+          "default": "on",
+          "description": "If thepopupshould always be on top of all other windows"
+        },
+        {
+          "<popup_property>": "height",
+          "<value>": "<positive_integer>",
+          "default": "bar height",
+          "description": "The vertical spacing between items in a popup"
+        },
+        {
+          "<popup_property>": "blur_radius",
+          "<value>": "<positive_integer>",
+          "default": "0",
+          "description": "The blur applied to the popup background"
+        },
+        {
+          "<popup_property>": "y_offset",
+          "<value>": "<integer>",
+          "default": "0",
+          "description": "Vertical offset applied to thepopup"
+        },
+        {
+          "<popup_property>": "align",
+          "<value>": "left,right,center",
+          "default": "left",
+          "description": "Alignment of the popup with its parent item in the bar"
+        },
+        {
+          "<popup_property>": "background.<background_property>",
+          "<value>": "",
+          "default": "",
+          "description": "Popups have a background and support all properties"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --set<name>popup.<popup_property>=<value>"
+    }
+  ]
+}

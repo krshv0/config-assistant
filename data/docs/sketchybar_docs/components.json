@@ -1,0 +1,409 @@
+{
+  "page": "config/components",
+  "url": "https://felixkratz.github.io/SketchyBar/config/components",
+  "sections": [
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Features",
+        "Setup",
+        "ConfigurationBar PropertiesItem PropertiesSpecial ComponentsPopup MenusEvents & ScriptingQuerying InformationAnimationsType NomenclatureReloading the configurationTips & Tricks",
+        "Bar Properties",
+        "Item Properties",
+        "Special Components",
+        "Popup Menus",
+        "Events & Scripting",
+        "Querying Information",
+        "Animations",
+        "Type Nomenclature",
+        "Reloading the configuration",
+        "Tips & Tricks",
+        "Credits"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Bar Properties",
+        "Item Properties",
+        "Special Components",
+        "Popup Menus",
+        "Events & Scripting",
+        "Querying Information",
+        "Animations",
+        "Type Nomenclature",
+        "Reloading the configuration",
+        "Tips & Tricks"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "",
+        "Configuration",
+        "Special Components"
+      ]
+    },
+    {
+      "type": "header",
+      "level": "h1",
+      "content": "Special Components"
+    },
+    {
+      "type": "header",
+      "level": "h2",
+      "content": "Components -- Special Items with special properties​"
+    },
+    {
+      "type": "paragraph",
+      "content": "Components are essentially items, but with special properties.\nCurrently there are the components (more details in the corresponding sections below):"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "graph: showing a graph,",
+        "space: representing a mission control space",
+        "bracket: brackets together other items",
+        "alias: an alias of a menu bar item from the macOS bar",
+        "slider: a slider that shows a progression and can be clicked/dragged to set a new value"
+      ]
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Data Graph -- Draws an arbitrary graph into the bar​"
+    },
+    {
+      "type": "paragraph",
+      "content": "Additional graph properties:"
+    },
+    {
+      "type": "paragraph",
+      "content": "Push data points into the graph via:"
+    },
+    {
+      "type": "paragraph",
+      "content": "where the<data point>is a floating point number between 0 and 1."
+    },
+    {
+      "type": "paragraph",
+      "content": "Graphs usually take the entire height of the bar as a drawing canvas, however,\nif you set a background for the graph item and set a height for it, the graph\nwill draw inside of the background. With a background enabled, the graph can\nalso be moved via ay_offset, e.g.:"
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Space -- Associate mission control spaces with an item​"
+    },
+    {
+      "type": "paragraph",
+      "content": "The space component overrides the definition of the following properties:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "space: Which space this item represents",
+        "(optional)display: On which display thespaceis shown.\nThespaceproperty must be set to properly associate this item with the corresponding mission control space.\nOptionally, you can provide andisplayto force a space item to stay on a specific display, otherwise the\nitem will draw on the screen on which the space is currently located."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "The space component has additional variables available inscripts:"
+    },
+    {
+      "type": "paragraph",
+      "content": "where$SELECTEDhas the valuetrueif the associated space is selected andfalseif the associated space is not selected, while$SIDholds the space id and$DIDthe display id."
+    },
+    {
+      "type": "paragraph",
+      "content": "By default the space component invokes the following script:"
+    },
+    {
+      "type": "paragraph",
+      "content": "which you can freely configure to your liking by supplying a different script\nto the space component:"
+    },
+    {
+      "type": "paragraph",
+      "content": "For performance reasons the space script is only run on a change in the$SELECTEDvariable, i.e. if the associated space has become active\nor has resigned being active."
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Item Bracket -- Group Items in e.g. colored sections​"
+    },
+    {
+      "type": "paragraph",
+      "content": "It is possible to create a common background for any number of items, i.e. to bracket together items, via the command:"
+    },
+    {
+      "type": "paragraph",
+      "content": "The<member name>is a name of any item in the bar that should be added to the bracket.\nThe<member name>can also be a/<regex>/expression.\nIt is now possible to set properties for the bracket, just as for any item or component. Brackets currently only support all background features.\nE.g., if I wanted a colored background around my space components (which are namedspace.1,space.2,space.3) I would set it up like this:"
+    },
+    {
+      "type": "paragraph",
+      "content": "Alternatively, if I had a number of spaces, calledspace.1,space.2, etc. the regex syntax comes in handy:"
+    },
+    {
+      "type": "paragraph",
+      "content": "this draws a white background below all my space components."
+    },
+    {
+      "type": "paragraph",
+      "content": "Brackets are very flexible with their members, i.e. it is no problem to bracket together aleftand acenteritem,\nthe background will span all the way between those items."
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Item Alias -- Mirror items of the original macOS status bar into sketchybar​"
+    },
+    {
+      "type": "paragraph",
+      "content": "It is possible to create an alias for default menu bar items\n(such as MeetingBar, etc.) in sketchybar. The default menu bar can be set to\nautohide and this should still work."
+    },
+    {
+      "type": "paragraph",
+      "content": "To create an alias of a default menu bar item use the following syntax:"
+    },
+    {
+      "type": "paragraph",
+      "content": "this operation requiresscreen capture permissions, which should be granted\nin the system preferences."
+    },
+    {
+      "type": "paragraph",
+      "content": "This will put the default macOS menu bar item into sketchybar. If an\napplication has multiple menu bar widgets the command can be overloaded by\nproviding awindow_ownerand awindow_name"
+    },
+    {
+      "type": "paragraph",
+      "content": "this way the default system items can also be aliased in sketchybar as well,\ne.g.:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "\"Control Center,Bluetooth\"",
+        "\"Control Center,WiFi\"",
+        "..."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "Or the individual widgets ofStats:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "\"Stats,CPU_Mini\"",
+        "etc..."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "All further macOS menu bar items currently available on your system can be\nfound via the command"
+    },
+    {
+      "type": "paragraph",
+      "content": "where all items with their respective owner and name are listed."
+    },
+    {
+      "type": "paragraph",
+      "content": "You can override the color of an alias via the property:"
+    },
+    {
+      "type": "paragraph",
+      "content": "and change its scale via:"
+    },
+    {
+      "type": "paragraph",
+      "content": "By default, an alias will update once a second, the update interval can be\nadapted via:"
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Slider -- A draggable progression indicator​"
+    },
+    {
+      "type": "paragraph",
+      "content": "A slider can be added to the bar via the command:"
+    },
+    {
+      "type": "paragraph",
+      "content": "Like all components, the slider only adds some additional properties and\nfunctionality to a regular item. Thus all properties of regular items are\navailable for the slider. Additionally the slider exposes the additional\nproperties:"
+    },
+    {
+      "type": "paragraph",
+      "content": "The slider can be enabled to receivemouse.clickedevents by subscribing to this event.\nA slider will receive the additional environment variable$PERCENTAGEon a click in its\nscript, which represents the percentage corresponding to the click location.\nIf a slider is dragged by the mouse it will only send a single event on drag release and\ntrack the mouse during the drag."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Components -- Special Items with special propertiesData Graph -- Draws an arbitrary graph into the barSpace -- Associate mission control spaces with an itemItem Bracket -- Group Items in e.g. colored sectionsItem Alias -- Mirror items of the original macOS status bar into sketchybarSlider -- A draggable progression indicator",
+        "Data Graph -- Draws an arbitrary graph into the bar",
+        "Space -- Associate mission control spaces with an item",
+        "Item Bracket -- Group Items in e.g. colored sections",
+        "Item Alias -- Mirror items of the original macOS status bar into sketchybar",
+        "Slider -- A draggable progression indicator"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Data Graph -- Draws an arbitrary graph into the bar",
+        "Space -- Associate mission control spaces with an item",
+        "Item Bracket -- Group Items in e.g. colored sections",
+        "Item Alias -- Mirror items of the original macOS status bar into sketchybar",
+        "Slider -- A draggable progression indicator"
+      ]
+    },
+    {
+      "type": "table",
+      "headers": [
+        "<property>",
+        "<value>",
+        "default",
+        "description"
+      ],
+      "rows": [
+        {
+          "<property>": "graph.color",
+          "<value>": "<argb_hex>",
+          "default": "0xffcccccc",
+          "description": "Color of the graph line"
+        },
+        {
+          "<property>": "graph.fill_color",
+          "<value>": "<argb_hex>",
+          "default": "0xffcccccc",
+          "description": "Fill color of the graph"
+        },
+        {
+          "<property>": "graph.line_width",
+          "<value>": "<float>",
+          "default": "0.5",
+          "description": "Width of the line in points"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "headers": [
+        "<property>",
+        "<value>",
+        "default",
+        "description"
+      ],
+      "rows": [
+        {
+          "<property>": "slider.width",
+          "<value>": "<positive_integer>",
+          "default": "100",
+          "description": "Total width of the slider in points"
+        },
+        {
+          "<property>": "slider.percentage",
+          "<value>": "<positive_integer>",
+          "default": "0",
+          "description": "Progression of the slider in percent (0-100)"
+        },
+        {
+          "<property>": "slider.highlight_color",
+          "<value>": "<argb_hex>",
+          "default": "0xff0000ff",
+          "description": "Color that highlights the progression of the slider"
+        },
+        {
+          "<property>": "slider.knob",
+          "<value>": "<string>",
+          "default": "",
+          "description": "Knob of the slider"
+        },
+        {
+          "<property>": "slider.knob.<text_property>",
+          "<value>": "",
+          "default": "",
+          "description": "The slider knob supports alltextproperties"
+        },
+        {
+          "<property>": "slider.background.<background_property>",
+          "<value>": "",
+          "default": "",
+          "description": "The slider supports allbackgroundproperties"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --add graph<name><position><widthinpoints>"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --push<name><data point>...<data point>"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --set<graph name>background.color=0xff00ff00 background.height=20y_offset=2"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --add space<name><position>"
+    },
+    {
+      "type": "code",
+      "content": "$SELECTED$SID$DID"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --set$NAMEicon.highlight=$SELECTED"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --set<name>script=<script/path>"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --add bracket<name><member name>...<member name>"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --add bracket spaces space.1 space.2 space.3\\--set         spaces background.color=0xffffffff\\background.corner_radius=4\\background.height=20"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --add bracket spaces'/space\\..*/'\\--set         spaces background.color=0xffffffff\\background.corner_radius=4\\background.height=20"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --addalias<application_name><position>"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --addalias\"<window_owner>,<window_name>\"<position>"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --query default_menu_items"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --set<name>alias.color=<argb_hex>"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --set<name>alias.scale=<float>"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --set<name>alias.update_freq=<positive_integer>"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --add slider<name><position><width>"
+    }
+  ]
+}
