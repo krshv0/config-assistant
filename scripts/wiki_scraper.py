@@ -1,5 +1,5 @@
 import requests
-from bs4 import BeautifulSoup, NavigableString, Tag
+from bs4 import BeautifulSoup, Tag
 import pandas as pd
 import json
 import os
