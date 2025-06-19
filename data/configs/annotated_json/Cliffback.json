@@ -6,48 +6,48 @@
       "language": "bash",
       "dependencies": [],
       "content": "# Icon font: Hack Nerd Font\n# Search for icons here: https://www.nerdfonts.com/cheat-sheet\n# \ue714 \ue795 \ue7a2 \uf02d \uf274 \uf085 \uf086 \uf10c \uf1db \uf219  \uf09e \uf269 \uf040 \uf04b \uf144 \uf01d \uf267 \uf143 \uf1d8 \uf1d9 \uf120 \ue266 \ue23f \ue23e \ufc66 \u9f43 \uf5bd \uf5ee \uf633 \uf6e5 \ufb82 \u7235 \uf405 \uf401 \uf489 \ue714 \uf1ea  \uf302 \ufb75 \uf233  \uf1d4 \uf2b1 \ufc66 \uf7b8 \ufc0a \u7570 \ufd31 \u05d0\u05b7\n\n############## BAR ##############\nsketchybar --bar height=45 \\\n                 y_offset=0 \\\n                 blur_radius=0 \\\n                 position=top \\\n                 padding_left=4 \\\n                 padding_right=4 \\\n                 margin=0 \\\n                 corner_radius=0 \\\n                 color=0xff1e1d2e \\\n                 shadow=on\n\n############## GLOBAL DEFAULTS ##############\nsketchybar --default updates=when_shown \\\n                     icon.font=\"Hack Nerd Font:Bold:16.0\" \\\n                     icon.color=0xffECEFF4 \\\n                     icon.highlight_color=0xffE48FA8 \\\n                     label.font=\"Hack Nerd Font:Bold:16.0\" \\\n                     label.color=0xffECEFF4 \\\n                     background.corner_radius=5 \\\n                     background.height=30\n\nsketchybar --add item logo left \\\n           --set logo icon=\uf302 \\\n                 icon.color=0xff010101 \\\n                 icon.padding_left=16 \\\n                 icon.padding_right=16 \\\n                 background.color=0xffA5E0D5 \\\n                 background.padding_right=8 \\\n                 background.padding_left=4 \\\n                 click_script=\"sketchybar --update\"\n\nSPACE_ICONS=(\"1\" \"2\" \"3\" \"4\" \"5\" \"6\" \"7\" \"8\" \"9\" \"10\")\nSPACES=()\n\nfor i in \"${!SPACE_ICONS[@]}\"\ndo\n  sid=$(($i+1))\n  SPACES+=(space.$sid)\n  sketchybar --add space space.$sid left \\\n             --set space.$sid associated_space=$sid \\\n                              icon=${SPACE_ICONS[i]} \\\n                              icon.padding_left=20 \\\n                              icon.padding_right=20 \\\n                              icon.highlight_color=0xffE48FA8 \\\n                              background.padding_left=-4 \\\n                              background.padding_right=-4 \\\n                              background.color=0xff3C3E4F \\\n                              background.drawing=on \\\n                              label.drawing=off \\\n                              click_script=\"yabai -m space --focus $sid\"\ndone\n\nsketchybar --add item space_separator left \\\n           --set space_separator icon=\uf054 \\\n                                 background.padding_left=23 \\\n                                 background.padding_right=23 \\\n                                 label.drawing=off \\\n                                 icon.color=0xff92B3F5\n\nsketchybar --add item window_title left \\\n           --set window_title    script=\"~/.config/sketchybar/plugins/window_title.sh\" \\\n                                 icon.drawing=off \\\n                                 label.color=0xffb7bdf4 \\\n           --subscribe window_title front_app_switched\n\n############## ITEM DEFAULTS ###############\nsketchybar --default label.padding_left=6 \\\n                     label.padding_right=6 \\\n                     icon.padding_left=6 \\\n                     icon.padding_right=6 \\\n                     icon.font=\"Hack Nerd Font:Bold:20.0\" \\\n                     background.height=30 \\\n                     background.padding_right=4 \\\n                     background.padding_left=4 \\\n                     background.corner_radius=5\n\nsketchybar --add item spot_logo center \\\n           --set spot_logo icon=\uf1bc \\\n                           label.drawing=off \\\n                           icon.color=0xff121219 \\\n                           background.color=0xffEDC4E5\n\n\nsketchybar --add item spot center \\\n           --set spot update_freq=1 \\\n                      icon.drawing=off \\\n                      updates=on \\\n                      script=\"~/.config/sketchybar/plugins/spotifyIndicator.sh\" \\\n                      background.color=0xff3C3E4F \\\n                      background.padding_left=0\n\n############## RIGHT ITEMS ##############\nsketchybar --add item time right \\\n           --set time update_freq=1 \\\n                      icon.drawing=off \\\n                      script=\"~/.config/sketchybar/plugins/time.sh\" \\\n                      background.color=0xff3C3E4F \\\n                      background.padding_left=0\n\nsketchybar --add item time_logo right\\\n           --set time_logo icon=\uf017 \\\n                           label.drawing=off \\\n                           icon.color=0xff121219 \\\n                           label.drawing=off \\\n                           background.color=0xffF5E3B5\n\nsketchybar --add item date right \\\n           --set date update_freq=1000 \\\n                      icon.drawing=off \\\n                      script=\"~/.config/sketchybar/plugins/date.sh\" \\\n                      background.color=0xff3C3E4F \\\n                      background.padding_left=0\n\nsketchybar --add item clock_logo right\\\n           --set clock_logo icon=\uf455 \\\n                            icon.color=0xff121219\\\n                            label.drawing=off \\\n                            background.color=0xff92B3F5\n\nsketchybar --add item battery right \\\n           --set battery update_freq=3 \\\n                         icon.drawing=off \\\n                         script=\"~/.config/sketchybar/plugins/power.sh\" \\\n                         background.color=0xff3C3E4F \\\n                         background.padding_left=0\n\nsketchybar --add item power_logo right \\\n           --set power_logo icon=\uf0e7 \\\n                 icon.color=0xff121219 \\\n                 label.drawing=off \\\n                 background.color=0xffB3E1A7\n\nsketchybar --add item net right \\\n           --set net script=\"~/.config/sketchybar/plugins/net.sh\" \\\n                     icon.drawing=off \\\n                     background.color=0xff3C3E4F \\\n                     background.padding_left=0\n\nsketchybar --add item net_logo right \\\n           --set net_logo icon=\uf1eb\\\n                     icon.color=0xff121219\\\n                     label.drawing=off \\\n                     background.color=0xffE0A3AD\n\nsketchybar --add item temp right \\\n           --set temp update_freq=1 \\\n                     script=\"~/.config/sketchybar/plugins/temp.sh\" \\\n                     icon.drawing=off \\\n                     background.color=0xff3C3E4F \\\n                     background.padding_left=0\n\nsketchybar --add item temp_logo right \\\n           --set temp_logo icon=\uf2cb\\\n                     icon.color=0xff121219\\\n                     label.drawing=off \\\n                     background.color=0xffF5E3B5\n\nsketchybar --add item pressure right \\\n           --set pressure update_freq=60 \\\n                     script=\"~/.config/sketchybar/plugins/pressure.sh\" \\\n                     icon.drawing=off \\\n                     background.color=0xff3C3E4F \\\n                     background.padding_left=0\n\nsketchybar --add item pressure_logo right \\\n           --set pressure_logo icon=\udb80\ude38\\\n                     icon.color=0xff121219\\\n                     label.drawing=off \\\n                     background.color=0xff92B3F5\n\nsketchybar --subscribe net wifi_change wired_change\n\n############## FINALIZING THE SETUP ##############\nsketchybar --update\n\necho \"sketchybar configuration loaded...\"\n",
-      "purpose": "",
-      "content_summary": ""
+      "purpose": "This file is a configuration file for SketchyBar, a macOS system tray application that allows users to customize and display various system information and application statuses as icons in the menu bar.",
+      "content_summary": "The file defines the appearance and behavior of the SketchyBar, including its height, position, color, and default settings for icons, labels, and backgrounds. It also adds several items to the bar, such as a logo, spaces for virtual desktops, a separator, window title, time, date, clock, battery, power, network, temperature, pressure, and custom scripts for each of these items. The file also subscribes to certain events, such as wifi and wired changes, and updates the bar when necessary."
     },
     ".config/sketchybar/plugins/temp.sh": {
       "path": ".config/sketchybar/plugins/temp.sh",
       "language": "bash",
       "dependencies": [],
       "content": "#!/usr/bin/env sh\n\nfilter=\"PMU tdev\"\nsensor_output=$(./plugins/macos-temp-tool -f \"${filter}\" -a | awk '{print $NF}')\nLABEL=\"${sensor_output}\u00b0C\"\n\nsketchybar --set \"$NAME\" label=\"$LABEL\"\n",
-      "purpose": "",
-      "content_summary": ""
+      "purpose": "This file is a custom plugin for SketchyBar that displays the temperature of a specific CPU core or integrated GPU, as reported by the macOS-temp-tool command.",
+      "content_summary": "The script filters the output of macOS-temp-tool for a specific sensor (PMU tdev), extracts the temperature value, and sets the label of the SketchyBar plugin with the extracted temperature value."
     },
     ".config/sketchybar/plugins/spotifyIndicator.sh": {
       "path": ".config/sketchybar/plugins/spotifyIndicator.sh",
       "language": "bash",
       "dependencies": [],
       "content": "#!/usr/bin/env sh\nRUNNING=$(osascript -e 'if application \"Spotify\" is running then return 0')\nif [ \"$RUNNING\" == \"\" ]; then\n  RUNNING=1\nfi\nPLAYING=1\nTRACK=\"\"\nALBUM=\"\"\nARTIST=\"\"\nif [ \"$(osascript -e 'if application \"Spotify\" is running then tell application \"Spotify\" to get player state')\" == \"playing\" ]; then\n  PLAYING=0\n  TRACK=$(osascript -e 'tell application \"Spotify\" to get name of current track')\n  ARTIST=$(osascript -e 'tell application \"Spotify\" to get artist of current track')\n  ALBUM=$(osascript -e 'tell application \"Spotify\" to get album of current track')\nfi\nif [ $RUNNING -eq 0 ] && [ $PLAYING -eq 0 ]; then\n  if [ \"$ARTIST\" == \"\" ]; then\n    sketchybar --set $NAME label=\"\uf2ce $TRACK - $ALBUM\" --set '/spot.*/' drawing=on\n  else\n    sketchybar --set $NAME label=\"\uf001 $TRACK - $ARTIST\" --set '/spot.*/' drawing=on\n  fi\nelse\n  sketchybar --set '/spot.*/' drawing=off\nfi\n",
-      "purpose": "",
-      "content_summary": ""
+      "purpose": "This file is a custom plugin for SketchyBar, a macOS system tray application, that displays the current Spotify track information such as the track name, artist, and album when Spotify is running and playing a song.",
+      "content_summary": "The script checks if Spotify is running and playing a song, and if so, it retrieves the track name, artist, and album using AppleScript. It then sets the SketchyBar's label and drawing state accordingly."
     },
     ".config/sketchybar/plugins/window_title.sh": {
       "path": ".config/sketchybar/plugins/window_title.sh",
       "language": "bash",
       "dependencies": [],
       "content": "#!/usr/bin/env sh\n\nsketchybar --set $NAME label=\"$INFO\"",
-      "purpose": "",
-      "content_summary": ""
+      "purpose": "This file is a custom plugin for SketchyBar, a macOS system tray application. The purpose of this plugin, specifically named 'window_title.sh', is to display the title of the currently active window in the SketchyBar interface.",
+      "content_summary": "The script uses the SketchyBar command to set the label of the plugin to the information (i.e., the title) of the active window."
     },
     ".config/sketchybar/plugins/date.sh": {
       "path": ".config/sketchybar/plugins/date.sh",
       "language": "bash",
       "dependencies": [],
       "content": "#!/usr/bin/env sh\n\nsketchybar --set $NAME label=\"$(date '+%Y-%m-%d')\"\n\n",
-      "purpose": "",
-      "content_summary": ""
+      "purpose": "The purpose of this file is to configure a SketchyBar plugin that displays the current date in the YYYY-MM-DD format.",
+      "content_summary": "This script uses the date command to get the current date and sets the label of the SketchyBar plugin with the obtained date in the specified format."
     },
     ".config/sketchybar/plugins/power.sh": {
       "path": ".config/sketchybar/plugins/power.sh",
       "language": "bash",
       "dependencies": [],
       "content": "#!/usr/bin/env sh\n\nPERCENTAGE=$(pmset -g batt | grep -Eo \"\\d+%\" | cut -d% -f1)\nCHARGING=$(pmset -g batt | grep 'AC Power')\n\nif [ $PERCENTAGE = \"\" ]; then\n  exit 0\nfi\n\ncase ${PERCENTAGE} in\n    100) ICON=\"\udb80\udc79\"\n    ;;\n    9[0-9]) ICON=\"\udb80\udc79\"\n    ;;\n    8[0-9]) ICON=\"\udb80\udc82\"\n    ;;\n    7[0-9]) ICON=\"\udb80\udc81\"\n    ;;\n    6[0-9]) ICON=\"\udb80\udc80\"\n    ;;\n    5[0-9]) ICON=\"\udb80\udc7f\"\n    ;;\n    4[0-9]) ICON=\"\udb80\udc7e\"\n    ;;\n    3[0-9]) ICON=\"\udb80\udc7d\"\n    ;;\n    2[0-9]) ICON=\"\udb80\udc7c\"\n    ;;\n    1[0-9]) ICON=\"\udb80\udc7b\"\n    ;;\n    0[0-9]) ICON=\"\udb80\udc7a\"\n    ;;\n    *) ICON=\"\udb80\udc8e\"\nesac\n\n\nif [[ $CHARGING != \"\" ]]; then\n  ICON=\"\uf0e7\"\nfi\n\nsketchybar --set power_logo icon=\"$ICON\" --set battery label=\"${PERCENTAGE}%\"\n",
-      "purpose": "",
-      "content_summary": ""
+      "purpose": "This file is a custom plugin for SketchyBar, a macOS system tray application, which displays the battery percentage and charging status of the device.",
+      "content_summary": "The script retrieves the battery percentage and charging status, assigns an appropriate icon based on the battery level, and updates the SketchyBar with the battery percentage and the selected icon."
     },
     ".config/sketchybar/plugins/macos-temp-tool": {
       "path": ".config/sketchybar/plugins/macos-temp-tool",
@@ -62,16 +62,16 @@
       "language": "bash",
       "dependencies": [],
       "content": "#!/usr/bin/env sh\n\nsketchybar --set $NAME label=\"$(date '+%H:%M:%S')\"\n",
-      "purpose": "",
-      "content_summary": ""
+      "purpose": "The main purpose of this file is to configure a SketchyBar plugin that displays the current time.",
+      "content_summary": "This script sets the label of the time plugin in SketchyBar to the current time in the format Hours:Minutes:Seconds, using the date command."
     },
     ".config/sketchybar/plugins/pressure.sh": {
       "path": ".config/sketchybar/plugins/pressure.sh",
       "language": "bash",
       "dependencies": [],
       "content": "#!/usr/bin/env sh\n\nthermal_pressure=$(./plugins/macos-temp-tool -p | awk '{print $NF}')\nLABEL=\"${thermal_pressure}\"\n\nsketchybar --set \"$NAME\" label=\"$LABEL\"\n",
-      "purpose": "",
-      "content_summary": ""
+      "purpose": "This file is a SketchyBar plugin script that retrieves the thermal pressure (temperature) of the Mac's CPU and sets the label of the SketchyBar item with the retrieved value.",
+      "content_summary": "The script uses the macos-temp-tool command to get the thermal pressure, processes the output using awk to extract the final value, and then sets the label of the SketchyBar item with the extracted value."
     },
     ".config/sketchybar/plugins/net.sh": {
       "path": ".config/sketchybar/plugins/net.sh",
@@ -81,8 +81,8 @@
         "if [ \"$(echo \"$CURRENT_NETWORK\" | awk '{ print NF }')\" -gt 1 ]; then"
       ],
       "content": "#!/usr/bin/env sh\n#\n\n# Full network name\n#LABEL=\"$(networksetup -listallhardwareports | awk '/Wi-Fi/{getline; print $2}' | xargs networksetup -getairportnetwork | sed \"s/Current Wi-Fi Network: //\")\"\n\n# If first word is longer than 10 characters, print first 7 characters\n# If first word is shorter than 10 characters, print first word and first 2 characters of second word if any\n# LABEL=\"$(networksetup -listallhardwareports | awk '/Wi-Fi/{getline; print $2}' | xargs networksetup -getairportnetwork | sed \"s/Current Wi-Fi Network: //\" | \n#   awk '{ \n#     if ($0 ~ /You are not associated with an AirPort network/) {\n#       print \"N/A\";\n#       exit;\n#     }\n#     else if (length($1) > 10) { \n#       label=substr($1, 1, 7); \n#       gsub(/ $/, \"\", label); \n#       print label \"...\"; \n#     } \n#     else {\n#       print $1; \n#       if (NF > 1) { \n#         print(\" \");\n#         printf substr($2, 1, 2) \"...\"; \n#       } \n#     } \n#   }')\"\n#\n# Get Wi-Fi network information\nWI_FI_INFO=$(networksetup -listallhardwareports | awk '/Wi-Fi/{getline; print $2}')\n\n# Get the current Wi-Fi network\n#CURRENT_NETWORK=$(echo \"$WI_FI_INFO\" | xargs networksetup -getairportnetwork | sed \"s/Current Wi-Fi Network: //\")\n\nCURRENT_NETWORK=$(echo \"$WI_FI_INFO\" | ipconfig getsummary en0 | awk -F ' SSID : '  '/ SSID : / {print $2}')\n\n# Check if the current network is associated with an airport network\nif echo \"$CURRENT_NETWORK\" | grep -q \"You are not associated with an AirPort network\"; then\n    LABEL=\"N/A\"\n    sketchybar --set net_logo background.color=0xff3C3E4F --set net label.color=0xff1e1d2e\nelse\n    sketchybar --set net_logo background.color=0xffE0A3AD --set net label.color=0xffECEFF4 \n    # Truncate the current network name if longer than 10 characters\n    if [ \"$(echo \"$CURRENT_NETWORK\" | awk '{ print length($1) }')\" -gt 10 ]; then\n        label=$(echo \"$CURRENT_NETWORK\" | awk '{ print substr($0, 1, 7) }')\n        label=$(echo \"$label\" | sed 's/ *$//')\n        LABEL=\"$label\"...\n    else\n        LABEL=$(echo \"$CURRENT_NETWORK\" | awk '{ printf \"%s\", $1 }')\n        # If there is a second word, print the first two characters followed by ...\n        if [ \"$(echo \"$CURRENT_NETWORK\" | awk '{ print NF }')\" -gt 1 ]; then\n            SECOND_WORD=$(echo \"$CURRENT_NETWORK\" | awk '{ printf \"%s\", substr($2, 1, 2) }')\n            LABEL=\"$LABEL $SECOND_WORD...\"\n        fi\n    fi\nfi\n\nsketchybar --set \"$NAME\" label=\"$LABEL\"\n",
-      "purpose": "",
-      "content_summary": ""
+      "purpose": "This file is a SketchyBar plugin that displays the current Wi-Fi network name in the system tray. It also adjusts the color of the network icon and label based on whether the device is associated with an AirPort network or not.",
+      "content_summary": "The script retrieves the Wi-Fi interface name, gets the current network information, checks if the device is associated with an AirPort network, and sets the label accordingly. If the network name is longer than 10 characters, it truncates it and adds '...'. If there is a second word, it also includes the first two characters of the second word followed by '...'."
     },
     ".config/sketchybar/old/sketchybarrc": {
       "path": ".config/sketchybar/old/sketchybarrc",
@@ -98,16 +98,16 @@
         "sketchybar --update"
       ],
       "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/colors.sh\" # Loads all defined colors\n\n# This is a demo config to show some of the most important commands more easily.\n# This is meant to be changed and configured, as it is intentionally kept sparse.\n# For a more advanced configuration example see my dotfiles:\n# https://github.com/FelixKratz/dotfiles\n\nPLUGIN_DIR=\"$CONFIG_DIR/plugins\"\n\n##### Bar Appearance #####\n# Configuring the general appearance of the bar, these are only some of the\n# options available. For all options see:\n# https://felixkratz.github.io/SketchyBar/config/bar\n# If you are looking for other colors, see the color picker:\n# https://felixkratz.github.io/SketchyBar/config/tricks#color-picker\n\nsketchybar --bar height=32        \\\n                 blur_radius=30   \\\n                 position=top     \\\n                 sticky=off       \\\n                 padding_left=10  \\\n                 padding_right=10 \\\n                 color=$BAR_COLOR \\\n#                color=0x15ffffff \\\n\n##### Changing Defaults #####\n# We now change some default values that are applied to all further items\n# For a full list of all available item properties see:\n# https://felixkratz.github.io/SketchyBar/config/items\n\nsketchybar --default icon.font=\"Hack Nerd Font:Bold:17.0\"  \\\n                     icon.color=0xffffffff                 \\\n                     label.font=\"Hack Nerd Font:Bold:14.0\" \\\n                     label.color=0xffffffff                \\\n                     padding_left=5                        \\\n                     padding_right=5                       \\\n                     label.padding_left=4                  \\\n                     label.padding_right=4                 \\\n                     icon.padding_left=4                   \\\n                     icon.padding_right=4\n\n##### Adding Mission Control Space Indicators #####\n# Now we add some mission control spaces:\n# https://felixkratz.github.io/SketchyBar/config/components#space----associate-mission-control-spaces-with-an-item\n# to indicate active and available mission control spaces\n\nSPACE_ICONS=(\"1\" \"2\" \"3\" \"4\" \"5\" \"6\" \"7\" \"8\" \"9\" \"10\")\n\nfor i in \"${!SPACE_ICONS[@]}\"\ndo\n  sid=$(($i+1))\n  sketchybar --add space space.$sid left                                 \\\n             --set space.$sid space=$sid                                 \\\n                              icon=${SPACE_ICONS[i]}                     \\\n                              background.color=0x44ffffff                \\\n                              background.corner_radius=5                 \\\n                              background.height=20                       \\\n                              background.drawing=off                     \\\n                              label.drawing=off                          \\\n                              script=\"$PLUGIN_DIR/space.sh\"              \\\n                              click_script=\"yabai -m space --focus $sid\"\ndone\n\n##### Adding Left Items #####\n# We add some regular items to the left side of the bar\n# only the properties deviating from the current defaults need to be set\n\nsketchybar --add item space_separator left                         \\\n           --set space_separator icon=\uf054                            \\\n                                 padding_left=10                   \\\n                                 padding_right=10                  \\\n                                 label.drawing=off                 \\\n                                                                   \\\n           --add item front_app left                               \\\n           --set front_app       script=\"$PLUGIN_DIR/front_app.sh\" \\\n                                 icon.drawing=off                  \\\n           --subscribe front_app front_app_switched\n\n##### Adding Right Items #####\n# In the same way as the left items we can add items to the right side.\n# Additional position (e.g. center) are available, see:\n# https://felixkratz.github.io/SketchyBar/config/items#adding-items-to-sketchybar\n\n# Some items refresh on a fixed cycle, e.g. the clock runs its script once\n# every 10s. Other items respond to events they subscribe to, e.g. the\n# volume.sh script is only executed once an actual change in system audio\n# volume is registered. More info about the event system can be found here:\n# https://felixkratz.github.io/SketchyBar/config/events\n\nsketchybar --add item clock right                              \\\n           --set clock   update_freq=10                        \\\n                         icon=\uf43a                                \\\n                         script=\"$PLUGIN_DIR/clock.sh\"         \\\n                                                               \\\n           --add item volume right                             \\\n           --set volume  script=\"$PLUGIN_DIR/volume.sh\"        \\\n           --subscribe volume volume_change                    \\\n                                                               \\\n           --add item battery right                            \\\n           --set battery script=\"$PLUGIN_DIR/battery.sh\"       \\\n                         update_freq=120                       \\\n           --subscribe battery system_woke power_source_change\n\n##### Finalizing Setup #####\n# The below command is only needed at the end of the initial configuration to\n# force all scripts to run the first time, it should never be run in an item script.\n\nsketchybar --update\n",
-      "purpose": "",
-      "content_summary": ""
+      "purpose": "This file is a configuration script for SketchyBar, a macOS system tray and status bar application.",
+      "content_summary": "The script sets up the appearance of the bar, changes default values for all items, adds mission control space indicators, left and right items, and finalizes the setup."
     },
     ".config/sketchybar/old/colors.sh": {
       "path": ".config/sketchybar/old/colors.sh",
       "language": "bash",
       "dependencies": [],
       "content": "#!/bin/bash\n\nexport WHITE=0xffffffff\n\n# -- Teal Scheme --\nexport BAR_COLOR=0xff001f30\nexport ITEM_BG_COLOR=0xff003547\nexport ACCENT_COLOR=0xff2cf9ed\n\n# -- Gray Scheme --\n# export BAR_COLOR=0xff101314\n# export ITEM_BG_COLOR=0xff353c3f\n# export ACCENT_COLOR=0xffffffff\n\n# -- Purple Scheme --\n# export BAR_COLOR=0xff140c42\n# export ITEM_BG_COLOR=0xff2b1c84\n# export ACCENT_COLOR=0xffeb46f9\n\n# -- Red Scheme ---\n# export BAR_COLOR=0xff23090e\n# export ITEM_BG_COLOR=0xff591221\n# export ACCENT_COLOR=0xffff2453\n\n# -- Blue Scheme ---\n# export BAR_COLOR=0xff021254\n# export ITEM_BG_COLOR=0xff093aa8\n# export ACCENT_COLOR=0xff15bdf9\n\n# -- Green Scheme --\n# export BAR_COLOR=0xff003315\n# export ITEM_BG_COLOR=0xff008c39\n# export ACCENT_COLOR=0xff1dfca1\n\n\n# -- Orange Scheme --\n# export BAR_COLOR=0xff381c02\n# export ITEM_BG_COLOR=0xff99440a\n# export ACCENT_COLOR=0xfff97716\n\n# -- Yellow Scheme --\n# export BAR_COLOR=0xff2d2b02\n# export ITEM_BG_COLOR=0xff8e7e0a\n# export ACCENT_COLOR=0xfff7fc17",
-      "purpose": "",
-      "content_summary": ""
+      "purpose": "This file is used for defining color schemes in SketchyBar, a macOS system tray application that allows for customization of the status bar.",
+      "content_summary": "The file contains various color schemes for the SketchyBar, each scheme defined by the variables BAR_COLOR, ITEM_BG_COLOR, and ACCENT_COLOR. Each variable represents the color of the bar, the background of items, and the accent color respectively. The color values are represented in hexadecimal format."
     },
     ".config/sketchybar/old/plugins/volume.sh": {
       "path": ".config/sketchybar/old/plugins/volume.sh",
@@ -116,16 +116,16 @@
         "if [ \"$SENDER\" = \"volume_change\" ]; then"
       ],
       "content": "#!/bin/sh\n\n# The volume_change event supplies a $INFO variable in which the current volume\n# percentage is passed to the script.\n\nif [ \"$SENDER\" = \"volume_change\" ]; then\n  VOLUME=$INFO\n\n  case $VOLUME in\n    [6-9][0-9]|100) ICON=\"\udb81\udd7e\"\n    ;;\n    [3-5][0-9]) ICON=\"\udb81\udd80\"\n    ;;\n    [1-9]|[1-2][0-9]) ICON=\"\udb81\udd7f\"\n    ;;\n    *) ICON=\"\udb81\udd81\"\n  esac\n\n  sketchybar --set $NAME icon=\"$ICON\" label=\"$VOLUME%\"\nfi\n",
-      "purpose": "",
-      "content_summary": ""
+      "purpose": "This file is a plugin script for SketchyBar, a macOS system tray utility. The purpose of this script is to display the current volume percentage and an associated icon in the SketchyBar, based on the volume level.",
+      "content_summary": "The script checks for the 'volume_change' event and assigns the current volume percentage to the variable VOLUME. Depending on the volume level, it sets the icon to one of four possible icons (\udb81\udd7e, \udb81\udd80, \udb81\udd7f, \udb81\udd81). Finally, it updates the SketchyBar with the new icon and volume percentage."
     },
     ".config/sketchybar/old/plugins/space.sh": {
       "path": ".config/sketchybar/old/plugins/space.sh",
       "language": "bash",
       "dependencies": [],
       "content": "#!/bin/sh\n\n# The $SELECTED variable is available for space components and indicates if\n# the space invoking this script (with name: $NAME) is currently selected:\n# https://felixkratz.github.io/SketchyBar/config/components#space----associate-mission-control-spaces-with-an-item\n\nsketchybar --set $NAME background.drawing=$SELECTED\n",
-      "purpose": "",
-      "content_summary": ""
+      "purpose": "This file is a SketchyBar plugin script that modifies the appearance of a specific item in the SketchyBar based on the selected space in Mission Control (Mac's built-in application for managing multiple desktops).",
+      "content_summary": "The script checks if the current space (desktop) is selected and sets the 'background.drawing' property of the item with the name specified in the script to reflect the selected state."
     },
     ".config/sketchybar/old/plugins/front_app.sh": {
       "path": ".config/sketchybar/old/plugins/front_app.sh",
@@ -134,24 +134,24 @@
         "E.g. the front_app_switched event sends the name of the newly"
       ],
       "content": "#!/bin/sh\n\n# Some events send additional information specific to the event in the $INFO\n# variable. E.g. the front_app_switched event sends the name of the newly\n# focused application in the $INFO variable:\n# https://felixkratz.github.io/SketchyBar/config/events#events-and-scripting\n\nif [ \"$SENDER\" = \"front_app_switched\" ]; then\n  sketchybar --set $NAME label=\"$INFO\"\nfi\n",
-      "purpose": "",
-      "content_summary": ""
+      "purpose": "This file is a SketchyBar plugin script that updates the label of the SketchyBar widget when the frontmost application changes.",
+      "content_summary": "The script checks if the event triggering the script is 'front_app_switched'. If it is, it updates the label of the widget with the name of the newly focused application, which is stored in the $INFO variable."
     },
     ".config/sketchybar/old/plugins/clock.sh": {
       "path": ".config/sketchybar/old/plugins/clock.sh",
       "language": "bash",
       "dependencies": [],
       "content": "#!/bin/sh\n\n# The $NAME variable is passed from sketchybar and holds the name of\n# the item invoking this script:\n# https://felixkratz.github.io/SketchyBar/config/events#events-and-scripting\n\nsketchybar --set $NAME label=\"$(date '+%d/%m %H:%M')\"\n\n",
-      "purpose": "",
-      "content_summary": ""
+      "purpose": "The main purpose of this file is to configure a SketchyBar plugin that displays the current date and time.",
+      "content_summary": "This script sets the label of the specified SketchyBar item to the current date and time in the format 'dd/mm HH:MM'."
     },
     ".config/sketchybar/old/plugins/battery.sh": {
       "path": ".config/sketchybar/old/plugins/battery.sh",
       "language": "bash",
       "dependencies": [],
       "content": "#!/bin/sh\n\nPERCENTAGE=$(pmset -g batt | grep -Eo \"\\d+%\" | cut -d% -f1)\nCHARGING=$(pmset -g batt | grep 'AC Power')\n\nif [ $PERCENTAGE = \"\" ]; then\n  exit 0\nfi\n\ncase ${PERCENTAGE} in\n  9[0-9]|100) ICON=\"\uf240\"\n  ;;\n  [6-8][0-9]) ICON=\"\uf241\"\n  ;;\n  [3-5][0-9]) ICON=\"\uf242\"\n  ;;\n  [1-2][0-9]) ICON=\"\uf243\"\n  ;;\n  *) ICON=\"\uf244\"\nesac\n\nif [[ $CHARGING != \"\" ]]; then\n  ICON=\"\uf0e7\"\nfi\n\n# The item invoking this script (name $NAME) will get its icon and label\n# updated with the current battery status\nsketchybar --set $NAME icon=\"$ICON\" label=\"${PERCENTAGE}%\"\n",
-      "purpose": "",
-      "content_summary": ""
+      "purpose": "This file is a custom plugin for SketchyBar, a macOS system tray application, which monitors the battery level and sets the corresponding icon and label based on the battery percentage and charging status.",
+      "content_summary": "The script checks the battery level and charging status using the pmset command, assigns an icon based on the battery percentage range, and updates the SketchyBar item with the new icon and label."
     }
   }
 }

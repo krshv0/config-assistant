@@ -1,6 +1,7 @@
 __pycache__/
 *.pyc
 .DS_Store
+.env
 
 /store/
 /scripts/dotfile_cleaner.py
