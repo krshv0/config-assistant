@@ -1,0 +1,112 @@
+{
+  "repo_name": "yessetmurat",
+  "structure": {
+    "sketchybarrc": {
+      "path": "sketchybarrc",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/colors.sh\"",
+        "\"$ITEM_DIR/space.sh\"",
+        "\"$ITEM_DIR/front_app.sh\"",
+        "\"$ITEM_DIR/calendar.sh\"",
+        "\"$ITEM_DIR/battery.sh\"",
+        "\"$ITEM_DIR/volume.sh\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/colors.sh\"\n\nPLUGIN_DIR=\"$CONFIG_DIR/plugins\"\nITEM_DIR=\"$CONFIG_DIR/items\"\n\n##### Bar Appearance #####\n\nsketchybar --bar position=top height=40 blur_radius=30 color=$BAR_COLOR\n\n##### Changing Defaults #####\n\ndefault=(\n    padding_left=2\n    padding_right=2\n    background.color=\"$ITEM_BG_COLOR\"\n    background.corner_radius=6\n    background.height=28\n    icon.font=\"IBM Plex Mono:Semibold:15.0\"\n    label.font=\"IBM Plex Sans:Semibold:14.0\"\n    icon.color=$WHITE\n    icon.y_offset=1\n    label.color=$WHITE\n    label.y_offset=1\n    icon.padding_left=10\n    icon.padding_right=4\n    label.padding_left=4\n    label.padding_right=10\n)\nsketchybar --default \"${default[@]}\"\n\n##### Left side items #####\n\nsource \"$ITEM_DIR/space.sh\"\nsource \"$ITEM_DIR/front_app.sh\"\n\n##### Right side items #####\n\nsource \"$ITEM_DIR/calendar.sh\"\nsource \"$ITEM_DIR/battery.sh\"\nsource \"$ITEM_DIR/volume.sh\"\n\n##### Force all scripts to run the first time (never do this in a script) #####\n\nsketchybar --update\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "colors.sh": {
+      "path": "colors.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nexport WHITE=0xffffffff\n\nexport BAR_COLOR=0x40000000\nexport ITEM_BG_COLOR=0x33000000\nexport ACCENT_COLOR=0x33ffffff\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/volume.sh": {
+      "path": "plugins/volume.sh",
+      "language": "bash",
+      "dependencies": [
+        "if [ \"$SENDER\" = \"volume_change\" ]; then"
+      ],
+      "content": "#!/bin/sh\n\n# The volume_change event supplies a $INFO variable in which the current volume\n# percentage is passed to the script.\n\nif [ \"$SENDER\" = \"volume_change\" ]; then\n  VOLUME=\"$INFO\"\n\n  case \"$VOLUME\" in\n    [6-9][0-9]|100) ICON=\"\udbc0\udea9\"\n    ;;\n    [3-5][0-9]) ICON=\"\udbc0\udea7\"\n    ;;\n    [1-9]|[1-2][0-9]) ICON=\"\udbc0\udea5\"\n    ;;\n    *) ICON=\"\udbc0\udea1\"\n  esac\n\n  sketchybar --set \"$NAME\" icon=\"$ICON\" label=\"$VOLUME%\"\nfi\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/calendar.sh": {
+      "path": "plugins/calendar.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/sh\n\n# The $NAME variable is passed from sketchybar and holds the name of\n# the item invoking this script:\n# https://felixkratz.github.io/SketchyBar/config/events#events-and-scripting\n\nsketchybar --set \"$NAME\" label=\"$(date +'%a %d %b %I:%M %p')\"\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/space.sh": {
+      "path": "plugins/space.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/sh\n\n# The $SELECTED variable is available for space components and indicates if\n# the space invoking this script (with name: $NAME) is currently selected:\n# https://felixkratz.github.io/SketchyBar/config/components#space----associate-mission-control-spaces-with-an-item\n\nsketchybar --set \"$NAME\" background.drawing=\"$SELECTED\"\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/front_app.sh": {
+      "path": "plugins/front_app.sh",
+      "language": "bash",
+      "dependencies": [
+        "E.g. the front_app_switched event sends the name of the newly"
+      ],
+      "content": "#!/bin/sh\n\n# Some events send additional information specific to the event in the $INFO\n# variable. E.g. the front_app_switched event sends the name of the newly\n# focused application in the $INFO variable:\n# https://felixkratz.github.io/SketchyBar/config/events#events-and-scripting\n\nif [ \"$SENDER\" = \"front_app_switched\" ]; then\n  sketchybar --set \"$NAME\" label=\"$INFO\"\nfi\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/battery.sh": {
+      "path": "plugins/battery.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/sh\n\nPERCENTAGE=\"$(pmset -g batt | grep -Eo \"\\d+%\" | cut -d% -f1)\"\nCHARGING=\"$(pmset -g batt | grep 'AC Power')\"\n\nif [ \"$PERCENTAGE\" = \"\" ]; then\n  exit 0\nfi\n\ncase \"${PERCENTAGE}\" in\n  9[0-9]|100) ICON=\"\udbc1\udee8\"\n  ;;\n  [6-8][0-9]) ICON=\"\udbc3\udeb8\"\n  ;;\n  [3-5][0-9]) ICON=\"\udbc3\udeb6\"\n  ;;\n  [1-2][0-9]) ICON=\"\udbc1\udee9\"\n  ;;\n  *) ICON=\"\udbc1\udeea\"\nesac\n\nif [[ \"$CHARGING\" != \"\" ]]; then\n  ICON=\"\udbc2\udc8b\"\nfi\n\n# The item invoking this script (name $NAME) will get its icon and label\n# updated with the current battery status\nsketchybar --set \"$NAME\" icon=\"$ICON\" label=\"${PERCENTAGE}%\"\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "items/volume.sh": {
+      "path": "items/volume.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nsketchybar --add item volume right --set volume \\\n    script=\"$PLUGIN_DIR/volume.sh\" \\\n    --subscribe volume volume_change",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "items/calendar.sh": {
+      "path": "items/calendar.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nsketchybar --add item calendar right --set calendar \\\n    icon.drawing=off \\\n    label.padding_left=10 \\\n    update_freq=1 \\\n    script=\"$PLUGIN_DIR/calendar.sh\"\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "items/space.sh": {
+      "path": "items/space.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nSPACE_ICONS=(\"1 \" \"2\" \"3\" \"4\" \"5\" \"Q\" \"W\" \"E\" \"R\" \"T\")\n\nfor i in \"${!SPACE_ICONS[@]}\"\ndo\n    sid=\"$(($i+1))\"\n    space=(\n        space=\"$sid\"\n        icon=\"${SPACE_ICONS[i]}\"\n        icon.padding_left=10\n        icon.padding_right=10\n        icon.y_offset=1\n        label.drawing=off\n        script=\"$PLUGIN_DIR/space.sh\"\n        click_script=\"yabai -m space --focus $sid\"\n    )\n    sketchybar --add space space.\"$sid\" left --set space.\"$sid\" \"${space[@]}\"\ndone",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "items/front_app.sh": {
+      "path": "items/front_app.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nsketchybar --add item front_app left \\\n    --set front_app icon.drawing=off label.padding_left=10 script=\"$PLUGIN_DIR/front_app.sh\" \\\n    --subscribe front_app front_app_switched\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "items/battery.sh": {
+      "path": "items/battery.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nsketchybar --add item battery right \\\n    --set battery update_freq=120 script=\"$PLUGIN_DIR/battery.sh\" \\\n    --subscribe battery system_woke power_source_change",
+      "purpose": "",
+      "content_summary": ""
+    }
+  }
+}

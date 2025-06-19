@@ -1,0 +1,234 @@
+{
+  "repo_name": "philipp-bliznuk",
+  "structure": {
+    ".config/sketchybar/settings.sh": {
+      "path": ".config/sketchybar/settings.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/colors.sh\" # Loads all defined colors"
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/colors.sh\" # Loads all defined colors\n\nFONT=\"JetBrainsMono Nerd Font\"\nPADDINGS=3 # All paddings use this value (icon, label, background)\n\nbar=(\n    height=35\n    color=$BAR_COLOR\n    border_color=$BAR_BORDER_COLOR\n)\n\ndefault=(\n    updates=when_shown\n\n    icon.font.family=\"$FONT\"\n    icon.font.style=\"Bold\"\n    icon.font.size=14.0\n    icon.color=$ICON_COLOR\n    icon.highlight_color=$GREY\n    icon.padding_left=$PADDINGS\n    icon.padding_right=$PADDINGS\n\n    label.font.family=\"$FONT\"\n    label.font.style=\"Semibold\"\n    label.font.size=13.0\n    label.color=$LABEL_COLOR\n    label.highlight_color=$GREY\n\n    padding_right=$PADDINGS\n    padding_left=$PADDINGS\n\n    popup.align=right\n    popup.background.border_width=1\n    popup.background.corner_radius=5\n    popup.background.border_color=$POPUP_BORDER_COLOR\n    popup.background.color=$POPUP_BACKGROUND_COLOR\n\n    background.corner_radius=5\n    background.height=25\n    background.border_width=1\n)\n\npopup_events=(\n    mouse.entered\n    mouse.exited\n    mouse.exited.global\n)\n\npopup() {\n    sketchybar --set $NAME popup.drawing=$1\n}\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/sketchybarrc": {
+      "path": ".config/sketchybar/sketchybarrc",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\"",
+        "$ITEM_DIR/disk.sh",
+        "$ITEM_DIR/ram.sh",
+        "$ITEM_DIR/cpu.sh",
+        "$ITEM_DIR/network_rates.sh",
+        "$ITEM_DIR/media.sh",
+        "$ITEM_DIR/datetime.sh",
+        "$ITEM_DIR/input.sh",
+        "$ITEM_DIR/battery.sh",
+        "$ITEM_DIR/network.sh",
+        "$ITEM_DIR/sound.sh",
+        "$ITEM_DIR/brew.sh"
+      ],
+      "content": "#!/bin/bash\n\nPLUGIN_DIR=\"$CONFIG_DIR/plugins\"\nITEM_DIR=\"$CONFIG_DIR/items\"\n\nsource \"$CONFIG_DIR/settings.sh\"\n\nsketchybar --bar \"${bar[@]}\" --default \"${default[@]}\"\n\n# --- Left Side Items ---\nsource $ITEM_DIR/disk.sh\nsource $ITEM_DIR/ram.sh\nsource $ITEM_DIR/cpu.sh\nsource $ITEM_DIR/network_rates.sh\nsource $ITEM_DIR/media.sh\n\n# --- Right Side Items ---\nsource $ITEM_DIR/datetime.sh\nsource $ITEM_DIR/input.sh\nsource $ITEM_DIR/battery.sh\nsource $ITEM_DIR/network.sh\nsource $ITEM_DIR/sound.sh\nsource $ITEM_DIR/brew.sh\n\nsketchybar --hotload on\nsketchybar --update\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/colors.sh": {
+      "path": ".config/sketchybar/colors.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\n### Catppuccin\nTRANSPARENT=0x00000000\nBLACK=0XFF181926\nWHITE=0XFFCAD3F5\nORANGE=0XFFF5A97F\nMAGENTA=0XFFC6A0F6\nGREY=0XFF939AB7\nBG0=0XFF1E1E2E\nBG1=0X603C3E4F\nBG2=0X60494D64\nROSEWATER=0xFFF5E0DC\nFLAMINGO=0xFFF2CDCD\nPINK=0xFFF5C2E7\nMAUVE=0xFFCBA6F7\nRED=0xFFF38BA8\nMAROON=0xFFEBA0AC\nPEACH=0xFFFAB387\nYELLOW=0xFFF9E2AF\nGREEN=0xFFA6E3A1\nTEAL=0xFF94E2D5\nSKY=0xFF89DCEB\nSAPPHIRE=0xFF74C7EC\nBLUE=0xFF89B4FA\nLAVENDER=0xFFB4BEFE\nTEXT=0xFFCDD6F4\nSUBTEXT_1=0xFFBAC2DE\nSUBTEXT_0=0xFFA6ADC8\nOVERLAY_2=0xFF9399B2\nOVERLAY_1=0xFF7F849C\nOVERLAY_0=0xFF6C7086\nSURFACE_2=0xFF585B70\nSURFACE_1=0xFF45475A\nSURFACE_0=0xFF313244\nBASE=0xFF1E1E2E\nMANTLE=0xFF181825\nCRUST=0xFF11111B\n\n# General bar colors\nBAR_COLOR=$TRANSPARENT\nBAR_BORDER_COLOR=$TRANSPARENT\nICON_COLOR=$WHITE\nLABEL_COLOR=$WHITE\nPOPUP_BACKGROUND_COLOR=$BG1\nPOPUP_BORDER_COLOR=$WHITE\nHIGHLIGHT=$GREY\nBACKGROUND_COLOR=$BG0\nBACKGROUND_BORDER_COLOR=$BG2\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/plugins/network_rates.sh": {
+      "path": ".config/sketchybar/plugins/network_rates.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nINTERFACE=\"en0\"\n\nread initial_rx initial_tx < <(netstat -ibn | awk -v iface=\"$INTERFACE\" '$1 == iface && $3 == \"<Link#14>\" {print $7, $10}')\nsleep 1\nread final_rx final_tx < <(netstat -ibn | awk -v iface=\"$INTERFACE\" '$1 == iface && $3 == \"<Link#14>\" {print $7, $10}')\n\nDOWN=$((final_rx - initial_rx)) # Bytes per second\nUP=$((final_tx - initial_tx))   # Bytes per second\n\nhuman_readable() {\n    local bytes=$1\n    case $bytes in\n    # Greater than or equal to 1 GB\n    [1-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]*)\n        printf \"%.2f GB/s\\n\" \"$(bc -l <<<\"$bytes/1073741824\")\"\n        ;;\n    # Greater than or equal to 1 MB\n    [1-9][0-9][0-9][0-9][0-9][0-9]*)\n        printf \"%.2f MB/s\\n\" \"$(bc -l <<<\"$bytes/1048576\")\"\n        ;;\n    # Greater than or equal to 1 KB\n    [1-9][0-9][0-9][0-9]*)\n        printf \"%.2f KB/s\\n\" \"$(bc -l <<<\"$bytes/1024\")\"\n        ;;\n    # Default case (less than 1 KB)\n    *)\n        echo \"$bytes B/s\"\n        ;;\n    esac\n}\n\nsketchybar --set net.down label=\"$(human_readable $DOWN)\" \\\n    --set net.up label=\"$(human_readable $UP)\"\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/plugins/volume.sh": {
+      "path": ".config/sketchybar/plugins/volume.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nif [ \"$SENDER\" = \"volume_change\" ]; then\n    HIGHLIGHT=off\n\n    case $INFO in\n    [6-9][0-9] | 100)\n        ICON=\udbc0\udea8\n        ;;\n    [3-5][0-9])\n        ICON=\udbc0\udea6\n        ;;\n    [1-9] | [1-2][0-9])\n        ICON=\udbc0\udea4\n        ;;\n    *)\n        ICON=\udbc0\udea2\n        HIGHLIGHT=on\n        ;;\n    esac\n\n    sketchybar --set $NAME icon=$ICON label=\"$INFO%\" icon.highlight=$HIGHLIGHT\nfi\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/plugins/vpn.sh": {
+      "path": ".config/sketchybar/plugins/vpn.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nVPN_STATUS=$(scutil --nwi | grep -E '^   utun[0-9]')\n\nICON=\udbc3\udc8a\nHIGHLIGHT=on\nif [ -n \"$VPN_STATUS\" ]; then\n    ICON=\udbc1\ude68\n    HIGHLIGHT=off\nfi\n\nsketchybar --set $NAME icon=$ICON icon.highlight=$HIGHLIGHT\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/plugins/input.sh": {
+      "path": ".config/sketchybar/plugins/input.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nSOURCE=$(defaults read ~/Library/Preferences/com.apple.HIToolbox.plist AppleCurrentKeyboardLayoutInputSourceID)\n\ncase $SOURCE in\n'com.apple.keylayout.ABC')\n    LABEL=\ud83c\uddfa\ud83c\uddf8\n    ;;\n'com.apple.keylayout.Ukrainian-PC')\n    LABEL=\ud83c\uddfa\ud83c\udde6\n    ;;\n'com.apple.keylayout.Russian')\n    LABEL=\ud83c\uddf7\ud83c\uddfa\n    ;;\nesac\n\nsketchybar --set $NAME label=$LABEL\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/plugins/brew.sh": {
+      "path": ".config/sketchybar/plugins/brew.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/settings.sh\"\n\nrefresh() {\n    zsh -c 'brew update &>/dev/null'\n    OUTDATED=$(zsh -c 'brew outdated --verbose')\n\n    if [ -z \"$OUTDATED\" ]; then\n        return\n    fi\n\n    args=(--set $NAME icon.color=$RED)\n    if $(sketchybar --query $NAME | jq '.popup.items | length != 0'); then\n        args+=(--remove '/brew.popup\\.*/')\n    fi\n\n    COUNTER=0\n    while IFS= read -r package; do\n        args+=(\n            --add item \"$NAME\".popup.$COUNTER popup.\"$NAME\"\n            --set \"$NAME\".popup.$COUNTER label=\"${package}\"\n        )\n        COUNTER=$((COUNTER + 1))\n    done <<<\"$OUTDATED\"\n\n    sketchybar -m \"${args[@]}\" >/dev/null\n}\n\nupdate() {\n    osascript -e 'display notification \"Starting Brew package updates...\" with title \"Package Updates\"'\n    zsh -c 'brew upgrade >/dev/null && brew cleanup >/dev/null'\n    osascript -e 'display notification \"Brew packages updated\" with title \"Package Updates\"'\n    sketchybar -m --set $NAME icon.color=$ICON_COLOR --remove '/brew.popup\\.*/' >/dev/null\n}\n\ncase \"$SENDER\" in\n\"routine\" | \"forced\")\n    refresh\n    ;;\n\"mouse.entered\")\n    popup on\n    ;;\n\"mouse.exited\" | \"mouse.exited.global\")\n    popup off\n    ;;\n\"mouse.clicked\")\n    popup off\n    update\n    ;;\nesac\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/plugins/ram.sh": {
+      "path": ".config/sketchybar/plugins/ram.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nsketchybar --set $NAME label=$(memory_pressure | grep \"System-wide memory free percentage:\" | awk '{print 100-$5\"%\"}')\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/plugins/disk.sh": {
+      "path": ".config/sketchybar/plugins/disk.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nsketchybar --set $NAME label=$(df -H | grep -E '^(/dev/disk3s5).' | awk '{ printf (\"%s\\n\", $4) }')\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/plugins/media.sh": {
+      "path": ".config/sketchybar/plugins/media.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nupdate_media() {\n    STATE=\"$(echo \"$INFO\" | jq -r '.state')\"\n\n    if [ \"$STATE\" = \"playing\" ]; then\n        MEDIA=\"$(echo \"$INFO\" | jq -r '.artist + \" - \" + .title')\"\n        sketchybar --set $NAME label=\"$MEDIA\" drawing=on\n    else\n        sketchybar --set $NAME drawing=off\n    fi\n}\n\ncase \"$SENDER\" in\n\"media_change\")\n    update_media\n    ;;\nesac\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/plugins/wifi.sh": {
+      "path": ".config/sketchybar/plugins/wifi.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nIP=\"$(ipconfig getsummary en0 | grep -o \"yiaddr = .*\" | sed 's/^yiaddr = //')\"\n\nICON=\udbc1\ude48\nHIGHLIGHT=on\nif [ -n \"$IP\" ]; then\n    ICON=\udbc1\ude47\n    HIGHLIGHT=off\nfi\n\nsketchybar --set $NAME icon=$ICON icon.highlight=$HIGHLIGHT\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/plugins/mic.sh": {
+      "path": ".config/sketchybar/plugins/mic.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nINPUT_NAME=$(SwitchAudioSource -t input -c)\nVOLUME=$(osascript -e 'input volume of (get volume settings)')\n\ncase $INPUT_NAME in\n'MacBook Pro Microphone')\n    INPUT_NAME=\"Mic\"\n    ;;\n'USB PnP Audio Device')\n    INPUT_NAME=\"USB\"\n    ;;\nesac\n\nICON=\udbc0\udeb0\nHIGHLIGH=off\nif [ $VOLUME -eq 0 ]; then\n    ICON=\udbc0\udeb2\n    HIGHLIGH=on\nfi\n\nsketchybar --set $NAME label=\"$INPUT_NAME $VOLUME%\" icon=$ICON icon.highlight=$HIGHLIGH\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/plugins/cpu.sh": {
+      "path": ".config/sketchybar/plugins/cpu.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nsketchybar --set $NAME label=$(top -l 2 | grep -E \"^CPU\" | tail -1 | awk '{ print int($3 + $5)\"%\" }')\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/plugins/battery.sh": {
+      "path": ".config/sketchybar/plugins/battery.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/colors.sh\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/colors.sh\"\n\nBATTERY_INFO=\"$(pmset -g batt)\"\nPERCENTAGE=$(echo \"$BATTERY_INFO\" | grep -Eo \"\\d+%\" | cut -d% -f1)\nCHARGING=$(echo \"$BATTERY_INFO\" | grep 'AC Power')\n\nif [ $PERCENTAGE = \"\" ]; then\n    exit 0\nfi\n\nCOLOR=$ICON_COLOR\ncase $PERCENTAGE in\n9[0-9] | 100)\n    ICON=\udbc1\udee8\n    ;;\n[6-8][0-9])\n    ICON=\udbc3\udeb8\n    ;;\n[3-5][0-9])\n    ICON=\udbc3\udeb6\n    ;;\n[1-2][0-9])\n    ICON=\udbc1\udee9\n    ;;\n*)\n    ICON=\udbc1\udeea\n    COLOR=$RED\n    ;;\nesac\n\nif [[ $CHARGING != \"\" ]]; then\n    ICON=\udbc2\udc8b\nfi\n\nsketchybar --set $NAME icon=$ICON icon.color=$COLOR label=\"$PERCENTAGE%\"\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/items/network_rates.sh": {
+      "path": ".config/sketchybar/items/network_rates.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nSIZE=11\nWIDTH=70\n\nup=(\n    width=0\n    label.width=$WIDTH\n    label.align=right\n    update_freq=3\n    y_offset=5\n    icon=\u21e1\n    label.font.size=$SIZE\n    icon.font.size=$SIZE\n    icon.color=$GREEN\n    script=\"$PLUGIN_DIR/network_rates.sh\"\n)\ndown=(\n    label.width=$WIDTH\n    label.align=right\n    y_offset=-5\n    icon=\u21e3\n    label.font.size=$SIZE\n    icon.font.size=$SIZE\n    icon.color=$RED\n)\n\nsketchybar --add item net.up left \\\n    --set net.up \"${up[@]}\" \\\n    \\\n    --add item net.down left \\\n    --set net.down \"${down[@]}\"\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/items/network.sh": {
+      "path": ".config/sketchybar/items/network.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nwifi=(\n    update_freq=5\n    script=\"$PLUGIN_DIR/wifi.sh\"\n)\nvpn=(\n    update_freq=5\n    script=\"$PLUGIN_DIR/vpn.sh\"\n)\n\nsketchybar --add item wifi right \\\n    --set wifi \"${wifi[@]}\" \\\n    --subscribe wifi wifi_change \\\n    \\\n    --add item vpn right \\\n    --set vpn \"${vpn[@]}\"\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/items/input.sh": {
+      "path": ".config/sketchybar/items/input.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\ninput=(\n    script=\"$PLUGIN_DIR/input.sh\"\n)\n\nsketchybar --add item input right \\\n    --set input \"${input[@]}\" \\\n    \\\n    --add event input_change 'AppleSelectedInputSourcesChangedNotification' \\\n    --subscribe input input_change\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/items/datetime.sh": {
+      "path": ".config/sketchybar/items/datetime.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\ndate=(\n    width=0\n    y_offset=5\n    label.font.size=10\n    update_freq=60\n    script='sketchybar --set $NAME label=\"$(date +\"%a %d %b\")\"'\n)\ntime=(\n    label.width=60\n    y_offset=-5\n    label.align=left\n    label.font.size=12.5\n    update_freq=1\n    script='sketchybar --set $NAME label=\"$(date \"+%T\")\"'\n)\n\nsketchybar \\\n    --add item date right \\\n    --set date \"${date[@]}\" \\\n    \\\n    --add item time right \\\n    --set time \"${time[@]}\"\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/items/brew.sh": {
+      "path": ".config/sketchybar/items/brew.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/settings.sh\"\n\nbrew=(\n    icon=\udbc1\udc1a\n    update_freq=300\n    script=\"$PLUGIN_DIR/brew.sh\"\n)\n\nsketchybar --add item brew right \\\n    --set brew \"${brew[@]}\" \\\n    --subscribe brew \"${popup_events[@]}\" mouse.clicked\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/items/ram.sh": {
+      "path": ".config/sketchybar/items/ram.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nram=(\n    icon=\ue266\n    icon.color=$ORANGE\n    update_freq=3\n    script=\"$PLUGIN_DIR/ram.sh\"\n)\n\nsketchybar --add item ram left \\\n    --set ram \"${ram[@]}\"\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/items/disk.sh": {
+      "path": ".config/sketchybar/items/disk.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\ndisk=(\n    icon=\udb85\udedf\n    icon.color=$BLUE\n    update_freq=300\n    script=\"$PLUGIN_DIR/disk.sh\"\n)\n\nsketchybar --add item disk left \\\n    --set disk \"${disk[@]}\"\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/items/media.sh": {
+      "path": ".config/sketchybar/items/media.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nmedia=(\n    icon=\uf2eb\n    icon.color=$SKY\n    script=\"$PLUGIN_DIR/media.sh\"\n    label.max_chars=35\n    scroll_texts=on\n    updates=on\n    drawing=off\n)\n\nsketchybar --add item media left \\\n    --set media \"${media[@]}\" \\\n    --subscribe media media_change\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/items/sound.sh": {
+      "path": ".config/sketchybar/items/sound.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nvolume=(\n    script=\"$PLUGIN_DIR/volume.sh\"\n)\nmic=(\n    update_freq=1\n    script=\"$PLUGIN_DIR/mic.sh\"\n    click_script=\"SwitchAudioSource -t input -s \\\"USB PnP Audio Device\\\" > /dev/null && osascript -e 'set volume input volume 75'\"\n)\n\nsketchybar --add item volume right \\\n    --set volume \"${volume[@]}\" \\\n    --subscribe volume volume_change \\\n    \\\n    --add item mic right \\\n    --set mic \"${mic[@]}\"\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/items/cpu.sh": {
+      "path": ".config/sketchybar/items/cpu.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\ncpu=(\n    icon=\uf4bc\n    icon.color=$GREEN\n    update_freq=3\n    script=\"$PLUGIN_DIR/cpu.sh\"\n)\n\nsketchybar --add item cpu left \\\n    --set cpu \"${cpu[@]}\"\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    ".config/sketchybar/items/battery.sh": {
+      "path": ".config/sketchybar/items/battery.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nbattery=(\n    update_freq=30\n    script=\"$PLUGIN_DIR/battery.sh\"\n)\n\nsketchybar --add item battery right \\\n    --set battery \"${battery[@]}\" \\\n    --subscribe battery power_source_change system_woke\n",
+      "purpose": "",
+      "content_summary": ""
+    }
+  }
+}

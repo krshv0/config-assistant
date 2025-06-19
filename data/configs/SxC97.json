@@ -1,0 +1,301 @@
+{
+  "repo_name": "SxC97",
+  "structure": {
+    "sketchybarrc": {
+      "path": "sketchybarrc",
+      "language": "bash",
+      "dependencies": [],
+      "content": "# \ue714 \ue795 \ue7a2 \uf02d \uf274 \uf085 \uf086 \uf10c \uf1db \uf219  \uf09e \uf269 \uf040 \uf04b \uf144 \uf01d \uf267 \uf143 \uf1d8 \uf1d9 \uf120 \ue266 \ue23f \ue23e \ufc66 \u9f43 \uf5bd \uf5ee \uf633 \uf6e5 \ufb82 \uf879 \ufd41 \u7235 \uf405 \uf401 \uf489 \ue714 \uf1ea  \uf302 \ufb75 \uf233  \uf1d4 \uf2b1 \ufc66 \uf7b8 \ufc0a \u7570 \ufd31 \u05d0\u05b7  'Y\u20e3'\n\n############## BAR ##############\nsketchybar -m --bar height=25 \\\n                    blur_radius=0 \\\n                    position=top \\\n                    padding_left=5 \\\n                    padding_right=5 \\\n                    margin=0 \\\n                    corner_radius=0 \\\n                    color=0xff2E3440 \\\n                    border_width=0 \\\n                    border_color=0xff2E3440\n\n############## GLOBAL DEFAULTS ##############\nsketchybar -m --default updates=when_shown \\\n                        drawing=on \\\n                        cache_scripts=on \\\n                        icon.font=\"FuraCode Nerd Font:Regular:10.0\" \\\n                        icon.color=0xffECEFF4 \\\n                        icon.highlight_color=0xffA3BE8C \\\n                        label.font=\"FuraCode Nerd Font:Regular:10.0\" \\\n                        label.color=0xffECEFF4\n\n############## SPACE DEFAULTS ##############\nsketchybar -m --default label.padding_left=0 \\\n                        label.padding_right=0 \\\n                        icon.padding_left=6 \\\n                        icon.padding_right=6\n\nsketchybar -m --add item logo left \\\n              --set logo icon=\uf302 \\\n                    background.color=0xffBF616A \\\n                    background.height=20 \\\n                    background.padding_right=0 \\\n                    click_script=\"sketchybar -m --update\"\n\n############## PRIMARY DISPLAY SPACES ##############\nsketchybar -m --add space productivity left \\\n              --set productivity associated_space=1 \\\n                         associated_display=1 \\\n                         icon=\uf5ee \\\n                         click_script=\"yabai -m space --focus 1\" \\\n                         background.color=0xffD8DEE9 \\\n                         background.drawing=off \\\n              --subscribe productivity mouse.entered mouse.exited \\\n                                                                 \\\n              --add space browser left \\\n              --set browser associated_display=1 \\\n                         associated_space=2 \\\n                         icon=\u7235 \\\n                         click_script=\"yabai -m space --focus 2\" \\\n                         background.color=0xffD8DEE9 \\\n                         background.drawing=off \\\n              --subscribe browser mouse.entered mouse.exited \\\n                                                                 \\\n              --add space messaging left \\\n              --set messaging associated_display=1 \\\n                         associated_space=3 \\\n                         icon=\uf086 \\\n                         click_script=\"yabai -m space --focus 3\" \\\n                         background.color=0xffD8DEE9 \\\n                         background.drawing=off \\\n              --subscribe messaging mouse.entered mouse.exited \\\n                                                                 \\\n              --add space reference left \\\n              --set reference associated_display=1 \\\n                         associated_space=4 \\\n                         icon=\uf401 \\\n                         click_script=\"yabai -m space --focus 4\" \\\n                         background.color=0xffD8DEE9 \\\n                         background.drawing=off \\\n              --subscribe reference mouse.entered mouse.exited \\\n                                                                 \\\n              --add space code left \\\n              --set code associated_display=1 \\\n                         associated_space=5 \\\n                         icon=\uf68c \\\n                         click_script=\"yabai -m space --focus 5\" \\\n                         background.color=0xffD8DEE9 \\\n                         background.drawing=off \\\n              --subscribe code mouse.entered mouse.exited \\\n                                                                 \\\n              --add space media left \\\n              --set media associated_display=1 \\\n                         associated_space=6 \\\n                         icon=\uf144 \\\n                         click_script=\"yabai -m space --focus 6\" \\\n                         background.color=0xffD8DEE9 \\\n                         background.drawing=off \\\n              --subscribe media mouse.entered mouse.exited \\\n                                                                 \\\n              --add space feed left \\\n              --set feed associated_display=1 \\\n                         associated_space=7 \\\n                         icon=\uf1ea \\\n                         click_script=\"yabai -m space --focus 7\" \\\n                         background.color=0xffD8DEE9 \\\n                         background.drawing=off \\\n              --subscribe feed mouse.entered mouse.exited \\\n                                                                 \\\n              --add space system left \\\n              --set system associated_display=1 \\\n                         associated_space=8 \\\n                         icon=\uf085 \\\n                         click_script=\"yabai -m space --focus 8\" \\\n                         background.color=0xffD8DEE9 \\\n                         background.drawing=off \\\n              --subscribe system mouse.entered mouse.exited \\\n                                                                 \\\n              --add space vm left \\\n              --set vm associated_display=1 \\\n                         associated_space=9 \\\n                         icon=\uf233 \\\n                         click_script=\"yabai -m space --focus 9\" \\\n                         background.color=0xffD8DEE9 \\\n                         background.drawing=off \\\n              --subscribe vm mouse.entered mouse.exited\n\nsketchybar -m --add item yabai_logo left \\\n              --set yabai_logo icon=\"\uf2b1\" \\\n                               background.color=0xffD08770 \\\n                               background.height=20 \\\n                               background.padding_left=5 \\\n                               icon.font=\"FuraCode Nerd Font:Regular:10.0\"\n\nsketchybar -m --add item yabai_mode left \\\n              --add event mode_change \\\n              --set yabai_mode update_freq=3 \\\n                               script=\"~/.config/sketchybar/plugins/yabai_mode.sh\" \\\n                               click_script=\"~/.config/sketchybar/plugins/yabai_mode_click.sh\" \\\n              --subscribe yabai_mode space_change mode_change\n\nsketchybar -m --add item yabai_float left \\\n              --add event window_focus \\\n              --add event float_change \\\n              --set yabai_float script=\"~/.config/sketchybar/plugins/yabai_float.sh\" \\\n                    click_script=\"~/.config/sketchybar/plugins/yabai_float_click.sh\" \\\n                    lazy=off \\\n              --subscribe yabai_float front_app_switched window_focus float_change \\\n\n############## ITEM DEFAULTS ###############\nsketchybar -m --default label.padding_left=0 \\\n                        icon.padding_right=3 \\\n                        icon.padding_left=6 \\\n                        label.padding_right=3\n\n############## RIGHT ITEMS ##############\n\nsketchybar -m --add item battery right \\\n              --set battery update_freq=3 \\\n                            script=\"~/.config/sketchybar/plugins/power.sh\" \\\n                            icon= \\\n                            background.color=0xff3B4252 \\\n                            background.height=20\n\nsketchybar -m --add item power_logo right \\\n              --set power_logo icon=\u23fb \\\n                    background.color=0xffB48EAD \\\n                    background.height=20 \\\n                    background.padding_left=5\n\nsketchybar -m --add item clock right \\\n              --set clock update_freq=1 \\\n                          script=\"~/.config/sketchybar/plugins/clock.sh\" \\\n                          background.color=0xff3B4252 \\\n                          background.height=20 \\\n\nsketchybar -m --add item clock_logo right\\\n              --set clock_logo icon=\uf455 \\\n                               background.color=0xff5E81AC \\\n                               background.height=20 \\\n                               background.padding_left=5\n\nsketchybar -m --add item brightness right \\\n              --set brightness script=\"~/.config/sketchybar/plugins/brightness.sh\" \\\n                               background.color=0xff3B4252 \\\n                               background.height=20 \\\n                               update_freq=1\n\nsketchybar -m --add item brightness_logo right \\\n              --set brightness_logo icon=\uf5df \\\n                                    background.color=0xffEBCB8B \\\n                                    background.height=20 \\\n                                    background.padding_left=5\n\nsketchybar -m --add item volume right \\\n              --set volume script=\"~/.config/sketchybar/plugins/volume.sh\" \\\n                           background.color=0xff3B4252 \\\n                           background.height=20 \\\n                           update_freq=1\n\nsketchybar -m --add item volume_logo right \\\n              --set volume_logo icon=\uf028 \\\n                        background.color=0xff81A1C1 \\\n                        background.height=20 \\\n                        background.padding_left=5\n\nsketchybar -m --add item net right \\\n              --set net script=\"~/.config/sketchybar/plugins/net.sh\" \\\n                                background.color=0xff3B4252 \\\n                                background.height=20\n\nsketchybar -m --add item net_logo right \\\n              --set net_logo icon=\uf20e \\\n                        background.color=0xffB48EAD \\\n                        background.height=20 \\\n                        background.padding_left=5\n\nsketchybar -m --add event bluetooth_change \"com.apple.bluetooth.status\" \\\n              --add item headphones right \\\n              --set headphones script=\"~/.config/sketchybar/plugins/airpods_battery.sh\" \\\n              --subscribe headphones bluetooth_change\n\nsketchybar -m --add item disk_label right \\\n              --set disk_label label.font=\"FuraCode Nerd Font:Regular:7.0\" \\\n                               label=SSD \\\n                               y_offset=5 \\\n                               width=0 \\\n\\\n              --add item disk_percentage right \\\n              --set disk_percentage label.font=\"FuraCode Nerd Font:Regular:7.0\" \\\n                                    y_offset=-4 \\\n                                    update_freq=1 \\\n                                    script=\"~/.config/sketchybar/plugins/disk.sh\"\n\nsketchybar -m --add item ram_label right \\\n              --set ram_label label.font=\"FuraCode Nerd Font:Regular:7.0\" \\\n                               label=RAM \\\n                               y_offset=5 \\\n                               width=0 \\\n\\\n              --add item ram_percentage right \\\n              --set ram_percentage label.font=\"FuraCode Nerd Font:Regular:7.0\" \\\n                                    y_offset=-4 \\\n                                    update_freq=1 \\\n                                    script=\"~/.config/sketchybar/plugins/ram.sh\"\n\nsketchybar -m --add item cpu_label right \\\n              --set cpu_label label.font=\"FuraCode Nerd Font:Regular:7.0\" \\\n                    label=CPU \\\n                    y_offset=5 \\\n                    width=0 \\\n\\\n              --add item cpu_percent right \\\n              --set cpu_percent label.font=\"FuraCode Nerd Font:Regular:7.0\" \\\n                    y_offset=-4 \\\n                    update_freq=1 \\\n                    script=\"~/.config/sketchybar/plugins/cpu.sh\"\n\nsketchybar -m --add item network_up right \\\n              --set network_up label.font=\"FuraCode Nerd Font:Regular:7.0\" \\\n                               icon.font=\"FuraCode Nerd Font:Regular:7.0\" \\\n                               icon= \\\n                               icon.highlight_color=0xff8b0a0d \\\n                               y_offset=5 \\\n                               width=0 \\\n                               update_freq=1 \\\n                               script=\"~/.config/sketchybar/plugins/network.sh\" \\\n\\\n              --add item network_down right \\\n              --set network_down label.font=\"FuraCode Nerd Font:Regular:7.0\" \\\n                                 icon.font=\"FuraCode Nerd Font:Regular:7.0\" \\\n                                 icon= \\\n                                 icon.highlight_color=0xff10528c \\\n                                 y_offset=-4 \\\n                                 update_freq=1\n\nsketchybar -m --add item stats_logo right \\\n              --set stats_logo icon=\uf85a \\\n                               icon.font=\"FuraCode Nerd Font:Regular:13.0\" \\\n                               background.color=0xffD08770 \\\n                               background.height=20\n\nsketchybar -m --add item vpn right \\\n              --set vpn icon=\uf49c \\\n                        icon.color=0xffA3BE8C \\\n                        update_freq=5 \\\n                        script=\"~/.config/sketchybar/plugins/vpn.sh\"\n\nsketchybar -m --add item weather right \\\n              --set weather update_freq=21600 \\\n                            script=\"~/.config/sketchybar/plugins/weather.sh\" \\\n                            click_script=\"open https://darksky.net/forecast/30.098,-95.454/us12/en\"\n\nsketchybar -m --add item packages right \\\n              --set packages update_freq=1800 \\\n                             script=\"~/.config/sketchybar/plugins/package_monitor.sh\" \\\n                             label=\uf021 \\\n                             lazy=off \\\n                             background.color=0xff3B4252 \\\n                             background.height=20\n\nsketchybar -m --add item messages right \\\n              --set messages update_freq=60 \\\n                             icon=\uf27b \\\n                             script=\"~/.config/sketchybar/plugins/messages.sh\" \\\n                             background.color=0xff3B4252 \\\n                             background.height=20\n\nsketchybar -m --add alias Hammerspoon right \\\n              --set Hammerspoon background.color=0xff3B4252 \\\n                                background.height=20\n\nsketchybar -m --add item misc_logo right \\\n              --set misc_logo icon=\ue7ba \\\n                               icon.font=\"FuraCode Nerd Font:Regular:13.0\" \\\n                               background.color=0xffA3BE8C \\\n                               background.height=20\n\nsketchybar -m --add event song_update com.apple.iTunes.playerInfo\nsketchybar -m --add item music_info left \\\n              --set music_info script=\"~/.config/sketchybar/plugins/music.sh\" \\\n                               click_script=\"~/.config/sketchybar/plugins/music_click.sh\" \\\n              --subscribe music_info song_update\n\n############## BRACKETS ##############\n sketchybar -m --add bracket primary_spaces productivity \\\n                                            browser \\\n                                            messaging \\\n                                            reference \\\n                                            code \\\n                                            media \\\n                                            feed \\\n                                            system \\\n                                            vm \\\n  \\\n               --set primary_spaces background.color=0xff3B4252 \\\n                                    background.corner_radius=0 \\\n                                    background.height=20\n\n sketchybar -m --add bracket yabai yabai_mode \\\n                                   yabai_float \\\n\\\n               --set yabai background.color=0xff3B4252 \\\n                           background.corner_radius=0 \\\n                           background.height=20\n\n sketchybar -m --add bracket stats headphones \\\n                                   disk_label \\\n                                   disk_percentage \\\n                                   ram_label \\\n                                   ram_percentage \\\n                                   cpu_label \\\n                                   cpu_percent \\\n                                   network_up \\\n                                   network_down \\\n\\\n               --set stats background.color=0xff3B4252 \\\n                           background.corner_radius=0 \\\n                           background.height=20 \\\n                           background.padding_left=5\n\n sketchybar -m --add bracket misc Hammerspoon \\\n                                  messages \\\n                                  packages \\\n                                  weather \\\n                                  vpn \\\n\\\n               --set misc background.color=0xff3B4252 \\\n                          background.height=20 \\\n                          background.padding_left=5 \\\n                          background.padding_right=0\n\n############## FINALIZING THE SETUP ##############\nsketchybar -m --update\n\necho \"sketchybar configuration loaded...\"\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/yabai_mode_click.sh": {
+      "path": "plugins/yabai_mode_click.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\n# Add mode changed event\n\ncase \"$(yabai -m query --spaces --display | jq -r 'map(select(.\"focused\" == 1))[-1].type')\" in\n    bsp)\n    yabai -m config layout stack && sketchybar -m --set yabai_mode label=\"\ufbc5\"\n    ;;\n    stack)\n    yabai -m config layout float && sketchybar -m --set yabai_mode label=\"\uf24d\"\n    ;;\n    float)\n    yabai -m config layout bsp && sketchybar -m --set yabai_mode label=\"\uf0db\"\n    ;;\nesac",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/volume.sh": {
+      "path": "plugins/volume.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "LABEL=$(osascript -e 'output volume of (get volume settings)')%\n\nsketchybar -m --set $NAME label=$LABEL",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/music.sh": {
+      "path": "plugins/music.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nAPP_STATE=$(pgrep -x Music)\nif [[ ! $APP_STATE ]]; then \n  sketchybar -m --set music_info drawing=on\n  exit 0\nfi\n\nPLAYER_STATE=$(osascript -e \"tell application \\\"Music\\\" to set playerState to (get player state) as text\")\nif [[ $PLAYER_STATE == \"stopped\" ]]; then\n  sketchybar -m --set music_info drawing=on\n  exit 0\nfi\n\nTITLE=$(osascript -e 'tell application \"Music\" to get name of current track')\nARTIST=$(osascript -e 'tell application \"Music\" to get artist of current track')\n# ALBUM=$(osascript -e 'tell application \"Music\" to get album of current track')\nLOVED=$(osascript -l JavaScript -e \"Application('Music').currentTrack().loved()\")\n\nif [[ $LOVED == \"true\" ]]; then\n  ICON=\uf004\nelse\n  [[ $PLAYER_STATE == \"paused\" ]] && ICON=\uf04c || ICON=\uf04b\nfi\n\nif [[ ${#TITLE} -gt 25 ]]; then\n  TITLE=$(printf \"$(echo $TITLE | cut -c 1-25)\u2026\")\nfi\n\nif [[ ${#ARTIST} -gt 25 ]]; then\n  ARTIST=$(printf \"$(echo $ARTIST | cut -c 1-25)\u2026\")\nfi\n\n# if [[ ${#ALBUM} -gt 25 ]]; then\n#   ALBUM=$(printf \"$(echo $ALBUM | cut -c 1-12)\u2026\")\n# fi\n\nsketchybar -m --set music_info icon=\"$ICON\" \\\n              --set music_info label=\"${TITLE} x ${ARTIST}\" \\\n              --set music_info drawing=off",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/network.sh": {
+      "path": "plugins/network.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\nUPDOWN=$(ifstat -i \"en0\" -b 0.1 1 | tail -n1)\nDOWN=$(echo $UPDOWN | awk \"{ print \\$1 }\" | cut -f1 -d \".\")\nUP=$(echo $UPDOWN | awk \"{ print \\$2 }\" | cut -f1 -d \".\")\n\nDOWN_FORMAT=\"\"\nif [ \"$DOWN\" -gt \"999\" ]; then\n  DOWN_FORMAT=$(echo $DOWN | awk '{ printf \"%03.0f Mbps\", $1 / 1000}')\nelse\n  DOWN_FORMAT=$(echo $DOWN | awk '{ printf \"%03.0f kbps\", $1}')\nfi\n\nUP_FORMAT=\"\"\nif [ \"$UP\" -gt \"999\" ]; then\n  UP_FORMAT=$(echo $UP | awk '{ printf \"%03.0f Mbps\", $1 / 1000}')\nelse\n  UP_FORMAT=$(echo $UP | awk '{ printf \"%03.0f kbps\", $1}')\nfi\n\nsketchybar -m --set network_down label=\"$DOWN_FORMAT\" icon.highlight=$(if [ \"$DOWN\" -gt \"0\" ]; then echo \"on\"; else echo \"off\"; fi) \\\n                    --set network_up label=\"$UP_FORMAT\" icon.highlight=$(if [ \"$UP\" -gt \"0\" ]; then echo \"on\"; else echo \"off\"; fi)",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/messages.sh": {
+      "path": "plugins/messages.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "TEXT=$(sqlite3 ~/Library/Messages/chat.db \"SELECT text FROM message WHERE is_read=0 AND is_from_me=0 AND text!='' AND date_read=0\" | wc -l | awk '{$1=$1};1')\n\nif [ $TEXT = 0 ]; then\n  sketchybar -m --set messages drawing=off\nelse\n  sketchybar -m --set messages drawing=on\n  sketchybar -m --set messages label=\"$TEXT\"\n  echo \"$TEXT\"\nfi",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/mailIndicator.sh": {
+      "path": "plugins/mailIndicator.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\nRUNNING=$(osascript -e 'if application \"Mail\" is running then return 0')\nCOUNT=0\n\nif [ $RUNNING == 0 ]; then\n  COUNT=$(osascript -e 'tell application \"Mail\" to return the unread count of inbox')\n  sketchybar -m --set $NAME label=\"$COUNT\"\nelse\n  sketchybar -m --set $NAME label=\uf12a\nfi\n\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/music_click.sh": {
+      "path": "plugins/music_click.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env osascript\n\ntell application \"Music\"\n    if loved of current track is true then\n        set loved of current track to false\n        do shell script \"sketchybar -m --set music_info icon=\uf7d3\"\n      else\n        set loved of current track to true\n        do shell script \"sketchybar -m --set music_info icon=\uf004\"\n    end if\nend tell\n\ndelay 1\n\ndo shell script \"sh $HOME/.config/sketchybar/plugins/music.sh\"\n\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/vpn.sh": {
+      "path": "plugins/vpn.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "VPN=$(scutil --nc list | grep Connected | sed -E 's/.*\"(.*)\".*/\\1/')\n\nif [[ $VPN != \"\" ]]; then\n  sketchybar -m --set vpn icon=\uf49c \\\n                          label=\"$VPN\" \\\n                          drawing=on\nelse\n  sketchybar -m --set vpn drawing=off\nfi",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/hide_bar.sh": {
+      "path": "plugins/hide_bar.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "if [[ $(yabai -m query --spaces --space | grep \"native-fullscreen\") == *\"0\"* ]]; then\n  sketchybar -m --bar hidden=off\nelse\n  sketchybar -m --bar hidden=on\nfi",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/yabai_float.sh": {
+      "path": "plugins/yabai_float.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\ncase \"$(yabai -m query --windows --window | jq .floating)\" in\n    0)\n    sketchybar -m --set yabai_float icon=\"\uf096\"\n    ;;\n    1)\n    sketchybar -m --set yabai_float icon=\"\uf24d\"\n    ;;\nesac\n\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/brightness.sh": {
+      "path": "plugins/brightness.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "LABEL=$(brightness -l | awk 'NR==2 {printf(\"%02.0f\", $4*100)}')%\n\nsketchybar -m --set $NAME label=$LABEL",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/spotifyIndicator.sh": {
+      "path": "plugins/spotifyIndicator.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\nRUNNING=$(osascript -e 'if application \"Spotify\" is running then return 0')\nif [ \"$RUNNING\" == \"\" ]; then\n  RUNNING=1\nfi\nPLAYING=1\nTRACK=\"\"\nALBUM=\"\"\nARTIST=\"\"\nif [ \"$(osascript -e 'if application \"Spotify\" is running then tell application \"Spotify\" to get player state')\" == \"playing\" ]; then\n  PLAYING=0\n  TRACK=$(osascript -e 'tell application \"Spotify\" to get name of current track')\n  ARTIST=$(osascript -e 'tell application \"Spotify\" to get artist of current track')\n  ALBUM=$(osascript -e 'tell application \"Spotify\" to get album of current track')\nfi\nif [ $RUNNING -eq 0 ] && [ $PLAYING -eq 0 ]; then\n  if [ \"$ARTIST\" == \"\" ]; then\n    sketchybar -m --set $NAME label=\"\uf2ce $TRACK \uf444 $ALBUM\"\n  else\n    sketchybar -m --set $NAME label=\"\uf886 $TRACK \uf444 $ARTIST\"\n  fi\nelse\n  sketchybar -m --set $NAME label=\"\"\nfi\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/yabai_float_click.sh": {
+      "path": "plugins/yabai_float_click.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\nyabai -m window --toggle float\nsketchybar -m --trigger float_change",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/airpods_battery.sh": {
+      "path": "plugins/airpods_battery.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "DEVICES=\"$(system_profiler SPBluetoothDataType -json -detailLevel basic 2>/dev/null | jq '.SPBluetoothDataType' | jq '.[0]' | jq '.device_title' | jq -r '.[] | keys[] as $k | \"\\($k) \\(.[$k] | .device_isconnected) \\(.[$k] | .device_minorClassOfDevice_string)\"' | grep 'attrib_Yes' | grep 'Headphones')\"\n\nif [ \"$DEVICES\" = \"\" ]; then\n  sketchybar -m --set $NAME drawing=off\nelse\n  sketchybar -m --set $NAME drawing=on\n  # Left\n  LEFT=\"$(defaults read /Library/Preferences/com.apple.Bluetooth | grep BatteryPercentLeft | tr -d \\; | awk '{ printf(\"%02d\", $3) }')\"%\n\n  # Right\n  RIGHT=\"$(defaults read /Library/Preferences/com.apple.Bluetooth | grep BatteryPercentRight | tr -d \\; | awk '{ printf(\"%02d\", $3) }')\"%\n\n  # Case\n  CASE=\"$(defaults read /Library/Preferences/com.apple.Bluetooth | grep BatteryPercentCase | tr -d \\; | awk '{ printf(\"%02d\", $3) }')\"%\n\n  echo $CASE\n\n  if [ $LEFT = 00% ]; then\n    LEFT=\"-\"\n  fi\n\n  if [ $RIGHT = 00% ]; then\n    RIGHT=\"-\"\n  fi\n\n  if [ $CASE = 00% ]; then\n    CASE=\"-\"\n  fi\n  \n  sketchybar -m --set $NAME label=\"$LEFT $CASE $RIGHT\"\n  echo \"$LEFT $CASE $RIGHT\"\nfi",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/topproc.sh": {
+      "path": "plugins/topproc.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\nTOPPROC=$(ps axo \"%cpu,ucomm\" | sort -nr | tail +1 | head -n1 | awk '{printf \"%.0f%% %s\\n\", $1, $2}' | sed -e 's/com.apple.//g')\nCPUP=$(echo $TOPPROC | sed -nr 's/([^\\%]+).*/\\1/p')\n\nif [ $CPUP -gt 75 ]; then\n  sketchybar -m --set $NAME label=\"\uf962 $TOPPROC\"\nelse\n  sketchybar -m --set $NAME label=\"\"\nfi\n\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/dndIndicator.sh": {
+      "path": "plugins/dndIndicator.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\n# Thanks to reddit:rudypaul\nBIN_DIR=\"/usr/bin\"\n\nPLUTIL=\"${BIN_DIR}/plutil\"\nXPATH=\"${BIN_DIR}/xpath\"\nBASE64=\"${BIN_DIR}/base64\"\n\ndnd_enabled=$(\n    \"${PLUTIL}\" -extract dnd_prefs xml1 -o - ~/Library/Preferences/com.apple.ncprefs.plist |\n        \"${XPATH}\" -q -e 'string(//data)' |\n        \"${BASE64}\" -D |\n        \"${PLUTIL}\" -convert xml1 - -o - |\n        \"${XPATH}\" -q -e 'boolean(//key[text()=\"userPref\"]/following-sibling::dict/key[text()=\"enabled\"])'\n)\n\nif [ $dnd_enabled -eq 1 ]; then\n    sketchybar -m --set $NAME drawing=on\nelse\n    sketchybar -m --set $NAME drawing=off\nfi\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/yabai_mode.sh": {
+      "path": "plugins/yabai_mode.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\ncase \"$(yabai -m query --spaces --display | jq -r 'map(select(.\"focused\" == 1))[-1].type')\" in\n    bsp)\n    sketchybar -m --set yabai_mode icon=\"\uf0db\"\n    ;;\n    stack)\n    sketchybar -m --set yabai_mode icon=\"\ufbc5\"\n    ;;\n    float)\n    sketchybar -m --set yabai_mode icon=\"\uf24d\"\n    ;;\nesac",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/space.sh": {
+      "path": "plugins/space.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\nupdate() {\nif [ \"$SELECTED\" = \"true\" ]; then\n  sketchybar -m --set $NAME label.highlight=on icon.highlight=on background.drawing=on\nelse\n  sketchybar -m --set $NAME label.highlight=off icon.highlight=off background.drawing=off\nfi\n}\n\nmouse_entered() {\n  sketchybar -m --set $NAME icon.highlight=on \\\n                            label.highlight=on\n}\n\nmouse_exited() {\n  sketchybar -m --set $NAME icon.highlight=off \\\n                            label.highlight=off\n}\n\ncase \"$SENDER\" in\n  \"mouse.entered\") mouse_entered\n  ;;\n  \"mouse.exited\") mouse_exited\n  ;;\n  *) update \n  ;;\nesac",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/ram.sh": {
+      "path": "plugins/ram.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "sketchybar -m --set ram_percentage label=$(memory_pressure | grep \"System-wide memory free percentage:\" | awk '{ printf(\"%02.0f\\n\", 100-$5\"%\") }')%",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/package_monitor.sh": {
+      "path": "plugins/package_monitor.sh",
+      "language": "bash",
+      "dependencies": [
+        "if [[ -x \"$(command -v brew)\" ]] && [[ $USE == *\"brew\"* ]]; then",
+        "brewLIST=$(brew outdated)",
+        "If so, it sets the outdated packages list to zero, if not, sets it to the line count of the list.",
+        "if [[ -x \"$(command -v pip3)\" ]] && [[ $USE == *\"pip3\"* ]]; then",
+        "pipLIST=$(pip3 list --outdated)",
+        "If so, it sets the outdated packages list to zero, if not, sets it to the line count of the list.",
+        "if [[ -x \"$(command -v npm)\" ]] && [[ $USE == *\"npm\"* ]]; then",
+        "npmLIST=$(npm outdated)",
+        "If so, it sets the outdated packages list to zero, if not, sets it to the line count of the list.",
+        "if [[ -x \"$(command -v yarn)\" ]] && [[ $USE == *\"yarn\"* ]]; then",
+        "yarnLIST=$(yarn outdated)",
+        "If so, it sets the outdated packages list to zero, if not, sets it to the line count of the list.",
+        "if [[ -x \"$(command -v apm)\" ]] && [[ $USE == *\"apm\"* ]]; then",
+        "apmLIST=\"$(apm outdated)\"",
+        "If so, it sets the outdated packages list to zero, if not, sets it to the line count of the list.",
+        "if [[ -x \"$(command -v gem)\" ]] && [[ $USE == *\"gem\"* ]]; then",
+        "gemLIST=$(gem outdated)",
+        "If so, it sets the outdated packages list to zero, if not, sets it to the line count of the list.",
+        "if [[ -x \"$(command -v mas)\" ]] && [[ $USE == *\"mas\"* ]]; then",
+        "masLIST=$(mas outdated)",
+        "If so, it sets the outdated packages list to zero, if not, sets it to the line count of the list.",
+        "Feel free to customize. Default: \uf8d6",
+        "Change to `ZERO=\"\"` if you want the widget to be invisible when no packages are out of date. Default: \u2714\ufe0e"
+      ],
+      "content": "# specify the package managers you want the program to use\n# valid manager names \"brew\" \"npm\" \"yarn\" \"apm\" \"mas\" \"pip\" and \"gem\"\nUSE='brew pip'\n\n# Checks to see if the brew command is avaliable and the package manager is in the enabled list above.\nif [[ -x \"$(command -v brew)\" ]] && [[ $USE == *\"brew\"* ]]; then\n\n  #brew update &> /dev/null\n\n  # runs the outdated command and stores the output as a list variable.\n  brewLIST=$(brew outdated)\n\n  # checks to see if the returned list is empty. If so, it sets the outdated packages list to zero, if not, sets it to the line count of the list.\n  if [[ $brewLIST == \"\" ]]; then\n    BREW='0'\n    brewLIST=\"\"\n  else\n    BREW=$(echo \"$brewLIST\" | wc -l)\n  fi\n\nfi\n\n# Checks to see if the pip command is avaliable and the package manager is in the enabled list above.\nif [[ -x \"$(command -v pip3)\" ]] && [[ $USE == *\"pip3\"* ]]; then\n\n  # runs the outdated command and stores the output as a list variable.\n  pipLIST=$(pip3 list --outdated)\n  tempPIP=$(echo \"$pipLIST\" | wc -l)\n\n  # checks to see if the returned list is empty. If so, it sets the outdated packages list to zero, if not, sets it to the line count of the list.\n  if [[ $tempPIP -gt 1 ]]; then\n    PIP=$(($tempPIP - 2))\n  else\n    PIP=\"0\"\n    pipLIST=\"\"\n  fi\n\nfi\n\n# Checks to see if the npm command is avaliable and the package manager is in the enabled list above.\nif [[ -x \"$(command -v npm)\" ]] && [[ $USE == *\"npm\"* ]]; then\n\n  npm update &> /dev/null\n\n  # runs the outdated command and stores the output as a list variable.\n  npmLIST=$(npm outdated)\n\n  # checks to see if the returned list is empty. If so, it sets the outdated packages list to zero, if not, sets it to the line count of the list.\n  if [[ $npmLIST == \"\" ]]; then\n    NPM='0'\n    npmLIST=\"\"\n  else\n    NPM=$(echo \"npmLIST\" | wc -l)\n  fi\n\nfi\n\n# Checks to see if the yarn command is avaliable and the package manager is in the enabled list above.\nif [[ -x \"$(command -v yarn)\" ]] && [[ $USE == *\"yarn\"* ]]; then\n\n  # runs the outdated command and stores the output as a list variable.\n  yarnLIST=$(yarn outdated)\n\n  # checks to see if the returned list is empty. If so, it sets the outdated packages list to zero, if not, sets it to the line count of the list.\n  if [[ $yarnLIST == \"\" ]]; then\n    YARN='0'\n    yarnLIST=\"\"\n  else\n    YARN=$(echo \"$yarnLIST\" | wc -l)\n  fi\n\nfi\n\n# Checks to see if the apm command is avaliable and the package manager is in the enabled list above.\nif [[ -x \"$(command -v apm)\" ]] && [[ $USE == *\"apm\"* ]]; then\n\n  apm update &> /dev/null\n\n  # runs the outdated command and stores the output as a list variable.\n  apmLIST=\"$(apm outdated)\"\n\n  # checks to see if the returned list is empty. If so, it sets the outdated packages list to zero, if not, sets it to the line count of the list.\n  if [[ $apmLIST == *\"empty\"* ]]; then\n    APM='0'\n    apmLIST=\"\"\n  else\n  tempAPM=$(echo \"$apmLIST\" | wc -l)\n  APM=$((tempAPM - 1))\n  fi\n\nfi\n\n# Checks to see if the gem command is avaliable and the package manager is in the enabled list above.\nif [[ -x \"$(command -v gem)\" ]] && [[ $USE == *\"gem\"* ]]; then\n\n  # runs the outdated command and stores the output as a list variable.\n  gemLIST=$(gem outdated)\n\n  # checks to see if the returned list is empty. If so, it sets the outdated packages list to zero, if not, sets it to the line count of the list.\n  if [[ $gemLIST == \"\" ]]; then\n    GEM='0'\n    gemLIST=\"\"\n  else\n    GEM=$(echo \"$gemLIST\" | wc -l)\n  fi\n\nfi\n\n# Checks to see if the mas command is avaliable and the package manager is in the enabled list above.\nif [[ -x \"$(command -v mas)\" ]] && [[ $USE == *\"mas\"* ]]; then\n\n  # runs the outdated command and stores the output as a list variable.\n  masLIST=$(mas outdated)\n\n  # checks to see if the returned list is empty. If so, it sets the outdated packages list to zero, if not, sets it to the line count of the list.\n  if [[ $masLIST == \"\" ]]; then\n    MAS='0'\n    masLIST=\"\"\n  else\n    MAS=$(echo \"$masLIST\" | wc -l)\n  fi\n\nfi\n\nDEFAULT=\"0\"\n\n# sum of all outdated packages\nSUM=$(( ${BREW:-DEFAULT} + ${CASK:-DEFAULT} + ${PIP:-DEFAULT} + ${NPM:-DEFAULT} + ${YARN:-DEFAULT} + ${APM:-DEFAULT} + ${GEM:-DEFAULT} + ${MAS:-DEFAULT} ))\n\n# icon to be displayed next to number of outdated packages. Feel free to customize. Default: \uf8d6\nNONZERO=\"\uf8d6\"\n\n# icon to be displayed if no packages are outdated. Change to `ZERO=\"\"` if you want the widget to be invisible when no packages are out of date. Default: \u2714\ufe0e\nZERO=\"\u2714\ufe0e\"\n\nif [[ $SUM -gt 0 ]]; then\n  sketchybar -m --set $NAME label=\"$SUM\" \\\n                          icon=\"$NONZERO\"\nelse\n  sketchybar -m --set $NAME drawing=off\nfi\n\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/cpu_graph.sh": {
+      "path": "plugins/cpu_graph.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\nCORE_COUNT=$(sysctl -n machdep.cpu.thread_count)\nCPU_INFO=$(ps -eo pcpu,user)\nCPU_SYS=$(echo \"$CPU_INFO\" | grep -v $(whoami) | sed \"s/[^ 0-9\\.]//g\" | awk \"{sum+=\\$1} END {print sum/(100.0 * $CORE_COUNT)}\")\nCPU_USER=$(echo \"$CPU_INFO\" | grep $(whoami) | sed \"s/[^ 0-9\\.]//g\" | awk \"{sum+=\\$1} END {print sum/(100.0 * $CORE_COUNT)}\")\n\nsketchybar -m --push cpu_sys $CPU_SYS \\\n              --push cpu_user $CPU_USER\n \n\n\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/topmem.sh": {
+      "path": "plugins/topmem.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\nTOPMEM=$(ps axo \"rss,ucomm\" | sort -nr | tail +1 | head -n1 | awk '{printf \"%.0fMB %s\\n\", $1 / 1024, $2}' | sed -e 's/com.apple.//g')\nMEM=$(echo $TOPMEM | sed -nr 's/([^MB]+).*/\\1/p')\n\nif [ $MEM -gt 2048 ]; then\n  sketchybar -m --set $NAME label=\"\ue257 $TOPMEM\"\nelse\n  sketchybar -m --set $NAME label=\"\"\nfi\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/power.sh": {
+      "path": "plugins/power.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nBATT_PERCENT=$(pmset -g batt | grep -Eo \"\\d+%\" | cut -d% -f1)\nCHARGING=$(pmset -g batt | grep 'AC Power')\n\nif [[ $CHARGING != \"\" ]]; then\n  sketchybar -m --set battery \\\n    icon.color=0xFFEBCB8B \\\n    icon= \\\n    label=$(printf \"${BATT_PERCENT}%%\")\n  exit 0\nfi\n\n[[ ${BATT_PERCENT} -gt 10 ]] && COLOR=0xFF${color5:1} || COLOR=0xFFFF0000\n\ncase ${BATT_PERCENT} in\n   100) ICON=\"\uf578\" ;;\n    9[0-9]) ICON=\"\uf578\" ;;\n    8[0-9]) ICON=\"\uf581\" ;;\n    7[0-9]) ICON=\"\uf580\" ;;\n    6[0-9]) ICON=\"\uf57f\" ;;\n    5[0-9]) ICON=\"\uf57e\" ;;\n    4[0-9]) ICON=\"\uf57d\" ;;\n    3[0-9]) ICON=\"\uf57c\" ;;\n    2[0-9]) ICON=\"\uf57b\" ;;\n    1[0-9]) ICON=\"\uf57a\" ;;\n    *) ICON=\"\uf579\"\nesac\n\nsketchybar -m --set battery\\\n  icon.color=$COLOR \\\n  icon= \\\n  label=$(printf \"${BATT_PERCENT}%%\")\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/disk.sh": {
+      "path": "plugins/disk.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "sketchybar -m --set disk_percentage label=$(df -lh | grep /dev/disk1s2 | awk '{ printf (\"%02.0f\\n\", $5) }')%",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/network_graph.sh": {
+      "path": "plugins/network_graph.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\nMAX_DOWN=110000\nMAX_UP=45000\nUPDOWN=$(ifstat -i \"en0\" -b 0.1 1 | tail -n1)\nDOWN=$(echo $UPDOWN | awk \"{ print \\$1 }\" | cut -f1 -d \".\")\nUP=$(echo $UPDOWN | awk \"{ print \\$2 }\" | cut -f1 -d \".\")\n\nsketchybar -m --push network_down $(echo $UPDOWN | awk \"{ print \\$1 / (1.0 * $MAX_DOWN) }\")\n              --push network_up $(echo $UPDOWN | awk \"{ print \\$2 / (1.0 * $MAX_UP) }\")\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/clock.sh": {
+      "path": "plugins/clock.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\nsketchybar -m --set $NAME label=\"$(date '++Y%Y-%m-%d-W%W-0%u-T%H:%M:%S%z')\"\n# sketchybar -m --set $NAME label=\"$(date '+%d/%m %H:%M')\"\n\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/cpu.sh": {
+      "path": "plugins/cpu.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\nCORE_COUNT=$(sysctl -n machdep.cpu.thread_count)\nCPU_INFO=$(ps -eo pcpu,user)\nCPU_SYS=$(echo \"$CPU_INFO\" | grep -v $(whoami) | sed \"s/[^ 0-9\\.]//g\" | awk \"{sum+=\\$1} END {print sum/(100.0 * $CORE_COUNT)}\")\nCPU_USER=$(echo \"$CPU_INFO\" | grep $(whoami) | sed \"s/[^ 0-9\\.]//g\" | awk \"{sum+=\\$1} END {print sum/(100.0 * $CORE_COUNT)}\")\n\nsketchybar -m --set  cpu_percent label=$(echo \"$CPU_SYS $CPU_USER\" | awk '{ printf(\"%02.0f\\n\", ($1 + $2)*100) }')%",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/net.sh": {
+      "path": "plugins/net.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "LABEL=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk 'NR==13 {print $2}')\n\nsketchybar -m --set $NAME label=$LABEL",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/gitNotifications.sh": {
+      "path": "plugins/gitNotifications.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\nNOTIFICATIONS=\"$(gh api notifications | jq '.[]')\"\n\nif [ \"$NOTIFICATIONS\" = \"\" ]; then\n  sketchybar -m --set $NAME icon=\uf59b\nelse\n  sketchybar -m --set $NAME icon=\uf59d\nfi\n\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/test.sh": {
+      "path": "plugins/test.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/githubIndicator.sh": {
+      "path": "plugins/githubIndicator.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\nCOUNT=0\nCOUNT=$(curl https://github.com/users/FelixKratz/contributions | grep $(date '+%Y-%m-%d') | sed -nr 's/.*data-count=\\\"([^\"]+).*/\\1/p')\n\necho $COUNT\nif [ $COUNT -gt 0 ]; then\n  sketchybar -m --set $NAME icon.color=0xff48aa2a label.padding_left=4 label=\"$COUNT\"\nelse\n  sketchybar -m --set $NAME icon.color=0xaaffffff label.padding_left=0 label=\"\"\nfi\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/weather.sh": {
+      "path": "plugins/weather.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\nWEATHER=\"$(curl -s 'wttr.in/Spring?format=%c%f')\"\nLABEL=\"$(echo \"${WEATHER:3:-1}\")\"\nICON=\"$(echo \"${WEATHER:0:1}\")\"\n\necho $LABEL\necho $ICON\n\nsketchybar -m --set $NAME label=$LABEL\n\n",
+      "purpose": "",
+      "content_summary": ""
+    },
+    "plugins/io_speed.sh": {
+      "path": "plugins/io_speed.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "sketchybar -m --set io_speed label=$(iostat | awk 'NR == 3 { printf(\"%02.02f MB/s\", $6) }')",
+      "purpose": "",
+      "content_summary": ""
+    }
+  }
+}
