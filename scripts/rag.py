@@ -51,12 +51,14 @@ def vectorise_configs(path):
 
     vectorstore = Chroma.from_documents(documents, embeddings, persist_directory="/Users/krishiv/Desktop/Projects/config-assistant/data/vector_store")
 
-    vectorstore.persist()
+    return vectorstore
     print(f"[+] Stored {len(documents)} documents in vectorstore")
 
 def main():
     PATH = Path("/Users/krishiv/Desktop/Projects/config-assistant/data/configs/annotated_json")
-    vectorise_configs(PATH)
+    vectorstore = vectorise_configs(PATH)
+    vectorstore.persist()
+    retriever = vectorstore.as_retriever()
 
 if __name__ == '__main__':
     main()
