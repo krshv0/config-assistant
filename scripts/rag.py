@@ -22,7 +22,7 @@ llm = ChatTogether(
     temperature=0
 )
 
-def vectorise(path):
+def vectorise_configs(path):
 
     documents = []
 
@@ -56,7 +56,7 @@ def vectorise(path):
 
 def main():
     PATH = Path("/Users/krishiv/Desktop/Projects/config-assistant/data/configs/annotated_json")
-    vectorise(PATH)
+    vectorise_configs(PATH)
 
 if __name__ == '__main__':
     main()
