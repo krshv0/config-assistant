@@ -1,0 +1,180 @@
+{
+  "page": "config/types",
+  "url": "https://felixkratz.github.io/SketchyBar/config/types",
+  "sections": [
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Features",
+        "Setup",
+        "ConfigurationBar PropertiesItem PropertiesSpecial ComponentsPopup MenusEvents & ScriptingQuerying InformationAnimationsType NomenclatureReloading the configurationTips & Tricks",
+        "Bar Properties",
+        "Item Properties",
+        "Special Components",
+        "Popup Menus",
+        "Events & Scripting",
+        "Querying Information",
+        "Animations",
+        "Type Nomenclature",
+        "Reloading the configuration",
+        "Tips & Tricks",
+        "Credits"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Bar Properties",
+        "Item Properties",
+        "Special Components",
+        "Popup Menus",
+        "Events & Scripting",
+        "Querying Information",
+        "Animations",
+        "Type Nomenclature",
+        "Reloading the configuration",
+        "Tips & Tricks"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "",
+        "Configuration",
+        "Type Nomenclature"
+      ]
+    },
+    {
+      "type": "header",
+      "level": "h1",
+      "content": "Type Nomenclature"
+    },
+    {
+      "type": "header",
+      "level": "h2",
+      "content": "Type nomenclature​"
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Further<boolean>operations​"
+    },
+    {
+      "type": "paragraph",
+      "content": "All<boolean>properties can be negated with an exclamation mark, e.g.!on."
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Further<argb_hex>operations​"
+    },
+    {
+      "type": "paragraph",
+      "content": "All colors (i.e. all fields where the value type is<argb_hex>) can\nadditionally be accessed to change specific channels like this:"
+    },
+    {
+      "type": "paragraph",
+      "content": "So for example, if I want to only change the alpha channel of the bars color I would use"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Type nomenclatureFurther<boolean>operationsFurther<argb_hex>operations",
+        "Further<boolean>operations",
+        "Further<argb_hex>operations"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Further<boolean>operations",
+        "Further<argb_hex>operations"
+      ]
+    },
+    {
+      "type": "table",
+      "headers": [
+        "type",
+        "values"
+      ],
+      "rows": [
+        {
+          "type": "<boolean>",
+          "values": "on,off,yes,no,true,false,1,0,toggle"
+        },
+        {
+          "type": "<argb_hex>",
+          "values": "Color as an 8 digit hex with alpha, red, green and blue channels"
+        },
+        {
+          "type": "<path>",
+          "values": "An absolute file path"
+        },
+        {
+          "type": "<string>",
+          "values": "Any UTF-8 string or symbol"
+        },
+        {
+          "type": "<float>",
+          "values": "A floating point number"
+        },
+        {
+          "type": "<integer>",
+          "values": "An integer"
+        },
+        {
+          "type": "<positive_integer>",
+          "values": "A positive integer"
+        },
+        {
+          "type": "<positive_integer list>",
+          "values": "A comma separated list of positive integers"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "headers": [
+        "<color_property>",
+        "<value>",
+        "default",
+        "description"
+      ],
+      "rows": [
+        {
+          "<color_property>": "alpha",
+          "<value>": "<float>",
+          "default": "1.0",
+          "description": "The alpha channel of the color (0 to 1)"
+        },
+        {
+          "<color_property>": "red",
+          "<value>": "<float>",
+          "default": "1.0",
+          "description": "The red channel of the color (0 to 1)"
+        },
+        {
+          "<color_property>": "green",
+          "<value>": "<float>",
+          "default": "1.0",
+          "description": "The green channel of the color (0 to 1)"
+        },
+        {
+          "<color_property>": "blue",
+          "<value>": "<float>",
+          "default": "1.0",
+          "description": "The blue channel of the color (0 to 1)"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --bar color.alpha=0.5"
+    }
+  ]
+}

@@ -1,0 +1,237 @@
+{
+  "page": "setup",
+  "url": "https://felixkratz.github.io/SketchyBar/setup",
+  "sections": [
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Features",
+        "Setup",
+        "Configuration",
+        "Credits"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "",
+        "Setup"
+      ]
+    },
+    {
+      "type": "header",
+      "level": "h1",
+      "content": "Setup"
+    },
+    {
+      "type": "header",
+      "level": "h2",
+      "content": "Installation​"
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Prerequisite​"
+    },
+    {
+      "type": "paragraph",
+      "content": "SketchyBar will only work properly with the system setting \"Displays have\nseparate Spaces\" turned on (the default setting). The option is located\ninSystem Settings->Desktop & Dock->Displays have separate Spaces."
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Brew Install​"
+    },
+    {
+      "type": "paragraph",
+      "content": "Copy the example configuration and make it executable:"
+    },
+    {
+      "type": "paragraph",
+      "content": "The default configuration is intentionally sparse, so if you are looking for something more sophisticated as a starting point, you might want to look atthis discussion."
+    },
+    {
+      "type": "paragraph",
+      "content": "Run the bar automatically at startup:"
+    },
+    {
+      "type": "paragraph",
+      "content": "or in the command line with verbose output:"
+    },
+    {
+      "type": "paragraph",
+      "content": "It is possible to run sketchybar with a custom config file path (i.e. something\nelse than$HOME/.config/sketchybar/sketchybarrc) via:"
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Fonts​"
+    },
+    {
+      "type": "paragraph",
+      "content": "The default sketchybar font is the Hack Nerd Font:"
+    },
+    {
+      "type": "paragraph",
+      "content": "if you experience missing icons you might need to install it. Any font\nof your liking can be used in sketchybar."
+    },
+    {
+      "type": "paragraph",
+      "content": "If you want to load fonts from a non standard directory, you can use"
+    },
+    {
+      "type": "paragraph",
+      "content": "to load a font file from any<path>."
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Plugins​"
+    },
+    {
+      "type": "paragraph",
+      "content": "When you use/create additional plugins, make sure that they are made executable via"
+    },
+    {
+      "type": "paragraph",
+      "content": "If you run sketchybar from the command line directly with the commandsketchybaryou will see\nall outputs and error messages from your scripts."
+    },
+    {
+      "type": "paragraph",
+      "content": "The default plugin folder is located in~/.config/sketchybar/plugins.\nPlugins need to be referenced with absolute paths because relative paths will not be resolved correctly.\nHave a look at thediscussionfor plugins and share your own if you want to.\nYou should of course vet the code from all plugins before executing them to make sure they are not harming your computer."
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Hiding the original macOS bar​"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "(Pre macOS Ventura) Hide the default macOS menu bar inSystem Preferences->Dock & Menu Bar:",
+        "(macOS Ventura) Hide the default macOS menu bar inSystem Settings->Desktop & Dock->Automatically hide and show the menu bar->Always:",
+        "(macOS Sonoma) Hide the default macOS menu bar inSystem Settings->Control Center->Automatically hide and show the menu bar->Always:"
+      ]
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Compile from source​"
+    },
+    {
+      "type": "paragraph",
+      "content": "It is easy to compile the project from source:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Install Xcode commandline tools:"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Clone the repository:"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "In the sketchybar folder run:"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "This will generate a universal binary with arm64 and x86 instructions. It is\npossible to generate an arm64/x86 only binary viamake arm64ormake x86.\nCompiling on older macOS (pre Big Sur) versions should always be done viamake x86."
+    },
+    {
+      "type": "header",
+      "level": "h2",
+      "content": "Uninstall​"
+    },
+    {
+      "type": "paragraph",
+      "content": "Uninstall viabrew:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "InstallationPrerequisiteBrew InstallFontsPluginsHiding the original macOS barCompile from source",
+        "Prerequisite",
+        "Brew Install",
+        "Fonts",
+        "Plugins",
+        "Hiding the original macOS bar",
+        "Compile from source",
+        "Uninstall"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Prerequisite",
+        "Brew Install",
+        "Fonts",
+        "Plugins",
+        "Hiding the original macOS bar",
+        "Compile from source"
+      ]
+    },
+    {
+      "type": "code",
+      "content": "brew tap FelixKratz/formulaebrewinstallsketchybar"
+    },
+    {
+      "type": "code",
+      "content": "mkdir-p ~/.config/sketchybar/pluginscp$(brew --prefix)/share/sketchybar/examples/sketchybarrc ~/.config/sketchybar/sketchybarrccp-r$(brew --prefix)/share/sketchybar/examples/plugins/ ~/.config/sketchybar/plugins/"
+    },
+    {
+      "type": "code",
+      "content": "brew services start sketchybar"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --config<path>"
+    },
+    {
+      "type": "code",
+      "content": "brewinstall--cask font-hack-nerd-font"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --load-font<path>"
+    },
+    {
+      "type": "code",
+      "content": "chmod+x name/of/plugin.sh"
+    },
+    {
+      "type": "code",
+      "content": "xcode-select --install"
+    },
+    {
+      "type": "code",
+      "content": "gitclone https://github.com/FelixKratz/SketchyBar.git"
+    },
+    {
+      "type": "code",
+      "content": "make"
+    },
+    {
+      "type": "code",
+      "content": "brew uninstall sketchybarbrew untap FelixKratz/formulae"
+    }
+  ]
+}

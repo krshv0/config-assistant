@@ -1,0 +1,389 @@
+{
+  "repo_name": "Carbyn",
+  "structure": {
+    "settings.sh": {
+      "path": "settings.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/colors.sh\" # Loads all defined colors",
+        "# For example: https://weathernew.pae.baidu.com/weathernew/pc?query=\u676d\u5dde\u897f\u6e56\u5929\u6c14&srcid=4982&forecast=long_day_forecast"
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/colors.sh\" # Loads all defined colors\n\nFONT=\"JetBrainsMono Nerd Font\" # Nerd font is preferred\nPADDINGS=4                     # All paddings use this value (icon, label, background)\n\nTHEME=\"dark\" # light|dark\nAUTO_SWITCH_THEME=on\nLIGHT_START_TIME=\"06:00\"\nLIGHT_END_TIME=\"15:00\"\n\nLIGHT_WALLPAPER=$(realpath ~/Pictures/bg/light.jpg)\nDARK_WALLPAPER=$(realpath ~/Pictures/bg/dark.jpg)\n\nVPN_NAME=\"Shadowrocket\"\n\n# Ensure that the query and srcid parameters lead to a valid, existing page.\n# For example: https://weathernew.pae.baidu.com/weathernew/pc?query=\u676d\u5dde\u897f\u6e56\u5929\u6c14&srcid=4982&forecast=long_day_forecast\nWEATHER_BAIDU_QUERY=\"\u676d\u5dde\u897f\u6e56\u5929\u6c14\"\nWEATHER_BAIDU_SRCID=\"4982\"\n\n# To find your city\u2019s station ID, visit: https://www.nmc.cn/publish/forecast.html\nWEATHER_NMC_STATIONID=\"HIieJ\"\n\nWEATHER_METEO_LATITUDE=30.2416\nWEATHER_METEO_LONGITUDE=120.1189\n\nis_dark_mode() {\n    if [[ \"$THEME\" == \"dark\" ]]; then\n        return 0\n    else\n        return 1\n    fi\n}\n\n# General bar colors\nif is_dark_mode; then\n    BAR_COLOR=$TRANSPARENT\n    BAR_BORDER_COLOR=$TRANSPARENT\n    ICON_COLOR=$WHITE\n    LABEL_COLOR=$WHITE\n    HIGHLIGHT_COLOR=$GREY\n    POPUP_BACKGROUND_COLOR=$BG3\n    POPUP_BORDER_COLOR=$WHITE\n    BACKGROUND_COLOR=$BG0\n    BACKGROUND_BORDER_COLOR=$BG2\nelse\n    BAR_COLOR=$TRANSPARENT1\n    BAR_BORDER_COLOR=$TRANSPARENT1\n    ICON_COLOR=$BLACK\n    LABEL_COLOR=$BLACK\n    HIGHLIGHT_COLOR=$BLACK\n    POPUP_BACKGROUND_COLOR=$BG3\n    POPUP_BORDER_COLOR=$BLACK\n    BACKGROUND_COLOR=$BG0\n    BACKGROUND_BORDER_COLOR=$BG2\nfi\n\nbar=(\n    position=top\n    topmost=window\n    sticky=off\n    height=24\n    color=$BAR_COLOR\n    border_color=$BAR_BORDER_COLOR\n    blur_radius=10\n)\n\ndefault=(\n    updates=when_shown\n\n    icon.font.family=\"$FONT\"\n    icon.font.style=\"Bold\"\n    icon.font.size=14.0\n    icon.color=$ICON_COLOR\n    icon.highlight_color=$HIGHLIGHT_COLOR\n    icon.padding_left=$PADDINGS\n    icon.padding_right=$PADDINGS\n\n    label.font.family=\"$FONT\"\n    label.font.style=\"Semibold\"\n    label.font.size=13.0\n    label.color=$LABEL_COLOR\n    label.highlight_color=$HIGHLIGHT_COLOR\n\n    padding_right=$PADDINGS\n    padding_left=$PADDINGS\n\n    popup.blur_radius=50\n    popup.background.border_width=0\n    popup.background.corner_radius=5\n    popup.background.border_color=$POPUP_BORDER_COLOR\n    popup.background.color=$POPUP_BACKGROUND_COLOR\n\n    background.height=24\n    background.border_width=1\n    background.corner_radius=5\n)\n\npopup_item=(\n    icon.drawing=off\n    label.color=$WHITE\n    label.padding_left=$PADDINGS\n    label.padding_right=$PADDINGS\n)\n\npopup_events=(\n    mouse.entered\n    mouse.exited\n    mouse.exited.global\n)\n\npopup() {\n    sketchybar --set $NAME popup.drawing=$1\n}\n",
+      "purpose": "This file, named settings.sh, is a configuration script for SketchyBar, a macOS system tray application that allows users to customize and manage various system and application indicators. The script sets various preferences such as theme, font, colors, wallpapers, and positions, and also defines functions and variables for dynamic behavior.",
+      "content_summary": "The script sets the preferred font to JetBrainsMono Nerd Font, defines paddings for all elements, sets the theme to dark, enables automatic theme switching based on time, defines light and dark wallpapers, sets the VPN name, and defines queries for weather updates. It also defines functions to check if the system is in dark mode, sets general bar colors based on the theme, and defines various options for the SketchyBar itself."
+    },
+    "sketchybarrc": {
+      "path": "sketchybarrc",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\"",
+        "\"$ITEM_DIR/disk.sh\"",
+        "\"$ITEM_DIR/ram.sh\"",
+        "\"$ITEM_DIR/cpu.sh\"",
+        "\"$ITEM_DIR/network_rates.sh\"",
+        "\"$ITEM_DIR/media.sh\"",
+        "\"$ITEM_DIR/weather.sh\"",
+        "\"$ITEM_DIR/date.sh\"",
+        "\"$ITEM_DIR/time.sh\"",
+        "\"$ITEM_DIR/sleep.sh\"",
+        "\"$ITEM_DIR/theme.sh\"",
+        "\"$ITEM_DIR/network.sh\"",
+        "\"$ITEM_DIR/volume.sh\"",
+        "\"$ITEM_DIR/focus.sh\"",
+        "\"$ITEM_DIR/center_window.sh\"",
+        "\"$ITEM_DIR/battery.sh\"",
+        "\"$ITEM_DIR/input.sh\"",
+        "\"$ITEM_DIR/brew.sh\"",
+        "\"$ITEM_DIR/qbar.sh\" # This is for personal use only and is connected to my local server."
+      ],
+      "content": "#!/bin/bash\n\nPLUGIN_DIR=\"$CONFIG_DIR/plugins\"\nITEM_DIR=\"$CONFIG_DIR/items\"\n\nsource \"$CONFIG_DIR/settings.sh\"\n\nsketchybar --bar \"${bar[@]}\" --default \"${default[@]}\"\n\n# --- Left Side Items ---\nsource \"$ITEM_DIR/disk.sh\"\nsource \"$ITEM_DIR/ram.sh\"\nsource \"$ITEM_DIR/cpu.sh\"\nsource \"$ITEM_DIR/network_rates.sh\"\nsource \"$ITEM_DIR/media.sh\"\n\n# --- Center Items ---\nsource \"$ITEM_DIR/weather.sh\"\nsource \"$ITEM_DIR/date.sh\"\nsource \"$ITEM_DIR/time.sh\"\n\n# --- Right Side Items ---\nsource \"$ITEM_DIR/sleep.sh\"\nsource \"$ITEM_DIR/theme.sh\"\nsource \"$ITEM_DIR/network.sh\"\nsource \"$ITEM_DIR/volume.sh\"\nsource \"$ITEM_DIR/focus.sh\"\nsource \"$ITEM_DIR/center_window.sh\"\nsource \"$ITEM_DIR/battery.sh\"\nsource \"$ITEM_DIR/input.sh\"\nsource \"$ITEM_DIR/brew.sh\"\nsource \"$ITEM_DIR/qbar.sh\" # This is for personal use only and is connected to my local server.\n\nsketchybar --hotload on\nsketchybar --update\n",
+      "purpose": "The sketchybarrc file is a configuration script for SketchyBar, a macOS system tray application that allows users to customize and display various system information and statuses.",
+      "content_summary": "The file sources multiple scripts for different items (plugins) to be displayed on the left, center, and right sides of the SketchyBar. These items include disk usage, RAM usage, CPU usage, network rates, media status, weather, date, time, sleep schedule, theme, network status, volume control, focus, window centering, battery level, input device status, Homebrew updates, and a personal script for interacting with a local server (qbar.sh). The script also initializes the SketchyBar with the specified bar and default items, enables hotloading, and updates the bar."
+    },
+    "colors.sh": {
+      "path": "colors.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\n### Catppuccin\n# clear/no background is click-through [https://github.com/FelixKratz/SketchyBar/issues/106]\nTRANSPARENT=0x10000000\nBLACK=0xFF181926\nWHITE=0xFFCAD3F5\nORANGE=0xFFF5A97F\nMAGENTA=0xFFC6A0F6\nGREY=0xFF939AB7\nBG0=0xFF1E1E2E\nBG1=0x603C3E4F\nBG2=0x60494D64\nROSEWATER=0xFFF5E0DC\nFLAMINGO=0xFFF2CDCD\nPINK=0xFFF5C2E7\nMAUVE=0xFFCBA6F7\nRED=0xFFF38BA8\nMAROON=0xFFEBA0AC\nPEACH=0xFFFAB387\nYELLOW=0xFFF9E2AF\nGREEN=0xFFA6E3A1\nTEAL=0xFF94E2D5\nSKY=0xFF89DCEB\nSAPPHIRE=0xFF74C7EC\nBLUE=0xFF89B4FA\nLAVENDER=0xFFB4BEFE\nTEXT=0xFFCDD6F4\nSUBTEXT_1=0xFFBAC2DE\nSUBTEXT_0=0xFFA6ADC8\nOVERLAY_2=0xFF9399B2\nOVERLAY_1=0xFF7F849C\nOVERLAY_0=0xFF6C7086\nSURFACE_2=0xFF585B70\nSURFACE_1=0xFF45475A\nSURFACE_0=0xFF313244\nBASE=0xFF1E1E2E\nMANTLE=0xFF181825\nCRUST=0xFF11111B\n\n### custom\nTRANSPARENT1=0x10FFFFFF\nBG3=0x80222222\nSALMON=0xFFFF6186\nRED1=0xFFCE3F4D\nRED2=0xFFFD70000\nGREEN1=0xFF09A258\nGREEN2=0xFF008538\nGREY1=0xFF8E98AB\n",
+      "purpose": "This file, named 'colors.sh', is used to define custom color palettes for SketchyBar, a macOS system tray application. The colors are used to style various elements of the bar, such as backgrounds, text, and overlays.",
+      "content_summary": "The file contains a list of hexadecimal color codes for various color schemes, including 'Catppuccin' and 'custom'. The 'Catppuccin' scheme includes a range of colors from light to dark shades, while the 'custom' scheme defines additional colors like SALMON, RED1, RED2, GREEN1, GREEN2, and GREY1."
+    },
+    "plugins/network_rates.sh": {
+      "path": "plugins/network_rates.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nINTERFACE=\"en1\"\n\nread initial_rx initial_tx < <(netstat -ibn | awk -v iface=\"$INTERFACE\" '$1 == iface && $7 ~ /^[0-9]+$/ && $10 ~ /^[0-9]+$/ {print $7, $10; exit}')\nsleep 1\nread final_rx final_tx < <(netstat -ibn | awk -v iface=\"$INTERFACE\" '$1 == iface && $7 ~ /^[0-9]+$/ && $10 ~ /^[0-9]+$/ {print $7, $10; exit}')\n\nif [[ -z \"$initial_rx\" || -z \"$final_rx\" ]]; then\n    echo \"Error: No network data collected\"\n    exit 1\nfi\n\nDOWN=$((final_rx - initial_rx)) # Bytes per second\n\nhuman_readable() {\n    local bytes=$1\n    if [[ \"$bytes\" -ge 1073741824 ]]; then\n        printf \"%.1f GB/s\\n\" \"$(bc -l <<<\"$bytes/1073741824\")\"\n    elif [[ \"$bytes\" -ge 1048576 ]]; then\n        printf \"%.1f MB/s\\n\" \"$(bc -l <<<\"$bytes/1048576\")\"\n    elif [[ \"$bytes\" -ge 1024 ]]; then\n        printf \"%d KB/s\\n\" \"$(bc <<<\"$bytes/1024\")\"\n    else\n        echo \"$bytes B/s\"\n    fi\n}\n\nsketchybar --set net_down label=\"$(human_readable $DOWN)\"\n",
+      "purpose": "This file is a bash script designed to measure and display the network data transfer rate for a specific interface (en1, in this case) in a human-readable format using SketchyBar.",
+      "content_summary": "The script collects initial and final network statistics for the specified interface, calculates the difference to get the data transfer rate, and then formats the result in a readable format (GB/s, MB/s, KB/s, or B/s) before updating the 'net_down' item in SketchyBar."
+    },
+    "plugins/weather_baidu.sh": {
+      "path": "plugins/weather_baidu.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\"",
+        "Curl status: $curl_status, weather_info: $weather_info\"",
+        "temp: $temp, weather_desc: $weather_desc, sunrise: $sunrise, sunset: $sunset\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/settings.sh\"\n\ncase \"$SENDER\" in\n\"mouse.clicked\")\n    open -a Weather\n    exit 0\n    ;;\nesac\n\nweather_info=$(curl -sf --max-time 10 --retry 3 https://weathernew.pae.baidu.com/weathernew/pc\\?query\\=${WEATHER_BAIDU_QUERY}\\&srcid\\=${WEATHER_BAIDU_SRCID}\\&forecast\\=long_day_forecast)\ncurl_status=$?\n\nif [[ $curl_status -eq 0 ]] && [[ -n \"$weather_info\" ]]; then\n    read temp weather_desc <<<$(echo \"$weather_info\" | grep 'data\\[\"weather\"\\]' | cut -d '=' -f2 | cut -d ';' -f1 | jq -r '.temperature, .weather')\n    read sunrise sunset <<<$(echo \"$weather_info\" | grep 'data\\[\"feature\"\\]' | cut -d '=' -f2 | cut -d ';' -f1 | jq -r '.sunriseTime, .sunsetTime')\nelse\n    echo \"Error: weather curl failed. Curl status: $curl_status, weather_info: $weather_info\"\n    exit 1\nfi\n\nif [[ -z \"$temp\" || \"$temp\" == \"null\" ]] || [[ -z \"$weather_desc\" || \"$weather_desc\" == \"null\" ]] ||\n    [[ -z \"$sunrise\" || \"$sunrise\" == \"null\" ]] || [[ -z \"$sunset\" || \"$sunset\" == \"null\" ]]; then\n    echo \"Error: parse weather_info failed. temp: $temp, weather_desc: $weather_desc, sunrise: $sunrise, sunset: $sunset\"\n    exit 1\nfi\n\nis_time_between() {\n    local start=\"$1\"\n    local end=\"$2\"\n    local current=$(date +%H:%M)\n\n    local start_min=$((10#${start%%:*} * 60 + 10#${start##*:}))\n    local end_min=$((10#${end%%:*} * 60 + 10#${end##*:}))\n    local curr_min=$((10#${current%%:*} * 60 + 10#${current##*:}))\n\n    if ((end_min < start_min)); then\n        ((curr_min >= start_min || curr_min < end_min))\n    else\n        ((curr_min >= start_min && curr_min < end_min))\n    fi\n}\n\nin_daytime() {\n    if is_time_between $sunrise $sunset; then\n        return 0\n    else\n        return 1\n    fi\n}\n\n# https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=C4DD7502C8BBD485E2AB8B929608BB05\ncase $weather_desc in\n'\u6674')\n    ICON=$(in_daytime && echo \udbc0\uddae || echo \udbc0\uddc1)\n    ;;\n'\u5c11\u4e91' | '\u591a\u4e91')\n    ICON=$(in_daytime && echo \udbc0\uddd5 || echo \udbc0\udddb)\n    ;;\n'\u9634')\n    ICON=\udbc0\uddc3\n    ;;\n'\u96fe' | '\u8f7b\u96fe')\n    ICON=\udbc0\uddcb\n    ;;\n'\u973e')\n    ICON=$(in_daytime && echo \udbc0\uddb8 || echo \udbc5\udc70)\n    ;;\n'\u9635\u96e8')\n    ICON=$(in_daytime && echo \udbc0\uddd7 || echo \udbc0\udddd)\n    ;;\n'\u5c0f\u96e8')\n    ICON=\udbc0\uddc5\n    ;;\n'\u96e8' | '\u4e2d\u96e8')\n    ICON=\udbc0\uddc7\n    ;;\n'\u5927\u96e8' | '\u66b4\u96e8' | '\u5927\u66b4\u96e8' | '\u7279\u5927\u66b4\u96e8')\n    ICON=\udbc0\uddc9\n    ;;\n'\u96f7\u66b4' | '\u96f7\u66b4\u5927\u98ce')\n    ICON=\udbc0\uddd3\n    ;;\n'\u96f7\u9635\u96e8')\n    ICON=\udbc0\udddf\n    ;;\n'\u51b0\u96f9')\n    ICON=\udbc0\uddcd\n    ;;\n'\u96e8\u5939\u96ea')\n    ICON=\udbc0\uddd1\n    ;;\n'\u9635\u96ea')\n    ICON=\udbc7\uddd1\n    ;;\n'\u96ea' | '\u5c0f\u96ea' | '\u4e2d\u96ea')\n    ICON=\udbc0\uddcf\n    ;;\n'\u5927\u96ea' | '\u66b4\u96ea' | '\u5927\u66b4\u96ea' | '\u7279\u5927\u66b4\u96ea')\n    ICON=\udbc0\udde5\n    ;;\n'\u6c99\u5c18\u5929\u6c14' | '\u6d6e\u5c18' | '\u626c\u6c99' | '\u6c99\u5c18\u66b4' | '\u5f3a\u6c99\u5c18\u66b4' | '\u7279\u5f3a\u6c99\u5c18\u66b4')\n    ICON=$(in_daytime && echo \udbc0\uddb6 || echo \udbc7\uddbe)\n    ;;\n'\u70ed\u5e26\u6c14\u65cb' | '\u70ed\u5e26\u4f4e\u538b' | '\u70ed\u5e26\u98ce\u66b4' | '\u5f3a\u70ed\u5e26\u98ce\u66b4' | '\u53f0\u98ce' | '\u5f3a\u53f0\u98ce' | '\u8d85\u5f3a\u53f0\u98ce')\n    ICON=\udbc0\udde9\n    ;;\n'\u9f99\u5377')\n    ICON=\udbc0\udde7\n    ;;\n*)\n    ICON=\udbc0\uddbf\n    echo \"Unknown weather desc: $weather_desc\"\n    ;;\nesac\n\ntemp=$(awk \"BEGIN {printf(\\\"%.0f\\\", $temp)}\")\nLABEL=\"${temp}\u00b0C\"\n\nsketchybar --set $NAME icon=\"$ICON\" label=\"$LABEL\"\n",
+      "purpose": "This file is a SketchyBar plugin script that fetches weather information from Baidu Weather API and displays it in the SketchyBar interface.",
+      "content_summary": "The script sources settings from a configuration file, makes HTTP requests to the Baidu Weather API, parses the response, and sets the weather icon and temperature label in SketchyBar based on the weather conditions."
+    },
+    "plugins/qbar.sh": {
+      "path": "plugins/qbar.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\"",
+        "Curl status: $curl_status, state_info: $state_info\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/settings.sh\"\n\nif [[ \"$NAME\" == \"qbar_body\" ]]; then\n    NAME=\"qbar\"\nfi\n\nURL=\"http://127.0.0.1:9527/get_jarvis_state\"\n\nif is_dark_mode; then\n    RED=$RED1\n    GREEN=$GREEN1\nelse\n    RED=$RED2\n    GREEN=$GREEN2\nfi\n\nrefresh() {\n    BUILD_POPUP=$1\n\n    state_info=$(curl -sf --max-time 10 --retry 3 \"$URL\")\n    curl_status=$?\n\n    if [[ $curl_status -eq 0 ]] && [[ -n \"$state_info\" ]]; then\n        read code_name last_price prev_close holding last_run_ts messages <<<$(echo \"$state_info\" | jq -r '.code_name, .last_price, .prev_close, .holding, .last_run_tsxxx, .messages')\n    else\n        # echo \"Error: state curl failed. Curl status: $curl_status, state_info: $state_info\"\n        sketchybar --set qbar label=\"Loading...\" \\\n            --set qbar_body drawing=off\n        exit 1\n    fi\n\n    ### prefix(holding or not), content(price change or pnl)\n    PREFIX=\"\"\n    CONTENT=\"\"\n    COLOR=\"\"\n    if [[ \"$holding\" == \"true\" ]]; then\n        read price qty side <<<$(echo \"$state_info\" | jq -r '.position' | jq -r '.price, .qty, .side')\n\n        if [[ \"$qty\" == \"0\" ]]; then\n            PREFIX=\"Jarvis\"\n        else\n            PREFIX=\"Carbyn\"\n        fi\n\n        if [[ \"$side\" == \"long\" ]]; then\n            PREFIX=\"${PREFIX}\udb82\uddc6\"\n        else\n            PREFIX=\"${PREFIX}\udb82\uddba\"\n        fi\n\n        read pnl max_loss max_profit <<<$(echo \"$state_info\" | jq -r '.pnl' | jq -r '.pnl, .max_loss, .max_profit')\n\n        arrow=\"\"\n        delta_sign=\"\"\n        if [[ \"$pnl\" -gt 0 ]]; then\n            arrow=\"\udb80\udc5e\"\n            delta_sign=\"+\"\n            COLOR=$RED\n        elif [[ \"$pnl\" -lt 0 ]]; then\n            arrow=\"\udb80\udc46\"\n            COLOR=$GREEN\n        else\n            COLOR=$GREY1\n        fi\n\n        CONTENT=\"${last_price}${arrow} ${delta_sign}${pnl}[$max_loss,$max_profit]\"\n    else\n        PREFIX=$code_name\n        delta=$(($last_price - $prev_close))\n        delta_ratio=$(echo \"scale=3; $delta * 100 / $prev_close\" | bc)\n        delta_ratio=$(awk \"BEGIN {printf(\\\"%.2f\\\", $delta_ratio)}\")\n\n        arrow=\"\"\n        delta_sign=\"\"\n        if [[ \"$delta\" -gt 0 ]]; then\n            arrow=\"\udb80\udc5e\"\n            delta_sign=\"+\"\n            COLOR=$RED\n        elif [[ \"$delta\" -lt 0 ]]; then\n            arrow=\"\udb80\udc46\"\n            COLOR=$GREEN\n        else\n            COLOR=$GREY1\n        fi\n\n        CONTENT=\"${last_price}${arrow} ${delta_sign}${delta} ${delta_sign}${delta_ratio}%\"\n    fi\n\n    sketchybar --set qbar label=\"$PREFIX\" \\\n        --set qbar_body drawing=on label=\"$CONTENT\" label.color=$COLOR\n\n    ### messages popup\n    if [[ \"$BUILD_POPUP\" == \"off\" ]]; then\n        return\n    fi\n\n    args=(--set qbar popup.align=left)\n    if $(sketchybar --query qbar | jq '.popup.items | length != 0'); then\n        args+=(--remove '/qbar.popup\\.*/')\n    fi\n\n    if [[ -n \"$messages\" && \"$messages\" != \"[]\" && \"$messages\" != \"null\" ]]; then\n        while read -r message; do\n            read id ts content <<<$(jq -r '.id, .ts, .content' <<<\"$message\")\n            time=$(date -r \"$ts\" \"+%H:%M\")\n\n            args+=(\n                --add item qbar.popup.$ts popup.qbar\n                --set qbar.popup.$ts \"${popup_item[@]}\" label=\"$time  $content\"\n            )\n        done < <(echo \"$messages\" | jq -c 'reverse | .[]')\n    else\n        args+=(\n            --add item qbar.popup.empty popup.qbar\n            --set qbar.popup.empty \"${popup_item[@]}\" label=\"****** No Messages ******\"\n        )\n    fi\n\n    sketchybar -m \"${args[@]}\"\n}\n\ncase \"$SENDER\" in\n\"mouse.clicked\")\n    refresh on\n    popup on\n    ;;\n\"mouse.exited.global\")\n    popup off\n    ;;\n*)\n    refresh off\n    ;;\nesac\n",
+      "purpose": "The provided file is a SketchyBar plugin script named 'qbar.sh'. Its purpose is to fetch and display real-time trading data, such as the current price, holding status, and other relevant information, for a specific financial instrument in the SketchyBar menu bar on macOS. The script also handles popup notifications for messages related to the trading activity.",
+      "content_summary": "This script fetches trading data from a local server, processes it, and displays it in the SketchyBar menu bar. It also manages popup notifications for messages related to the trading activity."
+    },
+    "plugins/volume.sh": {
+      "path": "plugins/volume.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\ncase \"$SENDER\" in\n\"mouse.clicked\")\n    IS_MUTED=$(osascript -e \"output muted of (get volume settings)\")\n    if [[ \"$IS_MUTED\" == \"true\" ]]; then\n        osascript -e \"set volume output muted false\"\n    else\n        osascript -e \"set volume output muted true\"\n    fi\n    ;;\n\n\"volume_change\")\n    HIGHLIGHT=off\n\n    case $INFO in\n    [6-9][0-9] | 100)\n        ICON=\udbc0\udea9\n        ;;\n    [3-5][0-9])\n        ICON=\udbc0\udea7\n        ;;\n    [1-9] | [1-2][0-9])\n        ICON=\udbc0\udea5\n        ;;\n    *)\n        ICON=\udbc0\udea3\n        HIGHLIGHT=on\n        ;;\n    esac\n\n    sketchybar --set $NAME icon=$ICON icon.highlight=$HIGHLIGHT\n    ;;\nesac\n",
+      "purpose": "This file is a SketchyBar plugin script that controls the system volume and updates the SketchyBar icon based on the volume level.",
+      "content_summary": "The script uses AppleScript to check the system volume status and change it when the mouse is clicked. It also sets the SketchyBar icon and its highlight state based on the volume level."
+    },
+    "plugins/vpn.sh": {
+      "path": "plugins/vpn.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/settings.sh\"\n\nVPN_STATUS=$(scutil --nwi | grep -E '^   utun[0-9]')\n\ncase \"$SENDER\" in\n\"mouse.clicked\")\n    VPN_EXIST=$(networksetup -showpppoestatus \"$VPN_NAME\")\n    if [[ -z \"$VPN_EXIST\" ]]; then\n        echo \"Error: VPN $VPN_NAME not exists, set VPN name in settings.sh first.\"\n    else\n        if [[ -n \"$VPN_STATUS\" ]]; then\n            networksetup -disconnectpppoeservice \"$VPN_NAME\"\n        else\n            networksetup -connectpppoeservice \"$VPN_NAME\"\n        fi\n        sleep 1\n        VPN_STATUS=$(scutil --nwi | grep -E '^   utun[0-9]')\n        if [[ -n \"$VPN_STATUS\" ]]; then\n            hs -c 'hs.alert(\"VPN Connected\")'\n        else\n            hs -c 'hs.alert(\"VPN Disconnected\")'\n        fi\n    fi\n    ;;\nesac\n\nICON=\udbc1\udf9e\nHIGHLIGHT=on\nif [[ -n \"$VPN_STATUS\" ]]; then\n    ICON=\udbc4\udcd8\n    HIGHLIGHT=off\nfi\n\nsketchybar --set $NAME icon=\"$ICON\" icon.highlight=\"$HIGHLIGHT\"\n",
+      "purpose": "This file is a SketchyBar plugin script that manages a VPN connection. It checks the current VPN status, connects or disconnects the VPN based on user input (mouse click), and updates the SketchyBar icon accordingly.",
+      "content_summary": "The script sources settings from settings.sh, checks VPN status, handles VPN connection/disconnection based on user input, and updates SketchyBar icon accordingly."
+    },
+    "plugins/input.sh": {
+      "path": "plugins/input.sh",
+      "language": "bash",
+      "dependencies": [
+        "Add it in plugins/input.sh first.\""
+      ],
+      "content": "#!/bin/bash\n\nSOURCE=$(defaults read ~/Library/Preferences/com.apple.HIToolbox.plist AppleCurrentKeyboardLayoutInputSourceID)\n\ncase \"$SOURCE\" in\n'com.apple.keylayout.US' | 'com.apple.keylayout.ABC')\n    ICON=\ud83c\uddfa\ud83c\uddf8\n    ;;\n'com.apple.keylayout.PinyinKeyboard')\n    ICON=\ud83c\udde8\ud83c\uddf3\n    ;;\n*)\n    echo \"InputSource: $SOURCE not recognized. Add it in plugins/input.sh first.\"\n    ICON=\"Unknown\"\n    ;;\nesac\n\nsketchybar --set $NAME icon=$ICON\n",
+      "purpose": "This file is a custom SketchyBar plugin script that dynamically changes the icon of a SketchyBar item based on the current input source of the keyboard.",
+      "content_summary": "The script reads the current input source from the system preferences, maps it to a corresponding country flag icon, and updates the icon of a SketchyBar item with the mapped icon."
+    },
+    "plugins/brew.sh": {
+      "path": "plugins/brew.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/settings.sh\"\n\nclear() {\n    args=(--set $NAME icon.color=$ICON_COLOR)\n    if $(sketchybar --query $NAME | jq '.popup.items | length != 0'); then\n        args+=(--remove '/brew.popup\\.*/')\n    fi\n    sketchybar -m \"${args[@]}\" >/dev/null\n}\n\nrefresh() {\n    zsh -c 'brew update &>/dev/null'\n    OUTDATED=$(zsh -c 'brew outdated --verbose | grep -v pinned')\n\n    if [[ -z \"$OUTDATED\" ]]; then\n        clear\n        return\n    fi\n\n    args=(--set $NAME icon.color=$SALMON popup.align=right)\n    if $(sketchybar --query $NAME | jq '.popup.items | length != 0'); then\n        args+=(--remove '/brew.popup\\.*/')\n    fi\n\n    COUNTER=0\n    while IFS= read -r package; do\n        args+=(\n            --add item \"$NAME\".popup.$COUNTER popup.\"$NAME\"\n            --set \"$NAME\".popup.$COUNTER \"${popup_item[@]}\" label=\"${package}\"\n        )\n        COUNTER=$((COUNTER + 1))\n    done <<<\"$OUTDATED\"\n\n    sketchybar -m \"${args[@]}\" >/dev/null\n}\n\nupdate() {\n    osascript -e 'display notification \"Starting Brew package updates...\" with title \"Package Updates\"'\n    zsh -c 'brew upgrade >/dev/null && brew cleanup >/dev/null'\n    osascript -e 'display notification \"Brew packages updated\" with title \"Package Updates\"'\n    clear\n}\n\ncase \"$SENDER\" in\n\"mouse.entered\")\n    popup on\n    ;;\n\"mouse.exited\" | \"mouse.exited.global\")\n    popup off\n    ;;\n\"mouse.clicked\")\n    popup off\n    update\n    ;;\n*)\n    refresh\n    ;;\nesac\n",
+      "purpose": "This file is a SketchyBar plugin that monitors the Homebrew package manager for outdated packages and displays a popup notification with the list of outdated packages.",
+      "content_summary": "The file defines functions for clearing, refreshing, and updating the SketchyBar plugin. It also handles mouse events to control the visibility of the popup. The plugin uses Homebrew commands to check for outdated packages and displays them in a popup."
+    },
+    "plugins/focus.sh": {
+      "path": "plugins/focus.sh",
+      "language": "bash",
+      "dependencies": [
+        "FOCUS=$(defaults read com.apple.controlcenter \"NSStatusItem Visible FocusModes\")"
+      ],
+      "content": "#!/bin/bash\n\ncase \"$SENDER\" in\n\"focus_enabled\")\n    sketchybar --set $NAME drawing=on\n    ;;\n\"focus_disabled\")\n    sketchybar --set $NAME drawing=off\n    ;;\n*)\n    FOCUS=$(defaults read com.apple.controlcenter \"NSStatusItem Visible FocusModes\")\n    if [[ $FOCUS == \"1\" ]]; then\n        sleep 6 # Wait until the dimmed Focus icon disappears.\n        FOCUS=$(defaults read com.apple.controlcenter \"NSStatusItem Visible FocusModes\")\n        if [[ $FOCUS == \"1\" ]]; then\n            sketchybar --set $NAME drawing=on\n        else\n            sketchybar --set $NAME drawing=off\n        fi\n    else\n        sketchybar --set $NAME drawing=off\n    fi\n    ;;\nesac\n",
+      "purpose": "This file is a plugin for SketchyBar, a macOS system tray application that allows users to customize their status bar. The purpose of this plugin is to control the visibility of an item in the SketchyBar based on the focus mode of the macOS system.",
+      "content_summary": "The script checks the focus mode of the macOS system and adjusts the visibility of an item in the SketchyBar accordingly. If the focus mode is enabled, it waits for the dimmed Focus icon to disappear before making the item visible. If the focus mode is disabled or not active, it makes the item invisible."
+    },
+    "plugins/ram.sh": {
+      "path": "plugins/ram.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\npagesize=$(sysctl -n hw.pagesize)\nvm_stat_output=$(vm_stat)\n\nget_pages() {\n    echo \"$vm_stat_output\" | awk \"/$1/ {print \\$NF}\" | sed 's/\\.//'\n}\n\nactive=$(get_pages \"Pages active\")\nwired=$(get_pages \"Pages wired down\")\n\nused_pages=$((active + wired))\nused_mem=$((used_pages * pagesize))\ntotal_mem=$(sysctl -n hw.memsize)\n\nusage=$(awk \"BEGIN {printf \\\"%.0f\\\", 100 * $used_mem / $total_mem}\")\n\nsketchybar --set $NAME label=\"${usage}%\"\n",
+      "purpose": "This file is a SketchyBar plugin script that monitors the memory usage of the system and displays the percentage of used memory as a widget.",
+      "content_summary": "The script retrieves the system's page size, active and wired memory pages, and total memory size. It calculates the used memory and the usage percentage. Finally, it updates the SketchyBar widget with the calculated usage percentage."
+    },
+    "plugins/date.sh": {
+      "path": "plugins/date.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nsketchybar --set $NAME label=\"$(date +\"%a %-d %b\")\"\n\ncase \"$SENDER\" in\n\"mouse.clicked\")\n    open -a Calendar\n    ;;\nesac\n",
+      "purpose": "This file is a SketchyBar plugin that displays the current date on the menu bar and opens the Calendar application when the date label is clicked with the mouse.",
+      "content_summary": "The script uses the bash shell to set the label of a SketchyBar plugin to the current date in a specific format, and triggers the Calendar application to open when the date label is clicked."
+    },
+    "plugins/disk.sh": {
+      "path": "plugins/disk.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nsketchybar --set $NAME label=$(df -H | grep -E '^(/dev/disk3s5).' | awk '{ printf (\"%s\\n\", $4) }')\n",
+      "purpose": "The purpose of this file is to configure SketchyBar to display the usage percentage of a specific disk (/dev/disk3s5) on the macOS system.",
+      "content_summary": "This bash script retrieves the usage percentage of the specified disk, formats it, and sets the label of the SketchyBar widget with the retrieved value."
+    },
+    "plugins/media.sh": {
+      "path": "plugins/media.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nget_music_info() {\n    osascript <<EOF\ntell application \"Music\"\n  if it is running and player state is playing then\n    set track_name to name of current track\n    set artist_name to artist of current track\n    return track_name & \" - \" & artist_name\n  else\n    return \"\"\n  end if\nend tell\nEOF\n}\n\nmusic_info=$(get_music_info)\n\nif [[ -n \"$music_info\" ]]; then\n    sketchybar --set $NAME label=\"$music_info\" drawing=on\nelse\n    sketchybar --set $NAME label=\"\" drawing=off\nfi\n",
+      "purpose": "This file is a SketchyBar plugin that displays the name and artist of the currently playing track in the Music app on macOS in the SketchyBar menu.",
+      "content_summary": "The file contains a bash script that uses AppleScript to get the name and artist of the currently playing track in the Music app, and then sets the label in the SketchyBar menu accordingly."
+    },
+    "plugins/wifi.sh": {
+      "path": "plugins/wifi.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nIP=\"$(ipconfig getsummary en1 | grep -o \"yiaddr = .*\" | sed 's/^yiaddr = //')\"\n\nICON=\udbc1\ude48\nHIGHLIGHT=on\nif [[ -n \"$IP\" ]]; then\n    ICON=\udbc1\ude47\n    HIGHLIGHT=off\nfi\n\nsketchybar --set $NAME icon=$ICON icon.highlight=$HIGHLIGHT\n",
+      "purpose": "This file is a SketchyBar plugin script that checks the Wi-Fi connection status and updates the corresponding icon in the SketchyBar menu.",
+      "content_summary": "The script retrieves the IP address of the Wi-Fi connection, compares it to an empty string, and sets the icon and highlight state accordingly. If the IP address is not empty, it means the Wi-Fi is connected, and the icon is changed to a connected Wi-Fi symbol. If the IP address is empty, it means the Wi-Fi is disconnected, and the icon is changed to a disconnected Wi-Fi symbol."
+    },
+    "plugins/time.sh": {
+      "path": "plugins/time.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nsketchybar --set $NAME label=\"$(date \"+%H:%M\")\"\n\ncase \"$SENDER\" in\n\"mouse.clicked\")\n    open -a Clock\n    ;;\nesac\n",
+      "purpose": "This file is a SketchyBar plugin that displays the current time and opens the Clock application when the SketchyBar is clicked with the mouse.",
+      "content_summary": "The script uses the bash shell to set the label of the SketchyBar plugin to the current time and defines a case statement to open the Clock application when the mouse is clicked on the SketchyBar."
+    },
+    "plugins/theme.sh": {
+      "path": "plugins/theme.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/settings.sh\"\n\nset_wallpaper() {\n    NEW_WALLPAPER=$1\n    if [[ -f \"$NEW_WALLPAPER\" ]]; then\n        osascript -e \"tell application \\\"Finder\\\" to set desktop picture to POSIX file \\\"$NEW_WALLPAPER\\\"\"\n    else\n        echo \"Error: NEW_WALLPAPER not found, set wallpapers path in settings.sh first.\"\n    fi\n}\n\nswitch_theme() {\n    if is_dark_mode; then\n        NEW_THEME=\"light\"\n        NEW_WALLPAPER=$LIGHT_WALLPAPER\n    else\n        NEW_THEME=\"dark\"\n        NEW_WALLPAPER=$DARK_WALLPAPER\n    fi\n\n    sed -i '' \"s/^THEME=\\\"$THEME\\\"/THEME=\\\"$NEW_THEME\\\"/\" $CONFIG_DIR/settings.sh\n    set_wallpaper $NEW_WALLPAPER\n}\n\nis_time_between() {\n    local start=\"$1\"\n    local end=\"$2\"\n    local current=$(date +%H:%M)\n\n    local start_min=$((10#${start%%:*} * 60 + 10#${start##*:}))\n    local end_min=$((10#${end%%:*} * 60 + 10#${end##*:}))\n    local curr_min=$((10#${current%%:*} * 60 + 10#${current##*:}))\n\n    if ((end_min < start_min)); then\n        ((curr_min >= start_min || curr_min < end_min))\n    else\n        ((curr_min >= start_min && curr_min < end_min))\n    fi\n}\n\nif [[ \"$THEME\" == \"light\" ]]; then\n    set_wallpaper $LIGHT_WALLPAPER\nelse\n    set_wallpaper $DARK_WALLPAPER\nfi\n\nif [[ \"$AUTO_SWITCH_THEME\" == \"on\" ]]; then\n    if is_dark_mode; then\n        if is_time_between $LIGHT_START_TIME $LIGHT_END_TIME; then\n            switch_theme\n        fi\n    else\n        if ! is_time_between $LIGHT_START_TIME $LIGHT_END_TIME; then\n            switch_theme\n        fi\n    fi\nfi\n\ncase \"$SENDER\" in\n\"mouse.clicked\")\n    if [[ \"$AUTO_SWITCH_THEME\" == \"on\" ]]; then\n        hs -c 'hs.alert(\"Auto Switch Enabled\")'\n    else\n        switch_theme\n    fi\n    ;;\nesac\n",
+      "purpose": "This file is a script for SketchyBar, a macOS system status bar, that manages the theme and wallpaper of the desktop. It switches between light and dark themes based on the system's dark mode setting, user preference, and time of day. It also changes the wallpaper according to the specified light and dark wallpapers in the settings.",
+      "content_summary": "The script sources settings from a separate file, defines functions for setting wallpapers and switching themes, checks if the time is between specified intervals to automatically switch themes, and responds to mouse clicks to manually switch themes."
+    },
+    "plugins/weather_nmc.sh": {
+      "path": "plugins/weather_nmc.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\"",
+        "Curl status: $curl_status, weather_info: $weather_info\"",
+        "temp: $temp, weather_desc: $weather_desc, sunrise: $sunrise, sunset: $sunset\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/settings.sh\"\n\ncase \"$SENDER\" in\n\"mouse.clicked\")\n    open -a Weather\n    exit 0\n    ;;\nesac\n\nts=$(date \"+%s\")\nms=$((RANDOM % 900 + 100))\nts=\"$ts$ms\"\n\n# https://www.nmc.cn/publish/forecast.html\nweather_info=$(curl -sf --compressed --max-time 10 --retry 3 \"https://www.nmc.cn/rest/weather?stationid=$WEATHER_NMC_STATIONID&_=$ts\" \\\n    -X 'GET' \\\n    -H 'Accept: application/json, text/javascript, */*; q=0.01' \\\n    -H 'Accept-Language: en-US,en;q=0.9' \\\n    -H 'Accept-Encoding: gzip, deflate, br' \\\n    -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15' \\\n    -H 'Referer: https://www.nmc.cn/publish/forecast.html' \\\n    \\\n    -H 'X-Requested-With: XMLHttpRequest')\n\ncurl_status=$?\n\nif [[ $curl_status -eq 0 ]] && [[ -n \"$weather_info\" ]]; then\n    read temp weather_desc sunrise sunset <<<$(echo \"$weather_info\" | jq -r \".data.real.weather.temperature, .data.real.weather.info, .data.real.sunriseSunset.sunrise, .data.real.sunriseSunset.sunset\")\nelse\n    echo \"Error: weather curl failed. Curl status: $curl_status, weather_info: $weather_info\"\n    exit 1\nfi\n\nif [[ -z \"$temp\" || \"$temp\" == \"null\" ]] || [[ -z \"$weather_desc\" || \"$weather_desc\" == \"null\" ]] ||\n    [[ -z \"$sunrise\" || \"$sunrise\" == \"null\" ]] || [[ -z \"$sunset\" || \"$sunset\" == \"null\" ]]; then\n    echo \"Error: parse weather_info failed. temp: $temp, weather_desc: $weather_desc, sunrise: $sunrise, sunset: $sunset\"\n    exit 1\nfi\n\nsunrise=$(echo $sunrise | cut -d ' ' -f2)\nsunset=$(echo $sunset | cut -d ' ' -f2)\n\nis_time_between() {\n    local start=\"$1\"\n    local end=\"$2\"\n    local current=$(date +%H:%M)\n\n    local start_min=$((10#${start%%:*} * 60 + 10#${start##*:}))\n    local end_min=$((10#${end%%:*} * 60 + 10#${end##*:}))\n    local curr_min=$((10#${current%%:*} * 60 + 10#${current##*:}))\n\n    if ((end_min < start_min)); then\n        ((curr_min >= start_min || curr_min < end_min))\n    else\n        ((curr_min >= start_min && curr_min < end_min))\n    fi\n}\n\nin_daytime() {\n    if is_time_between $sunrise $sunset; then\n        return 0\n    else\n        return 1\n    fi\n}\n\n# https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=C4DD7502C8BBD485E2AB8B929608BB05\ncase $weather_desc in\n'\u6674')\n    ICON=$(in_daytime && echo \udbc0\uddae || echo \udbc0\uddc1)\n    ;;\n'\u5c11\u4e91' | '\u591a\u4e91')\n    ICON=$(in_daytime && echo \udbc0\uddd5 || echo \udbc0\udddb)\n    ;;\n'\u9634')\n    ICON=\udbc0\uddc3\n    ;;\n'\u96fe' | '\u8f7b\u96fe')\n    ICON=\udbc0\uddcb\n    ;;\n'\u973e')\n    ICON=$(in_daytime && echo \udbc0\uddb8 || echo \udbc5\udc70)\n    ;;\n'\u9635\u96e8')\n    ICON=$(in_daytime && echo \udbc0\uddd7 || echo \udbc0\udddd)\n    ;;\n'\u5c0f\u96e8')\n    ICON=\udbc0\uddc5\n    ;;\n'\u96e8' | '\u4e2d\u96e8')\n    ICON=\udbc0\uddc7\n    ;;\n'\u5927\u96e8' | '\u66b4\u96e8' | '\u5927\u66b4\u96e8' | '\u7279\u5927\u66b4\u96e8')\n    ICON=\udbc0\uddc9\n    ;;\n'\u96f7\u66b4' | '\u96f7\u66b4\u5927\u98ce')\n    ICON=\udbc0\uddd3\n    ;;\n'\u96f7\u9635\u96e8')\n    ICON=\udbc0\udddf\n    ;;\n'\u51b0\u96f9')\n    ICON=\udbc0\uddcd\n    ;;\n'\u96e8\u5939\u96ea')\n    ICON=\udbc0\uddd1\n    ;;\n'\u9635\u96ea')\n    ICON=\udbc7\uddd1\n    ;;\n'\u96ea' | '\u5c0f\u96ea' | '\u4e2d\u96ea')\n    ICON=\udbc0\uddcf\n    ;;\n'\u5927\u96ea' | '\u66b4\u96ea' | '\u5927\u66b4\u96ea' | '\u7279\u5927\u66b4\u96ea')\n    ICON=\udbc0\udde5\n    ;;\n'\u6c99\u5c18\u5929\u6c14' | '\u6d6e\u5c18' | '\u626c\u6c99' | '\u6c99\u5c18\u66b4' | '\u5f3a\u6c99\u5c18\u66b4' | '\u7279\u5f3a\u6c99\u5c18\u66b4')\n    ICON=$(in_daytime && echo \udbc0\uddb6 || echo \udbc7\uddbe)\n    ;;\n'\u70ed\u5e26\u6c14\u65cb' | '\u70ed\u5e26\u4f4e\u538b' | '\u70ed\u5e26\u98ce\u66b4' | '\u5f3a\u70ed\u5e26\u98ce\u66b4' | '\u53f0\u98ce' | '\u5f3a\u53f0\u98ce' | '\u8d85\u5f3a\u53f0\u98ce')\n    ICON=\udbc0\udde9\n    ;;\n'\u9f99\u5377')\n    ICON=\udbc0\udde7\n    ;;\n*)\n    ICON=\udbc0\uddbf\n    echo \"Unknown weather desc: $weather_desc\"\n    ;;\nesac\n\ntemp=$(awk \"BEGIN {printf(\\\"%.0f\\\", $temp)}\")\nLABEL=\"${temp}\u00b0C\"\n\nsketchybar --set $NAME icon=\"$ICON\" label=\"$LABEL\"\n",
+      "purpose": "This file is a SketchyBar plugin script that fetches and displays the current weather information, including temperature and weather icon, from the National Meteorological Center (NMC) of China. It also checks if the current time is daytime or nighttime to display the appropriate weather icon.",
+      "content_summary": "The script sources settings from a configuration file, makes a request to the NMC API to get the weather data, parses the response, and sets the weather icon and temperature label in SketchyBar."
+    },
+    "plugins/cpu.sh": {
+      "path": "plugins/cpu.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nsketchybar --set $NAME label=$(top -l 2 | grep -E \"^CPU\" | tail -1 | awk '{ print int($3 + $5)\"%\" }')\n",
+      "purpose": "The purpose of this file is to configure SketchyBar to display the CPU usage percentage in its menu bar on macOS.",
+      "content_summary": "This bash script fetches the CPU usage data from the top command, filters the output to only include the CPU usage line, selects the third and fifth columns (representing user and system CPU usage respectively), adds them together, and appends a percentage symbol to the result. The resulting CPU usage percentage is then set as the label for the SketchyBar plugin."
+    },
+    "plugins/weather_meteo.sh": {
+      "path": "plugins/weather_meteo.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\"",
+        "Curl status: $curl_status, weather_info: $weather_info\"",
+        "temp: $temp, weather_code: $weather_code, sunrise: $sunrise, sunset: $sunset\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/settings.sh\"\n\ncase \"$SENDER\" in\n\"mouse.clicked\")\n    open -a Weather\n    exit 0\n    ;;\nesac\n\n# https://open-meteo.com/en/docs/cma-api\nurl=\"https://api.open-meteo.com/v1/forecast?latitude=${WEATHER_METEO_LATITUDE}&longitude=${WEATHER_METEO_LONGITUDE}&hourly=temperature_2m,weather_code&daily=sunrise,sunset&timezone=auto&forecast_days=1&models=cma_grapes_global\"\n\nweather_info=$(curl -sf --max-time 10 --retry 3 \"$url\")\ncurl_status=$?\n\nhour=$(date \"+%H\")\nif [[ $curl_status -eq 0 ]] && [[ -n \"$weather_info\" ]]; then\n    read temp weather_code sunrise sunset <<<$(echo \"$weather_info\" | jq -r \".hourly.temperature_2m[$hour], .hourly.weather_code[$hour], .daily.sunrise[0], .daily.sunset[0]\")\nelse\n    echo \"Error: weather curl failed. Curl status: $curl_status, weather_info: $weather_info\"\n    exit 1\nfi\n\nif [[ -z \"$temp\" || \"$temp\" == \"null\" ]] || [[ -z \"$weather_code\" || \"$weather_code\" == \"null\" ]] ||\n    [[ -z \"$sunrise\" || \"$sunrise\" == \"null\" ]] || [[ -z \"$sunset\" || \"$sunset\" == \"null\" ]]; then\n    echo \"Error: parse weather_info failed. temp: $temp, weather_code: $weather_code, sunrise: $sunrise, sunset: $sunset\"\n    exit 1\nfi\n\nsunrise=$(echo $sunrise | cut -d 'T' -f2)\nsunset=$(echo $sunset | cut -d 'T' -f2)\n\nis_time_between() {\n    local start=\"$1\"\n    local end=\"$2\"\n    local current=$(date +%H:%M)\n\n    local start_min=$((10#${start%%:*} * 60 + 10#${start##*:}))\n    local end_min=$((10#${end%%:*} * 60 + 10#${end##*:}))\n    local curr_min=$((10#${current%%:*} * 60 + 10#${current##*:}))\n\n    if ((end_min < start_min)); then\n        ((curr_min >= start_min || curr_min < end_min))\n    else\n        ((curr_min >= start_min && curr_min < end_min))\n    fi\n}\n\nin_daytime() {\n    if is_time_between $sunrise $sunset; then\n        return 0\n    else\n        return 1\n    fi\n}\n\n# https://open-meteo.com/en/docs\ncase $weather_code in\n0)\n    ICON=$(in_daytime && echo \udbc0\uddae || echo \udbc0\uddc1)\n    ;;\n1 | 2)\n    ICON=$(in_daytime && echo \udbc0\uddd5 || echo \udbc0\udddb)\n    ;;\n3)\n    ICON=\udbc0\uddc3\n    ;;\n45 | 48)\n    ICON=\udbc0\uddcb\n    ;;\n51 | 53 | 55 | 56 | 57)\n    ICON=$(in_daytime && echo \udbc0\uddd7 || echo \udbc0\udddd)\n    ;;\n61 | 63 | 65 | 66 | 67)\n    ICON=\udbc0\uddc9\n    ;;\n71 | 73 | 75)\n    ICON=\udbc0\uddcf\n    ;;\n77)\n    ICON=\udbc0\udde5\n    ;;\n80 | 81 | 82)\n    ICON=\udbc0\uddc9\n    ;;\n85 | 86)\n    ICON=\udbc0\uddcf\n    ;;\n95 | 96 | 99)\n    ICON=\udbc0\udddf\n    ;;\n*)\n    ICON=\udbc0\uddbf\n    echo \"Unknown weather code: $weather_code\"\n    ;;\nesac\n\ntemp=$(awk \"BEGIN {printf(\\\"%.0f\\\", $temp)}\")\nLABEL=\"${temp}\u00b0C\"\n\nsketchybar --set $NAME icon=\"$ICON\" label=\"$LABEL\"\n",
+      "purpose": "This file is a SketchyBar plugin script that fetches weather information for a specific location using the OpenWeather API and displays the current temperature and weather icon in the SketchyBar menu.",
+      "content_summary": "The script sources settings from a configuration file, checks for mouse clicks, and upon a click, opens the Weather application. It then fetches the weather data for the specified latitude and longitude, parses the data, and checks if it's daytime. Based on the weather code, it assigns an appropriate icon and displays the temperature in degrees Celsius in the SketchyBar menu."
+    },
+    "plugins/battery.sh": {
+      "path": "plugins/battery.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/settings.sh\"\n\nBATTERY_INFO=\"$(pmset -g batt)\"\nPERCENTAGE=$(echo \"$BATTERY_INFO\" | grep -Eo \"\\d+%\" | cut -d% -f1)\nCHARGING=$(echo \"$BATTERY_INFO\" | grep 'AC Power')\n\n# TEST: No battery on mac studio\n# PERCENTAGE=100\n\nif [[ -z \"$PERCENTAGE\" ]]; then\n    exit 0\nfi\n\nCOLOR=$ICON_COLOR\ncase $PERCENTAGE in\n9[0-9] | 100)\n    ICON=\udbc1\udee8\n    ;;\n[6-8][0-9])\n    ICON=\udbc3\udeb8\n    ;;\n[3-5][0-9])\n    ICON=\udbc3\udeb6\n    ;;\n[1-2][0-9])\n    ICON=\udbc1\udee9\n    ;;\n*)\n    ICON=\udbc1\udeea\n    COLOR=$RED\n    ;;\nesac\n\nif [[ -n \"$CHARGING\" ]]; then\n    ICON=\udbc2\udc8b\nfi\n\nsketchybar --set $NAME icon=$ICON icon.color=$COLOR drawing=on\n",
+      "purpose": "This file is a SketchyBar plugin script that retrieves the battery percentage and charging status of a macOS system and sets the corresponding icon and color in SketchyBar.",
+      "content_summary": "The script sources settings from a configuration file, retrieves the battery information using pmset command, parses the percentage and charging status, and sets the icon and color in SketchyBar based on the battery level. If there is no battery, the script exits without setting anything."
+    },
+    "items/network_rates.sh": {
+      "path": "items/network_rates.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/settings.sh\"\n\nif is_dark_mode; then\n    ICON_COLOR=$RED\nelse\n    ICON_COLOR=$BLACK\nfi\n\ndown=(\n    icon=\udbc7\udfaf\n    icon.color=$ICON_COLOR\n    icon.padding_right=5\n    script=\"$PLUGIN_DIR/network_rates.sh\"\n    update_freq=5\n)\nsketchybar \\\n    --add item net_down left \\\n    --set net_down \"${down[@]}\"\n",
+      "purpose": "This file is a SketchyBar configuration script that creates a new item named 'net_down' in the SketchyBar menu. The purpose of this item is to display network download rates.",
+      "content_summary": "The script sources the settings from the 'settings.sh' file, checks the current theme (dark or light), sets the icon color accordingly, and defines the properties of the 'net_down' item such as icon, color, padding, script to run, and update frequency. Finally, it adds the 'net_down' item to the left side of the SketchyBar menu."
+    },
+    "items/qbar.sh": {
+      "path": "items/qbar.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nqbar=(\n    icon=\udbc3\udd1b\n    update_freq=3\n    script=\"$PLUGIN_DIR/qbar.sh\"\n)\n\nqbar_body=(\n    icon.drawing=off\n    script=\"$PLUGIN_DIR/qbar.sh\"\n)\n\nsketchybar \\\n    --add item qbar_body right \\\n    --set qbar_body \"${qbar_body[@]}\" \\\n    --subscribe qbar_body mouse.clicked mouse.exited.global \\\n    \\\n    --add item qbar right \\\n    --set qbar \"${qbar[@]}\" \\\n    --subscribe qbar mouse.clicked mouse.exited.global\n",
+      "purpose": "This file is used to configure SketchyBar, a macOS system status bar, to display a custom item named 'qbar'. The qbar item is designed to update every 3 seconds and is linked to a script located in the Plugin Directory (qbar.sh).",
+      "content_summary": "The file defines two items for SketchyBar: qbar_body and qbar. The qbar_body item is positioned to the right and has its drawing option turned off. The qbar item is positioned to the right and is linked to the script in the Plugin Directory. Both items are subscribed to mouse click and exit events."
+    },
+    "items/volume.sh": {
+      "path": "items/volume.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nvolume=(\n    script=\"$PLUGIN_DIR/volume.sh\"\n)\n\nsketchybar --add item volume right \\\n    --set volume \"${volume[@]}\" \\\n    --subscribe volume volume_change mouse.clicked\n",
+      "purpose": "This file is used to configure a SketchyBar item for displaying and controlling the system volume.",
+      "content_summary": "The script defines an array 'volume' containing the path to the volume control script, and then adds a SketchyBar item named 'volume' on the right side of the bar. The item is set with the defined volume array and subscribed to the 'volume' and 'volume_change' events, as well as the 'mouse.clicked' event."
+    },
+    "items/network.sh": {
+      "path": "items/network.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nwifi=(\n    update_freq=5\n    script=\"$PLUGIN_DIR/wifi.sh\"\n)\nvpn=(\n    update_freq=5\n    script=\"$PLUGIN_DIR/vpn.sh\"\n)\n\nsketchybar \\\n    --add item vpn right \\\n    --set vpn \"${vpn[@]}\" \\\n    --subscribe vpn mouse.clicked \\\n    \\\n    --add item wifi right \\\n    --set wifi \"${wifi[@]}\" \\\n    --subscribe wifi wifi_change\n",
+      "purpose": "This file is used to configure SketchyBar items for network status (wifi and VPN) in macOS.",
+      "content_summary": "The file defines two SketchyBar items for wifi and VPN status, sets their update frequency, specifies the script files to be used, and subscribes to events such as mouse clicks and wifi changes."
+    },
+    "items/sleep.sh": {
+      "path": "items/sleep.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nsleep=(\n    icon=\udbc3\uddc4\n    click_script=\"osascript -e 'tell application \\\"System Events\\\" to sleep'\"\n)\n\nsketchybar --add item sleep right \\\n    --set sleep \"${sleep[@]}\"\n",
+      "purpose": "The purpose of this file is to create a SketchyBar item that, when clicked, will initiate the sleep mode on the macOS system.",
+      "content_summary": "This file defines a SketchyBar item named 'sleep' with a custom icon and a click script that uses AppleScript to put the system to sleep."
+    },
+    "items/input.sh": {
+      "path": "items/input.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\ninput=(\n    icon.font.size=13.0\n    script=\"$PLUGIN_DIR/input.sh\"\n)\n\nsketchybar --add item input right \\\n    --set input \"${input[@]}\" \\\n    \\\n    --add event input_change 'AppleSelectedInputSourcesChangedNotification' \\\n    --subscribe input input_change\n",
+      "purpose": "This file is used to configure a SketchyBar item named 'input' which displays customized input source information and handles changes in selected input sources.",
+      "content_summary": "The file defines an array of options for the input item, sets its icon font size, and adds the item to the right side of the SketchyBar. It also defines an event 'input_change' that subscribes to the 'AppleSelectedInputSourcesChangedNotification' to handle changes in the selected input sources."
+    },
+    "items/center_window.sh": {
+      "path": "items/center_window.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\ncenter_window=(\n    icon=\udbc2\udd5d\n    click_script=\"hs -c 'hs.window.frontmostWindow():centerOnScreen()'\"\n)\n\nsketchybar --add item center_window right \\\n    --set center_window \"${center_window[@]}\"\n",
+      "purpose": "The main purpose of this file is to configure a SketchyBar item named 'center_window'. This item is designed to center the frontmost window on the screen when clicked.",
+      "content_summary": "The file defines an array 'center_window' with properties for the item's icon and click script. It then adds the 'center_window' item to SketchyBar, positioning it on the right side of the bar and setting its properties."
+    },
+    "items/brew.sh": {
+      "path": "items/brew.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/settings.sh\"\n\nbrew=(\n    icon=\udbc1\udc19\n    update_freq=300\n    script=\"$PLUGIN_DIR/brew.sh\"\n)\n\nsketchybar --add item brew right \\\n    --set brew \"${brew[@]}\" \\\n    --subscribe brew \"${popup_events[@]}\" mouse.clicked\n",
+      "purpose": "This file is used to configure a SketchyBar item named 'brew', which displays information about the user's Homebrew installation and provides an update function.",
+      "content_summary": "The file defines an array 'brew' with properties such as icon, update frequency, and script location. It then adds the 'brew' item to SketchyBar on the right side, sets its properties, and subscribes to mouse click events."
+    },
+    "items/focus.sh": {
+      "path": "items/focus.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nfocus=(\n    icon=\udbc0\uddba\n    update_freq=10\n    updates=on\n    drawing=off\n    script=\"$PLUGIN_DIR/focus.sh\"\n)\n\nsketchybar --add item focus right \\\n    --set focus \"${focus[@]}\" \\\n    \\\n    --add event focus_enabled '_NSDoNotDisturbEnabledNotification' \\\n    --add event focus_disabled '_NSDoNotDisturbDisabledNotification' \\\n    --subscribe focus focus_enabled focus_disabled\n",
+      "purpose": "This file is used to configure a SketchyBar item named 'focus'. The item is designed to display a visual indicator when the user's focus mode is enabled or disabled on macOS.",
+      "content_summary": "The file defines the properties of the focus item, such as its icon, update frequency, and script to be executed. It also sets up events for focus mode being enabled and disabled, and subscribes to these events."
+    },
+    "items/ram.sh": {
+      "path": "items/ram.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/settings.sh\"\n\nif is_dark_mode; then\n    ICON_COLOR=$ORANGE\nelse\n    ICON_COLOR=$BLACK\nfi\n\nram=(\n    icon=\ue266\n    icon.color=$ICON_COLOR\n    update_freq=5\n    script=\"$PLUGIN_DIR/ram.sh\"\n)\n\nsketchybar --add item ram left \\\n    --set ram \"${ram[@]}\"\n",
+      "purpose": "This file is used to configure a SketchyBar item that displays the system's RAM usage. The item is customized with an icon and color that change based on the system's dark mode setting.",
+      "content_summary": "The file defines a SketchyBar item named 'ram' with a specific icon, color, update frequency, and script. The item is added to the left side of the bar and its configuration is set using the defined variables."
+    },
+    "items/date.sh": {
+      "path": "items/date.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\ndate=(\n    icon.drawing=off\n    padding_left=18\n    padding_right=18\n    label.padding_left=0\n    label.padding_right=0\n    update_freq=60\n    script=\"$PLUGIN_DIR/date.sh\"\n)\n\nsketchybar --add item date center \\\n    --set date \"${date[@]}\" \\\n    --subscribe date mouse.clicked\n",
+      "purpose": "This file is used to configure a date item in SketchyBar, a macOS system tray application that allows users to customize their status bar.",
+      "content_summary": "The file defines a date item with specific properties such as icon display, padding, update frequency, and script location. It also adds the date item to SketchyBar, sets its position to center, and subscribes to mouse click events."
+    },
+    "items/disk.sh": {
+      "path": "items/disk.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/settings.sh\"\n\nif is_dark_mode; then\n    ICON_COLOR=$BLUE\nelse\n    ICON_COLOR=$BLACK\nfi\n\ndisk=(\n    icon=\udbc2\ude2a\n    icon.color=$ICON_COLOR\n    update_freq=300\n    script=\"$PLUGIN_DIR/disk.sh\"\n)\n\nsketchybar --add item disk left \\\n    --set disk \"${disk[@]}\"\n",
+      "purpose": "This file is a SketchyBar configuration script that creates an item for displaying disk usage information in the SketchyBar menu. It sources the settings from the 'settings.sh' file, determines the icon color based on the system's dark mode setting, and sets up the item with the specified icon, color, update frequency, and script.",
+      "content_summary": "The file defines a disk usage item for SketchyBar, including the icon, color, update frequency, and script location. It also includes logic to dynamically set the icon color based on the system's dark mode setting."
+    },
+    "items/media.sh": {
+      "path": "items/media.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/settings.sh\"\n\nif is_dark_mode; then\n    ICON_COLOR=$SKY\nelse\n    ICON_COLOR=$BLACK\nfi\n\nmedia=(\n    icon=\uf001\n    icon.color=$ICON_COLOR\n    label.max_chars=30\n    label.scroll_duration=200\n    scroll_texts=on\n    updates=on\n    drawing=off\n    script=\"$PLUGIN_DIR/media.sh\"\n)\n\nsketchybar --add item media left \\\n    --set media \"${media[@]}\" \\\n    \\\n    --add event music_change 'com.apple.Music.playerInfo' \\\n    --subscribe media music_change\n",
+      "purpose": "This file is a SketchyBar configuration script that creates an item named 'media' in the SketchyBar menu. The item displays media information, such as the number of currently playing tracks in iTunes or Apple Music, and changes its icon based on the system's dark mode setting.",
+      "content_summary": "The script sources settings from the 'settings.sh' file, determines the icon color based on the system's dark mode, and defines the properties of the 'media' item. It then adds the 'media' item to the left side of the SketchyBar menu and sets its properties. Additionally, it sets up an event listener for music changes and subscribes the 'media' item to the music change event."
+    },
+    "items/time.sh": {
+      "path": "items/time.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\ntime=(\n    icon.drawing=off\n    width=100\n    align=left\n    padding_left=0\n    padding_right=0\n    label.padding_left=0\n    update_freq=1\n    script=\"$PLUGIN_DIR/time.sh\"\n)\n\nsketchybar --add item time center \\\n    --set time \"${time[@]}\" \\\n    --subscribe time mouse.clicked\n",
+      "purpose": "This file is used to configure a time item in SketchyBar, a macOS system tray application that allows users to customize their status bar.",
+      "content_summary": "The file defines a time item with specific properties such as icon display, width, alignment, padding, update frequency, and script to be executed. It also adds the time item to SketchyBar and subscribes to mouse click events."
+    },
+    "items/theme.sh": {
+      "path": "items/theme.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\ntheme=(\n    icon=\udbc0\udc02\n    update_freq=60\n    script=\"$PLUGIN_DIR/theme.sh\"\n)\n\nsketchybar --add item theme right \\\n    --set theme \"${theme[@]}\" \\\n    --subscribe theme mouse.clicked system_woke\n",
+      "purpose": "This file is used to configure a SketchyBar item named 'theme', which is responsible for managing the theme of the bar. It sets the icon, update frequency, script to be executed, and adds the item to the right side of the bar.",
+      "content_summary": "The file defines a SketchyBar item 'theme' with specific properties such as icon, update frequency, script location, and subscriptions to mouse clicks and system wake events."
+    },
+    "items/cpu.sh": {
+      "path": "items/cpu.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/settings.sh\"\n\nif is_dark_mode; then\n    ICON_COLOR=$GREEN\nelse\n    ICON_COLOR=$BLACK\nfi\n\ncpu=(\n    icon=\udbc2\uddd3\n    icon.color=$ICON_COLOR\n    update_freq=5\n    script=\"$PLUGIN_DIR/cpu.sh\"\n)\n\nsketchybar --add item cpu left \\\n    --set cpu \"${cpu[@]}\"\n",
+      "purpose": "This file is used to configure a SketchyBar item that displays CPU usage information.",
+      "content_summary": "The script sources settings, determines the icon color based on the system's dark mode status, and defines the properties of the CPU item (icon, color, update frequency, and script). It then adds the CPU item to SketchyBar on the left side with the specified properties."
+    },
+    "items/battery.sh": {
+      "path": "items/battery.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nbattery=(\n    update_freq=60\n    updates=on\n    drawing=off\n    script=\"$PLUGIN_DIR/battery.sh\"\n)\n\nsketchybar --add item battery right \\\n    --set battery \"${battery[@]}\" \\\n    --subscribe battery power_source_change system_woke\n",
+      "purpose": "This file is used to configure a battery status item in SketchyBar, a macOS system tray application.",
+      "content_summary": "The script defines the properties for the battery item, such as update frequency, script location, and subscriptions to events like power source change and system wake. It then adds the item to SketchyBar on the right side of the bar and sets its properties."
+    },
+    "items/weather.sh": {
+      "path": "items/weather.sh",
+      "language": "bash",
+      "dependencies": [
+        "script=\"$PLUGIN_DIR/weather_baidu.sh\""
+      ],
+      "content": "#!/bin/bash\n\nweather=(\n    width=100\n    align=right\n    padding_left=0\n    padding_right=0\n    label.padding_right=0\n    label=\"--\u00b0\"\n    update_freq=300\n\n    # Of the 3 data sources, select the one you find most accurate.\n    script=\"$PLUGIN_DIR/weather_baidu.sh\"\n    # script=\"$PLUGIN_DIR/weather_nmc.sh\"\n    # script=\"$PLUGIN_DIR/weather_meteo.sh\"\n)\n\nsketchybar --add item weather center \\\n    --set weather \"${weather[@]}\" \\\n    --subscribe weather mouse.clicked\n",
+      "purpose": "This file is used to configure a SketchyBar item that displays the current weather temperature in SketchyBar, a macOS system tray application.",
+      "content_summary": "The file defines a SketchyBar item named 'weather' with specific properties such as width, alignment, padding, label, update frequency, and the script to be used for fetching weather data. It also adds the item to SketchyBar and subscribes to mouse click events."
+    }
+  }
+}

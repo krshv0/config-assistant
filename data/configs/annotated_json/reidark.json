@@ -1,0 +1,80 @@
+{
+  "repo_name": "reidark",
+  "structure": {
+    "sketchybarrc": {
+      "path": "sketchybarrc",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/tokens/cha_colors.sh\"",
+        "\"$CONFIG_DIR/tokens/colors.sh\""
+      ],
+      "content": "# Plugins\nPLUGIN_DIR=\"$CONFIG_DIR/plugins\"\n\n# Tokens\nsource \"$CONFIG_DIR/tokens/cha_colors.sh\"\nsource \"$CONFIG_DIR/tokens/colors.sh\"\n\n# Defaults\ndefault=(\n\ticon.font=\"Apple Symbols\"\n\tlabel.font=\"JetBrains Mono\"\n\ticon.color=$COLOR_WHITE\n\tlabel.color=$COLOR_WHITE\n)\n\nsketchybar --default \"${default[@]}\"\n\n# Bar Appearance\nsketchybar --bar position=top height=56 color=$COLOR_TRANSPARENT\n\n# Workspaces\nworkspaces=$(aerospace list-workspaces --all)\nfirst_workspace=$(echo \"$workspaces\" | head -n 1)\nlast_workspace=$(echo \"$workspaces\" | tail -n 1)\n\nsketchybar --add event aerospace_workspace_change\n\nfor sid in $workspaces; do\n\tsketchybar --add item space.$sid left \\\n\t\t--subscribe space.$sid aerospace_workspace_change \\\n\t\t--set space.$sid \\\n      background.color=$CHA_COLOR_BROWNRED1 \\\n      background.corner_radius=2 \\\n      background.height=20 \\\n      background.drawing=off \\\n      label.align=center \\\n      label.width=20 \\\n      label=\"$sid\" \\\n      click_script=\"aerospace workspace $sid\" \\\n      script=\"$CONFIG_DIR/plugins/aerospace.sh $sid\"\ndone\n\nsketchybar --set space.$first_workspace padding_left=2\n\nsketchybar --set space.$last_workspace padding_right=2\n\nsketchybar --add bracket spaces '/space\\..*/' \\\n\t--set spaces background.color=$CHA_COLOR_BG1_75 \\\n\t\tbackground.corner_radius=4 \\\n\t\tbackground.height=24 \\\n\t\tbackground.border_width=1 \\\n\t\tbackground.border_color=$CHA_COLOR_YELLOW3\n\n# Clock\nsketchybar --add item clock right \\\n\t--set clock \\\n\t\tbackground.color=$CHA_COLOR_BG1_75 \\\n\t\tbackground.corner_radius=4 \\\n\t\tbackground.height=24 \\\n\t\tbackground.border_width=1 \\\n\t\tbackground.border_color=$CHA_COLOR_YELLOW3 \\\n\t\tlabel.padding_left=8 \\\n\t\tlabel.padding_right=8 \\\n\t\tupdate_freq=10 \\\n\t\tscript=\"$PLUGIN_DIR/clock.sh\"\n\n# Spacer 1\nsketchybar --add item spacer_1 right \\\n  --set spacer_1 width=8\n\n# Disk\nsketchybar --add item disk.number right \\\n\t--set disk.number \\\n    label.padding_right=8 \\\n\t\tupdate_freq=10 \\\n\t\tscript=\"$PLUGIN_DIR/disk.sh\"\n\nsketchybar --add item disk.label right \\\n\t--set disk.label \\\n\t\tlabel=\"DISK:\" \\\n\t\tlabel.padding_left=8 \\\n    label.padding_right=4 \\\n\t\tlabel.color=$CHA_COLOR_YELLOW3\n\nsketchybar --add bracket disk disk.number disk.label \\\n\t--set disk \\\n\t\tbackground.color=$CHA_COLOR_BG1_75 \\\n\t\tbackground.corner_radius=4 \\\n\t\tbackground.height=24 \\\n\t\tbackground.border_width=1 \\\n\t\tbackground.border_color=$CHA_COLOR_YELLOW3 \\\n\t\tpadding_left=8\n\n# Spacer 2\nsketchybar --add item spacer_2 right \\\n  --set spacer_2 width=8\n\n# RAM\nsketchybar --add item ram.number right \\\n\t--set ram.number \\\n    label.padding_right=8 \\\n\t\tupdate_freq=2 \\\n\t\tscript=\"$PLUGIN_DIR/ram.sh\"\n\nsketchybar --add item ram.label right \\\n\t--set ram.label \\\n\t\tlabel=\"RAM:\" \\\n\t\tlabel.padding_left=8 \\\n    label.padding_right=4 \\\n\t\tlabel.color=$CHA_COLOR_YELLOW3\n\nsketchybar --add bracket ram ram.number ram.label \\\n\t--set ram \\\n\t\tbackground.color=$CHA_COLOR_BG1_75 \\\n\t\tbackground.corner_radius=4 \\\n\t\tbackground.height=24 \\\n\t\tbackground.border_width=1 \\\n\t\tbackground.border_color=$CHA_COLOR_YELLOW3 \\\n\t\tpadding_left=8\n\n# Spacer 3\nsketchybar --add item spacer_3 right \\\n  --set spacer_3 width=8\n\n# CPU\nsketchybar --add item cpu.number right \\\n\t--set cpu.number \\\n    label.padding_right=8 \\\n\t\tupdate_freq=2 \\\n\t\tscript=\"$PLUGIN_DIR/cpu.sh\"\n\nsketchybar --add item cpu.label right \\\n\t--set cpu.label \\\n\t\tlabel=\"CPU:\" \\\n\t\tlabel.padding_left=8 \\\n    label.padding_right=4 \\\n\t\tlabel.color=$CHA_COLOR_YELLOW3\n\nsketchybar --add bracket cpu cpu.number cpu.label \\\n\t--set cpu \\\n\t\tbackground.color=$CHA_COLOR_BG1_75 \\\n\t\tbackground.corner_radius=4 \\\n\t\tbackground.height=24 \\\n\t\tbackground.border_width=1 \\\n\t\tbackground.border_color=$CHA_COLOR_YELLOW3 \\\n\t\tpadding_left=8\n\n# Force all scripts to run the first time (never do this in a script)\nsketchybar --update",
+      "purpose": "This file, named sketchybarrc, is a configuration file for SketchyBar, a macOS system tray application that allows users to customize and display various system information and notifications.",
+      "content_summary": "The configuration file sets up the appearance of the SketchyBar, including its position, color, and default fonts. It also adds several items such as workspaces, clock, disk usage, RAM usage, and CPU usage. Each item is customized with specific settings like font, color, padding, and script to be used. The file also includes scripts for fetching the necessary data for each item."
+    },
+    "plugins/front_app.sh": {
+      "path": "plugins/front_app.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\nif [ \"$SENDER\" = \"front_app_switched\" ]; then\n  sketchybar --set \"$NAME\" label=\"$INFO\"\nfi",
+      "purpose": "This file is a script for SketchyBar, a macOS system tray application. Its purpose is to update the label of a specific item in the SketchyBar when a specific event (in this case, 'front_app_switched') occurs.",
+      "content_summary": "The script checks if the event 'front_app_switched' has occurred. If it has, it updates the label of an item in SketchyBar with the value of the '$INFO' variable."
+    },
+    "plugins/ram.sh": {
+      "path": "plugins/ram.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\n# Get total physical memory in bytes\ntotal_mem_bytes=$(sysctl -n hw.memsize)\n\n# Get page size in bytes\npage_size=$(sysctl -n vm.pagesize)\n\n# Get relevant page counts using one awk command\nread free_pages inactive_pages speculative_pages <<< $(vm_stat | awk \\\n    '/Pages free/ {free=$3} \\\n     /Pages inactive/ {inactive=$3} \\\n     /Pages speculative/ {speculative=$3} \\\n     END {print free, inactive, speculative}' | tr -d '.')\n\n# Sum pages considered potentially \"available\" (Free + Inactive + Speculative)\nnon_active_pages=$((free_pages + inactive_pages + speculative_pages))\n\n# Calculate non-active memory in bytes\nnon_active_mem_bytes=$((non_active_pages * page_size))\n\n# Calculate used memory in bytes (Total - NonActive)\nused_mem_bytes=$((total_mem_bytes - non_active_mem_bytes))\n\n# Calculate used memory percentage\n# Ensure we don't divide by zero or get negative results (edge cases)\nif [ $total_mem_bytes -gt 0 ]; then\n  used_mem_percentage=$((used_mem_bytes * 100 / total_mem_bytes))\n  if [ $used_mem_percentage -lt 0 ]; then\n    used_mem_percentage=0\n  elif [ $used_mem_percentage -gt 100 ]; then\n    used_mem_percentage=100 # Cap at 100 in case of calculation nuances\n  fi\nelse\n  used_mem_percentage=0\nfi\n\nsketchybar --set $NAME label=\"${used_mem_percentage}%\"",
+      "purpose": "This file is a SketchyBar plugin script that calculates and displays the used memory percentage on the SketchyBar menu.",
+      "content_summary": "The script retrieves system memory information, calculates the used memory percentage, and updates the SketchyBar menu label with the calculated value."
+    },
+    "plugins/disk.sh": {
+      "path": "plugins/disk.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\n# Calculate usage percentage: (Total - Available) / Total * 100, rounded down\nUSAGE_PERCENTAGE=$(df -k / | awk 'NR==2{printf \"%d%%\", int(($2 - $4) / $2 * 100)}')\n\n# Set the sketchybar label to the calculated percentage\nsketchybar --set $NAME label=\"$USAGE_PERCENTAGE\"",
+      "purpose": "This file is a script for SketchyBar, a macOS system tray application, to display the percentage of disk usage for the root directory (/).",
+      "content_summary": "The script calculates the disk usage percentage and sets the SketchyBar label to display this value."
+    },
+    "plugins/aerospace.sh": {
+      "path": "plugins/aerospace.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\nif [ \"$1\" = \"$FOCUSED_WORKSPACE\" ]; then\n  sketchybar --set $NAME background.drawing=on\nelse\n  sketchybar --set $NAME background.drawing=off\nfi",
+      "purpose": "This file is a SketchyBar plugin script that dynamically changes the drawing of the background for a specific workspace in the i3 window manager, based on whether the focused workspace matches the specified one.",
+      "content_summary": "The script checks if the focused workspace matches a predefined one. If it does, it enables the drawing of the background for a specific SketchyBar item. If not, it disables the background drawing for the same item."
+    },
+    "plugins/clock.sh": {
+      "path": "plugins/clock.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\nsketchybar --set \"$NAME\" label=\"$(date '+%d/%m %H:%M')\"",
+      "purpose": "The purpose of this file is to create a SketchyBar plugin that displays the current date and time.",
+      "content_summary": "This file contains a bash script that uses the 'date' command to get the current date and time, and sets the label of a SketchyBar item with the retrieved information."
+    },
+    "plugins/cpu.sh": {
+      "path": "plugins/cpu.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env bash\n\nTOPPROC=$(top -l  2 | grep -E \"^CPU\" | tail -1 | awk '{ print $3 + $5\"%\" }' | cut -d \".\" -f1)\n\nsketchybar --set $NAME label=\"$TOPPROC%\"",
+      "purpose": "This file is a SketchyBar plugin that displays the CPU usage percentage in the system tray.",
+      "content_summary": "The script uses the top command to get the CPU usage, processes the output to get the percentage, and then sets the label of the SketchyBar widget with the CPU usage value."
+    },
+    "tokens/cha_colors.sh": {
+      "path": "tokens/cha_colors.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "# https://github.com/cha-theme/tokens/blob/61da886fe194297c198e850f3e4db5cdd254841a/sh/cha_colors.sh\n\n# Background\nexport CHA_COLOR_BG1=\"0xFF222222\" # 100% Alpha\nexport CHA_COLOR_BG1_75=\"0xBF222222\" # 75% Alpha\nexport CHA_COLOR_BG1_50=\"0x80222222\" # 50% Alpha\nexport CHA_COLOR_BG1_25=\"0x40222222\" # 25% Alpha\n\nexport CHA_COLOR_BG2=\"0xFF1E1E1E\" # 100% Alpha\nexport CHA_COLOR_BG2_75=\"0xBF1E1E1E\" # 75% Alpha\nexport CHA_COLOR_BG2_50=\"0x801E1E1E\" # 50% Alpha\nexport CHA_COLOR_BG2_25=\"0x401E1E1E\" # 25% Alpha\n\n# Brownred\nexport CHA_COLOR_BROWNRED1=\"0xFFBB7744\" # 100% Alpha\nexport CHA_COLOR_BROWNRED1_75=\"0xBFBB7744\" # 75% Alpha\nexport CHA_COLOR_BROWNRED1_50=\"0x80BB7744\" # 50% Alpha\nexport CHA_COLOR_BROWNRED1_25=\"0x40BB7744\" # 25% Alpha\n\nexport CHA_COLOR_BROWNRED2=\"0xFFB36D43\" # 100% Alpha\nexport CHA_COLOR_BROWNRED2_75=\"0xBFB36D43\" # 75% Alpha\nexport CHA_COLOR_BROWNRED2_50=\"0x80B36D43\" # 50% Alpha\nexport CHA_COLOR_BROWNRED2_25=\"0x40B36D43\" # 25% Alpha\n\n# Brown\nexport CHA_COLOR_BROWN1=\"0xFF9B7E62\" # 100% Alpha\nexport CHA_COLOR_BROWN1_75=\"0xBF9B7E62\" # 75% Alpha\nexport CHA_COLOR_BROWN1_50=\"0x809B7E62\" # 50% Alpha\nexport CHA_COLOR_BROWN1_25=\"0x409B7E62\" # 25% Alpha\n\nexport CHA_COLOR_BROWN2=\"0xFFAE9164\" # 100% Alpha\nexport CHA_COLOR_BROWN2_75=\"0xBFAE9164\" # 75% Alpha\nexport CHA_COLOR_BROWN2_50=\"0x80AE9164\" # 50% Alpha\nexport CHA_COLOR_BROWN2_25=\"0x40AE9164\" # 25% Alpha\n\n# Green\nexport CHA_COLOR_GREEN1=\"0xFF8DA26C\" # 100% Alpha\nexport CHA_COLOR_GREEN1_75=\"0xBF8DA26C\" # 75% Alpha\nexport CHA_COLOR_GREEN1_50=\"0x808DA26C\" # 50% Alpha\nexport CHA_COLOR_GREEN1_25=\"0x408DA26C\" # 25% Alpha\n\nexport CHA_COLOR_GREEN2=\"0xFF5F875F\" # 100% Alpha\nexport CHA_COLOR_GREEN2_75=\"0xBF5F875F\" # 75% Alpha\nexport CHA_COLOR_GREEN2_50=\"0x805F875F\" # 50% Alpha\nexport CHA_COLOR_GREEN2_25=\"0x405F875F\" # 25% Alpha\n\n# Yellow\nexport CHA_COLOR_YELLOW1=\"0xFFD7C483\" # 100% Alpha\nexport CHA_COLOR_YELLOW1_75=\"0xBFFFD7C483\" # 75% Alpha\nexport CHA_COLOR_YELLOW1_50=\"0x80D7C483\" # 50% Alpha\nexport CHA_COLOR_YELLOW1_25=\"0x40D7C483\" # 25% Alpha\n\nexport CHA_COLOR_YELLOW2=\"0xFFD5B56B\" # 100% Alpha\nexport CHA_COLOR_YELLOW2_75=\"0xBFFFD5B56B\" # 75% Alpha\nexport CHA_COLOR_YELLOW2_50=\"0x80D5B56B\" # 50% Alpha\nexport CHA_COLOR_YELLOW2_25=\"0x40D5B56B\" # 25% Alpha\n\nexport CHA_COLOR_YELLOW3=\"0xFFC9A554\" # 100% Alpha\nexport CHA_COLOR_YELLOW3_75=\"0xBFC9A554\" # 75% Alpha\nexport CHA_COLOR_YELLOW3_50=\"0x80C9A554\" # 50% Alpha\nexport CHA_COLOR_YELLOW3_25=\"0x40C9A554\" # 25% Alpha\n\nexport CHA_COLOR_YELLOW4=\"0xFFA38A45\" # 100% Alpha\nexport CHA_COLOR_YELLOW4_75=\"0xBFA38A45\" # 75% Alpha\nexport CHA_COLOR_YELLOW4_50=\"0x80A38A45\" # 50% Alpha\nexport CHA_COLOR_YELLOW4_25=\"0x40A38A45\" # 25% Alpha",
+      "purpose": "This file, tokens/cha_colors.sh, is used to define and export various color values in hexadecimal format with different levels of transparency (alpha values) for the Cha theme in SketchyBar. These colors are used to style the SketchyBar interface.",
+      "content_summary": "The file contains a collection of color variables for backgrounds, brownred, brown, green, and yellow colors, each with five different levels of transparency (100%, 75%, 50%, 25%, and 0%). Each color variable has a base color and four variations with decreasing levels of transparency."
+    },
+    "tokens/colors.sh": {
+      "path": "tokens/colors.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/usr/bin/env sh\n\n# Using ARGB format (0xAARRGGBB)\n\nexport COLOR_WHITE=\"0xffffffff\"\nexport COLOR_TRANSPARENT=\"0x00ffffff\"\n",
+      "purpose": "This file is used to define and store color values in ARGB format for SketchyBar, a macOS system status bar customization tool.",
+      "content_summary": "The file defines two color variables: COLOR_WHITE and COLOR_TRANSPARENT, with their respective hexadecimal values in ARGB format."
+    }
+  }
+}

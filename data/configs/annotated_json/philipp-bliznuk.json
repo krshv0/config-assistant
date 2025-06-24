@@ -1,0 +1,234 @@
+{
+  "repo_name": "philipp-bliznuk",
+  "structure": {
+    ".config/sketchybar/settings.sh": {
+      "path": ".config/sketchybar/settings.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/colors.sh\" # Loads all defined colors"
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/colors.sh\" # Loads all defined colors\n\nFONT=\"JetBrainsMono Nerd Font\"\nPADDINGS=3 # All paddings use this value (icon, label, background)\n\nbar=(\n    height=35\n    color=$BAR_COLOR\n    border_color=$BAR_BORDER_COLOR\n)\n\ndefault=(\n    updates=when_shown\n\n    icon.font.family=\"$FONT\"\n    icon.font.style=\"Bold\"\n    icon.font.size=14.0\n    icon.color=$ICON_COLOR\n    icon.highlight_color=$GREY\n    icon.padding_left=$PADDINGS\n    icon.padding_right=$PADDINGS\n\n    label.font.family=\"$FONT\"\n    label.font.style=\"Semibold\"\n    label.font.size=13.0\n    label.color=$LABEL_COLOR\n    label.highlight_color=$GREY\n\n    padding_right=$PADDINGS\n    padding_left=$PADDINGS\n\n    popup.align=right\n    popup.background.border_width=1\n    popup.background.corner_radius=5\n    popup.background.border_color=$POPUP_BORDER_COLOR\n    popup.background.color=$POPUP_BACKGROUND_COLOR\n\n    background.corner_radius=5\n    background.height=25\n    background.border_width=1\n)\n\npopup_events=(\n    mouse.entered\n    mouse.exited\n    mouse.exited.global\n)\n\npopup() {\n    sketchybar --set $NAME popup.drawing=$1\n}\n",
+      "purpose": "This file, named settings.sh, is a configuration script for SketchyBar, a customizable system tray application for macOS. It sets various visual and behavioral properties for the SketchyBar instance.",
+      "content_summary": "The script sources colors defined in another file, sets the font for icons and labels, defines paddings, heights, and colors for the bar and default widgets, sets up popup properties, and defines events that trigger popup display."
+    },
+    ".config/sketchybar/sketchybarrc": {
+      "path": ".config/sketchybar/sketchybarrc",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\"",
+        "$ITEM_DIR/disk.sh",
+        "$ITEM_DIR/ram.sh",
+        "$ITEM_DIR/cpu.sh",
+        "$ITEM_DIR/network_rates.sh",
+        "$ITEM_DIR/media.sh",
+        "$ITEM_DIR/datetime.sh",
+        "$ITEM_DIR/input.sh",
+        "$ITEM_DIR/battery.sh",
+        "$ITEM_DIR/network.sh",
+        "$ITEM_DIR/sound.sh",
+        "$ITEM_DIR/brew.sh"
+      ],
+      "content": "#!/bin/bash\n\nPLUGIN_DIR=\"$CONFIG_DIR/plugins\"\nITEM_DIR=\"$CONFIG_DIR/items\"\n\nsource \"$CONFIG_DIR/settings.sh\"\n\nsketchybar --bar \"${bar[@]}\" --default \"${default[@]}\"\n\n# --- Left Side Items ---\nsource $ITEM_DIR/disk.sh\nsource $ITEM_DIR/ram.sh\nsource $ITEM_DIR/cpu.sh\nsource $ITEM_DIR/network_rates.sh\nsource $ITEM_DIR/media.sh\n\n# --- Right Side Items ---\nsource $ITEM_DIR/datetime.sh\nsource $ITEM_DIR/input.sh\nsource $ITEM_DIR/battery.sh\nsource $ITEM_DIR/network.sh\nsource $ITEM_DIR/sound.sh\nsource $ITEM_DIR/brew.sh\n\nsketchybar --hotload on\nsketchybar --update\n",
+      "purpose": "This file is a configuration script for SketchyBar, a macOS system status bar application. It sets up the layout, sources various plugins, and initializes the bar.",
+      "content_summary": "The script sources plugins for system status items (left side: disk, RAM, CPU, network rates, media, datetime, input, battery, network, sound, brew) and system status items (right side: battery, network, sound, brew). It then initializes the bar with the specified layout and sets hot-loading on."
+    },
+    ".config/sketchybar/colors.sh": {
+      "path": ".config/sketchybar/colors.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\n### Catppuccin\nTRANSPARENT=0x00000000\nBLACK=0XFF181926\nWHITE=0XFFCAD3F5\nORANGE=0XFFF5A97F\nMAGENTA=0XFFC6A0F6\nGREY=0XFF939AB7\nBG0=0XFF1E1E2E\nBG1=0X603C3E4F\nBG2=0X60494D64\nROSEWATER=0xFFF5E0DC\nFLAMINGO=0xFFF2CDCD\nPINK=0xFFF5C2E7\nMAUVE=0xFFCBA6F7\nRED=0xFFF38BA8\nMAROON=0xFFEBA0AC\nPEACH=0xFFFAB387\nYELLOW=0xFFF9E2AF\nGREEN=0xFFA6E3A1\nTEAL=0xFF94E2D5\nSKY=0xFF89DCEB\nSAPPHIRE=0xFF74C7EC\nBLUE=0xFF89B4FA\nLAVENDER=0xFFB4BEFE\nTEXT=0xFFCDD6F4\nSUBTEXT_1=0xFFBAC2DE\nSUBTEXT_0=0xFFA6ADC8\nOVERLAY_2=0xFF9399B2\nOVERLAY_1=0xFF7F849C\nOVERLAY_0=0xFF6C7086\nSURFACE_2=0xFF585B70\nSURFACE_1=0xFF45475A\nSURFACE_0=0xFF313244\nBASE=0xFF1E1E2E\nMANTLE=0xFF181825\nCRUST=0xFF11111B\n\n# General bar colors\nBAR_COLOR=$TRANSPARENT\nBAR_BORDER_COLOR=$TRANSPARENT\nICON_COLOR=$WHITE\nLABEL_COLOR=$WHITE\nPOPUP_BACKGROUND_COLOR=$BG1\nPOPUP_BORDER_COLOR=$WHITE\nHIGHLIGHT=$GREY\nBACKGROUND_COLOR=$BG0\nBACKGROUND_BORDER_COLOR=$BG2\n",
+      "purpose": "This file is used for defining color variables in SketchyBar, a macOS system tray application that allows for customization of the status bar and other system indicators.",
+      "content_summary": "The file contains a list of color variables in hexadecimal format for various Catppuccin color themes. These colors are used to style different elements of the SketchyBar interface, such as the bar color, icon color, label color, popup background color, and highlight color."
+    },
+    ".config/sketchybar/plugins/network_rates.sh": {
+      "path": ".config/sketchybar/plugins/network_rates.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nINTERFACE=\"en0\"\n\nread initial_rx initial_tx < <(netstat -ibn | awk -v iface=\"$INTERFACE\" '$1 == iface && $3 == \"<Link#14>\" {print $7, $10}')\nsleep 1\nread final_rx final_tx < <(netstat -ibn | awk -v iface=\"$INTERFACE\" '$1 == iface && $3 == \"<Link#14>\" {print $7, $10}')\n\nDOWN=$((final_rx - initial_rx)) # Bytes per second\nUP=$((final_tx - initial_tx))   # Bytes per second\n\nhuman_readable() {\n    local bytes=$1\n    case $bytes in\n    # Greater than or equal to 1 GB\n    [1-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]*)\n        printf \"%.2f GB/s\\n\" \"$(bc -l <<<\"$bytes/1073741824\")\"\n        ;;\n    # Greater than or equal to 1 MB\n    [1-9][0-9][0-9][0-9][0-9][0-9]*)\n        printf \"%.2f MB/s\\n\" \"$(bc -l <<<\"$bytes/1048576\")\"\n        ;;\n    # Greater than or equal to 1 KB\n    [1-9][0-9][0-9][0-9]*)\n        printf \"%.2f KB/s\\n\" \"$(bc -l <<<\"$bytes/1024\")\"\n        ;;\n    # Default case (less than 1 KB)\n    *)\n        echo \"$bytes B/s\"\n        ;;\n    esac\n}\n\nsketchybar --set net.down label=\"$(human_readable $DOWN)\" \\\n    --set net.up label=\"$(human_readable $UP)\"\n",
+      "purpose": "This file is a SketchyBar plugin script that monitors network data transfer rates for a specific interface (en0 in this case) and updates the SketchyBar widget with human-readable download and upload speeds.",
+      "content_summary": "The script reads initial and final network data transfer rates for the specified interface, calculates the difference to get the current rates, and then converts these rates into a human-readable format (e.g., KB/s, MB/s, GB/s). Finally, it updates the SketchyBar widget with the calculated download and upload speeds."
+    },
+    ".config/sketchybar/plugins/volume.sh": {
+      "path": ".config/sketchybar/plugins/volume.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nif [ \"$SENDER\" = \"volume_change\" ]; then\n    HIGHLIGHT=off\n\n    case $INFO in\n    [6-9][0-9] | 100)\n        ICON=\udbc0\udea8\n        ;;\n    [3-5][0-9])\n        ICON=\udbc0\udea6\n        ;;\n    [1-9] | [1-2][0-9])\n        ICON=\udbc0\udea4\n        ;;\n    *)\n        ICON=\udbc0\udea2\n        HIGHLIGHT=on\n        ;;\n    esac\n\n    sketchybar --set $NAME icon=$ICON label=\"$INFO%\" icon.highlight=$HIGHLIGHT\nfi\n",
+      "purpose": "This file is a custom plugin script for SketchyBar, a macOS system tray utility. The purpose of this script is to display the volume level and its corresponding icon in the SketchyBar interface.",
+      "content_summary": "The script checks for volume changes and assigns an appropriate icon based on the volume level. It then updates the SketchyBar interface with the new icon and volume level."
+    },
+    ".config/sketchybar/plugins/vpn.sh": {
+      "path": ".config/sketchybar/plugins/vpn.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nVPN_STATUS=$(scutil --nwi | grep -E '^   utun[0-9]')\n\nICON=\udbc3\udc8a\nHIGHLIGHT=on\nif [ -n \"$VPN_STATUS\" ]; then\n    ICON=\udbc1\ude68\n    HIGHLIGHT=off\nfi\n\nsketchybar --set $NAME icon=$ICON icon.highlight=$HIGHLIGHT\n",
+      "purpose": "This file is a SketchyBar plugin script that checks the VPN status on a macOS system and updates the SketchyBar's icon and highlight accordingly.",
+      "content_summary": "The script uses the scutil command to check for the presence of a VPN interface, and sets the icon and highlight state based on whether a VPN is connected or not. If a VPN is connected, the icon changes to \udbc1\ude68 and the highlight is turned off. If no VPN is connected, the icon changes to \udbc3\udc8a and the highlight is turned on."
+    },
+    ".config/sketchybar/plugins/input.sh": {
+      "path": ".config/sketchybar/plugins/input.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nSOURCE=$(defaults read ~/Library/Preferences/com.apple.HIToolbox.plist AppleCurrentKeyboardLayoutInputSourceID)\n\ncase $SOURCE in\n'com.apple.keylayout.ABC')\n    LABEL=\ud83c\uddfa\ud83c\uddf8\n    ;;\n'com.apple.keylayout.Ukrainian-PC')\n    LABEL=\ud83c\uddfa\ud83c\udde6\n    ;;\n'com.apple.keylayout.Russian')\n    LABEL=\ud83c\uddf7\ud83c\uddfa\n    ;;\nesac\n\nsketchybar --set $NAME label=$LABEL\n",
+      "purpose": "This file is a custom SketchyBar plugin script that dynamically changes the label of an item in the SketchyBar based on the currently active keyboard layout.",
+      "content_summary": "The script reads the current keyboard layout from the system preferences, maps it to a corresponding country flag label, and updates the label of a SketchyBar item with the mapped value."
+    },
+    ".config/sketchybar/plugins/brew.sh": {
+      "path": ".config/sketchybar/plugins/brew.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/settings.sh\"\n\nrefresh() {\n    zsh -c 'brew update &>/dev/null'\n    OUTDATED=$(zsh -c 'brew outdated --verbose')\n\n    if [ -z \"$OUTDATED\" ]; then\n        return\n    fi\n\n    args=(--set $NAME icon.color=$RED)\n    if $(sketchybar --query $NAME | jq '.popup.items | length != 0'); then\n        args+=(--remove '/brew.popup\\.*/')\n    fi\n\n    COUNTER=0\n    while IFS= read -r package; do\n        args+=(\n            --add item \"$NAME\".popup.$COUNTER popup.\"$NAME\"\n            --set \"$NAME\".popup.$COUNTER label=\"${package}\"\n        )\n        COUNTER=$((COUNTER + 1))\n    done <<<\"$OUTDATED\"\n\n    sketchybar -m \"${args[@]}\" >/dev/null\n}\n\nupdate() {\n    osascript -e 'display notification \"Starting Brew package updates...\" with title \"Package Updates\"'\n    zsh -c 'brew upgrade >/dev/null && brew cleanup >/dev/null'\n    osascript -e 'display notification \"Brew packages updated\" with title \"Package Updates\"'\n    sketchybar -m --set $NAME icon.color=$ICON_COLOR --remove '/brew.popup\\.*/' >/dev/null\n}\n\ncase \"$SENDER\" in\n\"routine\" | \"forced\")\n    refresh\n    ;;\n\"mouse.entered\")\n    popup on\n    ;;\n\"mouse.exited\" | \"mouse.exited.global\")\n    popup off\n    ;;\n\"mouse.clicked\")\n    popup off\n    update\n    ;;\nesac\n",
+      "purpose": "This file is a SketchyBar plugin script for monitoring and updating Homebrew packages.",
+      "content_summary": "The script sources settings from the SketchyBar configuration, checks for outdated Homebrew packages, and displays a popup with the list of outdated packages. It also provides options to update all packages and remove the popup when the mouse is clicked."
+    },
+    ".config/sketchybar/plugins/ram.sh": {
+      "path": ".config/sketchybar/plugins/ram.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nsketchybar --set $NAME label=$(memory_pressure | grep \"System-wide memory free percentage:\" | awk '{print 100-$5\"%\"}')\n",
+      "purpose": "The provided file is a SketchyBar plugin script that displays the system-wide memory free percentage in the SketchyBar menu.",
+      "content_summary": "The script uses the command 'memory_pressure' to get the system memory information, filters the output to find the line containing 'System-wide memory free percentage:', and then calculates the memory free percentage by subtracting the value found in the fifth position of that line from 100 and appending '%' to it. The calculated value is then set as the label for the SketchyBar plugin named '$NAME'."
+    },
+    ".config/sketchybar/plugins/disk.sh": {
+      "path": ".config/sketchybar/plugins/disk.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nsketchybar --set $NAME label=$(df -H | grep -E '^(/dev/disk3s5).' | awk '{ printf (\"%s\\n\", $4) }')\n",
+      "purpose": "This file is a SketchyBar plugin script that displays the usage percentage of a specific disk (/dev/disk3s5) on the macOS system's menu bar.",
+      "content_summary": "The script uses the bash shell to execute the df command, filter the output for the specified disk, and then extracts the fourth column (usage percentage) to set the label for the SketchyBar plugin."
+    },
+    ".config/sketchybar/plugins/media.sh": {
+      "path": ".config/sketchybar/plugins/media.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nupdate_media() {\n    STATE=\"$(echo \"$INFO\" | jq -r '.state')\"\n\n    if [ \"$STATE\" = \"playing\" ]; then\n        MEDIA=\"$(echo \"$INFO\" | jq -r '.artist + \" - \" + .title')\"\n        sketchybar --set $NAME label=\"$MEDIA\" drawing=on\n    else\n        sketchybar --set $NAME drawing=off\n    fi\n}\n\ncase \"$SENDER\" in\n\"media_change\")\n    update_media\n    ;;\nesac\n",
+      "purpose": "This file is a SketchyBar plugin script that updates the media information displayed in the SketchyBar, such as the artist and title of the currently playing song, based on the state of the media player.",
+      "content_summary": "The script defines a function `update_media` that retrieves the state and media information from the INFO variable, and updates the SketchyBar accordingly. It also includes a case statement that triggers the `update_media` function when the `media_change` event is received."
+    },
+    ".config/sketchybar/plugins/wifi.sh": {
+      "path": ".config/sketchybar/plugins/wifi.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nIP=\"$(ipconfig getsummary en0 | grep -o \"yiaddr = .*\" | sed 's/^yiaddr = //')\"\n\nICON=\udbc1\ude48\nHIGHLIGHT=on\nif [ -n \"$IP\" ]; then\n    ICON=\udbc1\ude47\n    HIGHLIGHT=off\nfi\n\nsketchybar --set $NAME icon=$ICON icon.highlight=$HIGHLIGHT\n",
+      "purpose": "This file is a custom plugin for SketchyBar, a macOS system tray application, which displays the current IP address of the system's network interface 'en0' and changes the displayed icon based on whether an IP address is detected.",
+      "content_summary": "The script uses the 'ipconfig' command to get the IP address, and then sets the icon and highlight properties of the plugin based on the presence of an IP address. If an IP address is detected, the icon changes to \udbc1\ude47 and the highlight is turned off. Otherwise, the icon is set to \udbc1\ude48 and the highlight is turned on."
+    },
+    ".config/sketchybar/plugins/mic.sh": {
+      "path": ".config/sketchybar/plugins/mic.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nINPUT_NAME=$(SwitchAudioSource -t input -c)\nVOLUME=$(osascript -e 'input volume of (get volume settings)')\n\ncase $INPUT_NAME in\n'MacBook Pro Microphone')\n    INPUT_NAME=\"Mic\"\n    ;;\n'USB PnP Audio Device')\n    INPUT_NAME=\"USB\"\n    ;;\nesac\n\nICON=\udbc0\udeb0\nHIGHLIGH=off\nif [ $VOLUME -eq 0 ]; then\n    ICON=\udbc0\udeb2\n    HIGHLIGH=on\nfi\n\nsketchybar --set $NAME label=\"$INPUT_NAME $VOLUME%\" icon=$ICON icon.highlight=$HIGHLIGH\n",
+      "purpose": "This file is a SketchyBar plugin script that displays the current input audio device name and volume level in the SketchyBar menu.",
+      "content_summary": "The script identifies the current input audio device (e.g., 'MacBook Pro Microphone', 'USB PnP Audio Device'), retrieves the volume level, and sets the corresponding icon and label in the SketchyBar menu. If the volume is set to 0, the icon changes to indicate muted status."
+    },
+    ".config/sketchybar/plugins/cpu.sh": {
+      "path": ".config/sketchybar/plugins/cpu.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nsketchybar --set $NAME label=$(top -l 2 | grep -E \"^CPU\" | tail -1 | awk '{ print int($3 + $5)\"%\" }')\n",
+      "purpose": "The purpose of this file is to configure a SketchyBar plugin that displays the CPU usage percentage in the menu bar of a system.",
+      "content_summary": "This script uses the top command to fetch the CPU usage data, filters the output to only include the relevant CPU information, tails the output to get the most recent line, and then uses awk to extract the CPU usage percentage. The extracted percentage is then set as the label for the SketchyBar plugin."
+    },
+    ".config/sketchybar/plugins/battery.sh": {
+      "path": ".config/sketchybar/plugins/battery.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/colors.sh\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/colors.sh\"\n\nBATTERY_INFO=\"$(pmset -g batt)\"\nPERCENTAGE=$(echo \"$BATTERY_INFO\" | grep -Eo \"\\d+%\" | cut -d% -f1)\nCHARGING=$(echo \"$BATTERY_INFO\" | grep 'AC Power')\n\nif [ $PERCENTAGE = \"\" ]; then\n    exit 0\nfi\n\nCOLOR=$ICON_COLOR\ncase $PERCENTAGE in\n9[0-9] | 100)\n    ICON=\udbc1\udee8\n    ;;\n[6-8][0-9])\n    ICON=\udbc3\udeb8\n    ;;\n[3-5][0-9])\n    ICON=\udbc3\udeb6\n    ;;\n[1-2][0-9])\n    ICON=\udbc1\udee9\n    ;;\n*)\n    ICON=\udbc1\udeea\n    COLOR=$RED\n    ;;\nesac\n\nif [[ $CHARGING != \"\" ]]; then\n    ICON=\udbc2\udc8b\nfi\n\nsketchybar --set $NAME icon=$ICON icon.color=$COLOR label=\"$PERCENTAGE%\"\n",
+      "purpose": "This file is a custom plugin for SketchyBar, a macOS system tray application, that displays the battery level and charging status.",
+      "content_summary": "The script sources colors from a separate file, retrieves battery information using pmset command, calculates the battery percentage, sets the icon and color based on the battery level, and displays the battery percentage in the SketchyBar."
+    },
+    ".config/sketchybar/items/network_rates.sh": {
+      "path": ".config/sketchybar/items/network_rates.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nSIZE=11\nWIDTH=70\n\nup=(\n    width=0\n    label.width=$WIDTH\n    label.align=right\n    update_freq=3\n    y_offset=5\n    icon=\u21e1\n    label.font.size=$SIZE\n    icon.font.size=$SIZE\n    icon.color=$GREEN\n    script=\"$PLUGIN_DIR/network_rates.sh\"\n)\ndown=(\n    label.width=$WIDTH\n    label.align=right\n    y_offset=-5\n    icon=\u21e3\n    label.font.size=$SIZE\n    icon.font.size=$SIZE\n    icon.color=$RED\n)\n\nsketchybar --add item net.up left \\\n    --set net.up \"${up[@]}\" \\\n    \\\n    --add item net.down left \\\n    --set net.down \"${down[@]}\"\n",
+      "purpose": "This file is a SketchyBar configuration script that creates two items (net.up and net.down) in the SketchyBar menu, which display the upload and download network rates respectively.",
+      "content_summary": "The script sets various properties for each item such as size, alignment, font size, color, icon, update frequency, and y-offset. It also specifies the script to be run for each item (network_rates.sh) which is located in the PLUGIN_DIR."
+    },
+    ".config/sketchybar/items/network.sh": {
+      "path": ".config/sketchybar/items/network.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nwifi=(\n    update_freq=5\n    script=\"$PLUGIN_DIR/wifi.sh\"\n)\nvpn=(\n    update_freq=5\n    script=\"$PLUGIN_DIR/vpn.sh\"\n)\n\nsketchybar --add item wifi right \\\n    --set wifi \"${wifi[@]}\" \\\n    --subscribe wifi wifi_change \\\n    \\\n    --add item vpn right \\\n    --set vpn \"${vpn[@]}\"\n",
+      "purpose": "This file is used to configure SketchyBar items for displaying network-related information such as Wi-Fi status and VPN status.",
+      "content_summary": "The file defines two SketchyBar items, 'wifi' and 'vpn', with their respective update frequencies, scripts, and positions. The 'wifi' item is set to update every 5 seconds and uses the script located in '$PLUGIN_DIR/wifi.sh'. Similarly, the 'vpn' item updates every 5 seconds and uses the script located in '$PLUGIN_DIR/vpn.sh'. Both items are placed on the right side of the SketchyBar."
+    },
+    ".config/sketchybar/items/input.sh": {
+      "path": ".config/sketchybar/items/input.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\ninput=(\n    script=\"$PLUGIN_DIR/input.sh\"\n)\n\nsketchybar --add item input right \\\n    --set input \"${input[@]}\" \\\n    \\\n    --add event input_change 'AppleSelectedInputSourcesChangedNotification' \\\n    --subscribe input input_change\n",
+      "purpose": "This file is used to configure an item in SketchyBar, a macOS system tray utility. The item is named 'input' and is responsible for displaying information about the current input source (keyboard layout, etc.).",
+      "content_summary": "The script defines an array 'input' containing the path to the script that generates the item's content. The item is then added to the right side of the SketchyBar. Additionally, an event 'input_change' is set to respond to the 'AppleSelectedInputSourcesChangedNotification' notification, which triggers when the input source is changed."
+    },
+    ".config/sketchybar/items/datetime.sh": {
+      "path": ".config/sketchybar/items/datetime.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\ndate=(\n    width=0\n    y_offset=5\n    label.font.size=10\n    update_freq=60\n    script='sketchybar --set $NAME label=\"$(date +\"%a %d %b\")\"'\n)\ntime=(\n    label.width=60\n    y_offset=-5\n    label.align=left\n    label.font.size=12.5\n    update_freq=1\n    script='sketchybar --set $NAME label=\"$(date \"+%T\")\"'\n)\n\nsketchybar \\\n    --add item date right \\\n    --set date \"${date[@]}\" \\\n    \\\n    --add item time right \\\n    --set time \"${time[@]}\"\n",
+      "purpose": "This file is used to configure SketchyBar, a macOS system tray utility, to display the current date and time in a customized format.",
+      "content_summary": "The file defines two items (date and time) with specific properties such as font size, width, y-offset, alignment, and update frequency. It also includes scripts to update the labels of these items with the current date and time. The items are then added to SketchyBar and positioned on the right side of the bar."
+    },
+    ".config/sketchybar/items/brew.sh": {
+      "path": ".config/sketchybar/items/brew.sh",
+      "language": "bash",
+      "dependencies": [
+        "\"$CONFIG_DIR/settings.sh\""
+      ],
+      "content": "#!/bin/bash\n\nsource \"$CONFIG_DIR/settings.sh\"\n\nbrew=(\n    icon=\udbc1\udc1a\n    update_freq=300\n    script=\"$PLUGIN_DIR/brew.sh\"\n)\n\nsketchybar --add item brew right \\\n    --set brew \"${brew[@]}\" \\\n    --subscribe brew \"${popup_events[@]}\" mouse.clicked\n",
+      "purpose": "This file is used to configure a SketchyBar item that displays information about the user's Homebrew installation and provides an update check and clickable popup for managing Homebrew.",
+      "content_summary": "The file defines a SketchyBar item named 'brew' with an icon, update frequency, and script source. It adds the item to the right side of the bar, sets its properties, and subscribes to mouse click events to open a popup with Homebrew management options."
+    },
+    ".config/sketchybar/items/ram.sh": {
+      "path": ".config/sketchybar/items/ram.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nram=(\n    icon=\ue266\n    icon.color=$ORANGE\n    update_freq=3\n    script=\"$PLUGIN_DIR/ram.sh\"\n)\n\nsketchybar --add item ram left \\\n    --set ram \"${ram[@]}\"\n",
+      "purpose": "The provided file is a SketchyBar configuration script for an item named 'ram'. This item is designed to display the system's RAM usage in the SketchyBar menu.",
+      "content_summary": "The script defines the properties of the 'ram' item, such as its icon, color, update frequency, and the script to be executed for updating the RAM usage. The script then adds the 'ram' item to the SketchyBar menu on the left side."
+    },
+    ".config/sketchybar/items/disk.sh": {
+      "path": ".config/sketchybar/items/disk.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\ndisk=(\n    icon=\udb85\udedf\n    icon.color=$BLUE\n    update_freq=300\n    script=\"$PLUGIN_DIR/disk.sh\"\n)\n\nsketchybar --add item disk left \\\n    --set disk \"${disk[@]}\"\n",
+      "purpose": "This file is a SketchyBar configuration script for creating an item named 'disk' that displays disk usage information. The script sets the icon, color, update frequency, and the script to be run for the item.",
+      "content_summary": "The file defines an array 'disk' with properties for icon, icon color, update frequency, and script location. The script then adds the 'disk' item to SketchyBar on the left side with the specified properties."
+    },
+    ".config/sketchybar/items/media.sh": {
+      "path": ".config/sketchybar/items/media.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nmedia=(\n    icon=\uf2eb\n    icon.color=$SKY\n    script=\"$PLUGIN_DIR/media.sh\"\n    label.max_chars=35\n    scroll_texts=on\n    updates=on\n    drawing=off\n)\n\nsketchybar --add item media left \\\n    --set media \"${media[@]}\" \\\n    --subscribe media media_change\n",
+      "purpose": "This file is a SketchyBar configuration script that creates and configures a media control item in the SketchyBar menu.",
+      "content_summary": "The script defines an array of properties for the media item, including its icon, color, script, maximum character limit for the label, scrolling text functionality, update frequency, and drawing style. It then adds the media item to the SketchyBar menu on the left side with the specified properties and subscribes to the media_change event."
+    },
+    ".config/sketchybar/items/sound.sh": {
+      "path": ".config/sketchybar/items/sound.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nvolume=(\n    script=\"$PLUGIN_DIR/volume.sh\"\n)\nmic=(\n    update_freq=1\n    script=\"$PLUGIN_DIR/mic.sh\"\n    click_script=\"SwitchAudioSource -t input -s \\\"USB PnP Audio Device\\\" > /dev/null && osascript -e 'set volume input volume 75'\"\n)\n\nsketchybar --add item volume right \\\n    --set volume \"${volume[@]}\" \\\n    --subscribe volume volume_change \\\n    \\\n    --add item mic right \\\n    --set mic \"${mic[@]}\"\n",
+      "purpose": "This file is a SketchyBar configuration script that sets up two items (volume and microphone) on the SketchyBar menu bar in macOS.",
+      "content_summary": "The script defines the properties for the volume and microphone items, including their scripts, update frequencies, and click actions. It then adds these items to the right side of the SketchyBar menu and subscribes to the 'volume_change' event for the volume item."
+    },
+    ".config/sketchybar/items/cpu.sh": {
+      "path": ".config/sketchybar/items/cpu.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\ncpu=(\n    icon=\uf4bc\n    icon.color=$GREEN\n    update_freq=3\n    script=\"$PLUGIN_DIR/cpu.sh\"\n)\n\nsketchybar --add item cpu left \\\n    --set cpu \"${cpu[@]}\"\n",
+      "purpose": "This file is a SketchyBar configuration script for creating an item named 'cpu' in the SketchyBar menu. The purpose of this item is to display CPU usage information.",
+      "content_summary": "The script defines an array 'cpu' containing various properties such as icon, icon color, update frequency, and the script to be executed for updating the CPU usage. The script then adds the 'cpu' item to the left side of the SketchyBar menu using the specified properties."
+    },
+    ".config/sketchybar/items/battery.sh": {
+      "path": ".config/sketchybar/items/battery.sh",
+      "language": "bash",
+      "dependencies": [],
+      "content": "#!/bin/bash\n\nbattery=(\n    update_freq=30\n    script=\"$PLUGIN_DIR/battery.sh\"\n)\n\nsketchybar --add item battery right \\\n    --set battery \"${battery[@]}\" \\\n    --subscribe battery power_source_change system_woke\n",
+      "purpose": "This file is used to configure a battery status item in SketchyBar, a macOS system tray application.",
+      "content_summary": "The script defines a battery item, sets its update frequency to 30 seconds, specifies the location of the associated script file, and adds the item to the right side of the SketchyBar. It also subscribes the item to power source change and system wake events."
+    }
+  }
+}

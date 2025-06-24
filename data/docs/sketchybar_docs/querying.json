@@ -1,0 +1,176 @@
+{
+  "page": "config/querying",
+  "url": "https://felixkratz.github.io/SketchyBar/config/querying",
+  "sections": [
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Features",
+        "Setup",
+        "ConfigurationBar PropertiesItem PropertiesSpecial ComponentsPopup MenusEvents & ScriptingQuerying InformationAnimationsType NomenclatureReloading the configurationTips & Tricks",
+        "Bar Properties",
+        "Item Properties",
+        "Special Components",
+        "Popup Menus",
+        "Events & Scripting",
+        "Querying Information",
+        "Animations",
+        "Type Nomenclature",
+        "Reloading the configuration",
+        "Tips & Tricks",
+        "Credits"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Bar Properties",
+        "Item Properties",
+        "Special Components",
+        "Popup Menus",
+        "Events & Scripting",
+        "Querying Information",
+        "Animations",
+        "Type Nomenclature",
+        "Reloading the configuration",
+        "Tips & Tricks"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "",
+        "Configuration",
+        "Querying Information"
+      ]
+    },
+    {
+      "type": "header",
+      "level": "h1",
+      "content": "Querying Information"
+    },
+    {
+      "type": "header",
+      "level": "h2",
+      "content": "Querying​"
+    },
+    {
+      "type": "paragraph",
+      "content": "SketchyBarcan be queried for information about a number of things."
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Bar Properties​"
+    },
+    {
+      "type": "paragraph",
+      "content": "Information about the bar can be queried via:"
+    },
+    {
+      "type": "paragraph",
+      "content": "The output is a JSON structure containing relevant information about the configuration settings of the bar."
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Item Properties​"
+    },
+    {
+      "type": "paragraph",
+      "content": "Information about an item can be queried via:"
+    },
+    {
+      "type": "paragraph",
+      "content": "The output is a JSON structure containing relevant information about the configuration of the item."
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Default Properties​"
+    },
+    {
+      "type": "paragraph",
+      "content": "Information about the current defaults."
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Event Properties​"
+    },
+    {
+      "type": "paragraph",
+      "content": "Information about the events."
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "macOS Menu Bar Item Names (for use with aliases)​"
+    },
+    {
+      "type": "paragraph",
+      "content": "The names of the menu bar items in the default macOS bar:"
+    },
+    {
+      "type": "header",
+      "level": "h3",
+      "content": "Display Configuration Information​"
+    },
+    {
+      "type": "paragraph",
+      "content": "Information about the current display configuration:"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "QueryingBar PropertiesItem PropertiesDefault PropertiesEvent PropertiesmacOS Menu Bar Item Names (for use with aliases)Display Configuration Information",
+        "Bar Properties",
+        "Item Properties",
+        "Default Properties",
+        "Event Properties",
+        "macOS Menu Bar Item Names (for use with aliases)",
+        "Display Configuration Information"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Bar Properties",
+        "Item Properties",
+        "Default Properties",
+        "Event Properties",
+        "macOS Menu Bar Item Names (for use with aliases)",
+        "Display Configuration Information"
+      ]
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --query bar"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --query<name>"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --query defaults"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --query events"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --query default_menu_items"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --query displays"
+    }
+  ]
+}

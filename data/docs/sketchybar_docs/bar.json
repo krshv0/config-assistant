@@ -1,0 +1,223 @@
+{
+  "page": "config/bar",
+  "url": "https://felixkratz.github.io/SketchyBar/config/bar",
+  "sections": [
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Features",
+        "Setup",
+        "ConfigurationBar PropertiesItem PropertiesSpecial ComponentsPopup MenusEvents & ScriptingQuerying InformationAnimationsType NomenclatureReloading the configurationTips & Tricks",
+        "Bar Properties",
+        "Item Properties",
+        "Special Components",
+        "Popup Menus",
+        "Events & Scripting",
+        "Querying Information",
+        "Animations",
+        "Type Nomenclature",
+        "Reloading the configuration",
+        "Tips & Tricks",
+        "Credits"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Bar Properties",
+        "Item Properties",
+        "Special Components",
+        "Popup Menus",
+        "Events & Scripting",
+        "Querying Information",
+        "Animations",
+        "Type Nomenclature",
+        "Reloading the configuration",
+        "Tips & Tricks"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "",
+        "Configuration",
+        "Bar Properties"
+      ]
+    },
+    {
+      "type": "header",
+      "level": "h1",
+      "content": "Bar Properties"
+    },
+    {
+      "type": "header",
+      "level": "h2",
+      "content": "Configuration of the bar​"
+    },
+    {
+      "type": "paragraph",
+      "content": "For an example configuration see the supplied defaultsketchybarrc.\nThe configuration file resides in~/.config/sketchybar/sketchybarrcand is a\nregular script that gets executed whenSketchyBarlaunches, everything\npersistent should be set up in this script."
+    },
+    {
+      "type": "paragraph",
+      "content": "It is possible to play with properties in the commandline and change\nthem on the fly while the bar is running, once you find a fitting\nvalue you can include it in thesketchybarrcfile, such that the configuration\nis restored on restart. When configuringSketchyBarit can be helpful to stop\nthe brew service and runsketchybarfrom the commandline directly to see all\nrelevant error messages and warnings directly."
+    },
+    {
+      "type": "paragraph",
+      "content": "The global bar properties can be configured by invoking:"
+    },
+    {
+      "type": "paragraph",
+      "content": "where possible settings are:"
+    },
+    {
+      "type": "paragraph",
+      "content": "You can find the nomenclature for all the typeshere.\nIf you are looking for colors, check out thecolor picker."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Configuration of the bar"
+      ]
+    },
+    {
+      "type": "table",
+      "headers": [
+        "<setting>",
+        "<value>",
+        "default",
+        "description"
+      ],
+      "rows": [
+        {
+          "<setting>": "color",
+          "<value>": "<argb_hex>",
+          "default": "0x44000000",
+          "description": "Color of the bar"
+        },
+        {
+          "<setting>": "border_color",
+          "<value>": "<argb_hex>",
+          "default": "0xffff0000",
+          "description": "Color of the bars border"
+        },
+        {
+          "<setting>": "position",
+          "<value>": "top,bottom",
+          "default": "top",
+          "description": "Position of the bar on the screen"
+        },
+        {
+          "<setting>": "height",
+          "<value>": "<integer>",
+          "default": "25",
+          "description": "Height of the bar"
+        },
+        {
+          "<setting>": "notch_display_height",
+          "<value>": "<integer>",
+          "default": "0",
+          "description": "Override of the height of the bar on notched displays"
+        },
+        {
+          "<setting>": "margin",
+          "<value>": "<integer>",
+          "default": "0",
+          "description": "Margin around the bar"
+        },
+        {
+          "<setting>": "y_offset",
+          "<value>": "<integer>",
+          "default": "0",
+          "description": "Vertical offset of the bar from its default position"
+        },
+        {
+          "<setting>": "corner_radius",
+          "<value>": "<positive_integer>",
+          "default": "0",
+          "description": "Corner radius of the bar"
+        },
+        {
+          "<setting>": "border_width",
+          "<value>": "<positive_integer>",
+          "default": "0",
+          "description": "Border width of the bars border"
+        },
+        {
+          "<setting>": "blur_radius",
+          "<value>": "<positive_integer>",
+          "default": "0",
+          "description": "Blur radius applied to the background of the bar"
+        },
+        {
+          "<setting>": "padding_left",
+          "<value>": "<positive_integer>",
+          "default": "0",
+          "description": "Padding between the left bar border and the leftmost item"
+        },
+        {
+          "<setting>": "padding_right",
+          "<value>": "<positive_integer>",
+          "default": "0",
+          "description": "Padding between the right bar border and the rightmost item"
+        },
+        {
+          "<setting>": "notch_width",
+          "<value>": "<positive_integer>",
+          "default": "200",
+          "description": "The width of the notch to be accounted for on the internal display"
+        },
+        {
+          "<setting>": "notch_offset",
+          "<value>": "<positive_integer>",
+          "default": "0",
+          "description": "Additionaly_offsetexclusively applied to notched screens"
+        },
+        {
+          "<setting>": "display",
+          "<value>": "main,all,<positive_integer list>",
+          "default": "all",
+          "description": "Display to show the bar on"
+        },
+        {
+          "<setting>": "hidden",
+          "<value>": "<boolean>,current",
+          "default": "off",
+          "description": "If all / the current bar is hidden"
+        },
+        {
+          "<setting>": "topmost",
+          "<value>": "<boolean>,window",
+          "default": "off",
+          "description": "If the bar should be drawn on top ofeverything, or on top of allwindows"
+        },
+        {
+          "<setting>": "sticky",
+          "<value>": "<boolean>",
+          "default": "on",
+          "description": "Makes the bar sticky during space changes"
+        },
+        {
+          "<setting>": "font_smoothing",
+          "<value>": "<boolean>",
+          "default": "off",
+          "description": "If fonts should be smoothened"
+        },
+        {
+          "<setting>": "shadow",
+          "<value>": "<boolean>",
+          "default": "off",
+          "description": "If the bar should draw a shadow"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --bar<setting>=<value>...<setting>=<value>"
+    }
+  ]
+}

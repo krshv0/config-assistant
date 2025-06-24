@@ -1,0 +1,81 @@
+{
+  "page": "config/reloading",
+  "url": "https://felixkratz.github.io/SketchyBar/config/reloading",
+  "sections": [
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Features",
+        "Setup",
+        "ConfigurationBar PropertiesItem PropertiesSpecial ComponentsPopup MenusEvents & ScriptingQuerying InformationAnimationsType NomenclatureReloading the configurationTips & Tricks",
+        "Bar Properties",
+        "Item Properties",
+        "Special Components",
+        "Popup Menus",
+        "Events & Scripting",
+        "Querying Information",
+        "Animations",
+        "Type Nomenclature",
+        "Reloading the configuration",
+        "Tips & Tricks",
+        "Credits"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Bar Properties",
+        "Item Properties",
+        "Special Components",
+        "Popup Menus",
+        "Events & Scripting",
+        "Querying Information",
+        "Animations",
+        "Type Nomenclature",
+        "Reloading the configuration",
+        "Tips & Tricks"
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "",
+        "Configuration",
+        "Reloading the configuration"
+      ]
+    },
+    {
+      "type": "header",
+      "level": "h1",
+      "content": "Reloading the configuration file of the bar"
+    },
+    {
+      "type": "paragraph",
+      "content": "If you wish to reload the configuration file of the bar without resorting to\nmanually restarting the process you can use the following command:"
+    },
+    {
+      "type": "paragraph",
+      "content": "which, has the same effect as restarting the process, but is a bit more\nconvenient. Additionally, an optional<path>argument to a newsketchybarrcfile can be given to load a different configuration. If the optional argument\nis left out, the current configuration is reloaded."
+    },
+    {
+      "type": "header",
+      "level": "h1",
+      "content": "Hotloading the configuration of the bar"
+    },
+    {
+      "type": "paragraph",
+      "content": "If you wish that the bar automatically reloads the configuration file once you\nedit it, you can use the hotload functionality included in SketchyBar. It will\nmonitor the directory of the current configuration for changes and reload the\nconfiguration should it detect file changes. To control the hotload feature you\ncan use:"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --reload[Optional:<path>]"
+    },
+    {
+      "type": "code",
+      "content": "sketchybar --hotload<boolean>"
+    }
+  ]
+}
